@@ -1,0 +1,11 @@
+User-agent: *
+Disallow: /wp-
+Disallow: /feed
+Disallow: /xmlrpc.php
+Disallow: /*.php$
+Disallow: /*?
+
+
+Sitemap: https://rasanashr.ir/sitemap.xml
+Sitemap: https://rasanashr.ir/news-sitemap.xml
+

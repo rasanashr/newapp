@@ -1,0 +1,218 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+ @plugin "daisyui" {
+  
+  themes: light --default;
+ }
+
+
+
+html {
+    direction: rtl;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    width: 100%;
+    font-family: Estedad, sans-serif;
+}
+
+body {
+  
+    direction: rtl;
+    text-align: right;
+    background-color: rgb(249 250 251);
+}
+
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    max-width: 80rem;
+}
+
+/* Typography styles for content */
+.content-prose {
+    max-width: none;
+}
+
+.content-prose h1,
+.content-prose h2,
+.content-prose h3,
+.content-prose h4,
+.content-prose p,
+.content-prose ul,
+.content-prose ol {
+    text-align: right;
+    margin-bottom: 1rem;
+}
+
+.content-prose ul,
+.content-prose ol {
+    padding-right: 1.75em;
+    padding-left: 0;
+    list-style-position: inside;
+}
+
+@font-face {
+  font-family: 'Estedad';
+  src: url('/fonts/Estedad-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Estedad';
+  src: url('/fonts/Estedad-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Estedad';
+  src: url('/fonts/Estedad-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Estedad';
+  src: url('/fonts/Estedad-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Estedad';
+  src: url('/fonts/Estedad-ExtraBold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Estedad';
+  src: url('/fonts/Estedad-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Estedad';
+  src: url('/fonts/Estedad-ExtraLight.woff2') format('woff2');
+  font-weight: 200;
+  font-style: normal;
+}
+
+body{
+  direction: rtl;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  width: 100%;
+  font-family: Estedad, sans-serif;
+}
+
+
+main{
+margin-inline: 4%;
+margin-bottom: 2%;
+margin-top: 2%;
+
+}
+main img {
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+
+}
+
+@media (max-width: 767px) {
+  .prose.prose-lg img {
+    max-width: 300px;
+  }
+}
+
+
+main a {
+    color: black; 
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+main a:hover {
+    color: red; 
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+main a:visited {
+    color: rgb(41, 214, 6); 
+}
+
+main a:active {
+    color: rgb(255, 255, 255); /* رنگ بنفش در حالت active */
+}
+
+/* استایل‌های عمومی برای تمام پیام‌های سفارشی */
+.custom-message {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+/* استایل برای پیام موفقیت (سبز) */
+.custom-message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+    font-weight: 700;
+    border-right: 10px solid red;
+}
+
+/* استایل برای پیام هشدار (زرد) */
+.custom-message.warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border-color: #ffeeba;
+    font-weight: 700;
+    border-right: 10px solid red;
+}
+
+/* استایل برای پیام خطا/خطر (قرمز) */
+.custom-message.danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+    font-weight: 700;
+    border-right: 10px solid red;
+}
+
+/* استایل برای پیام اطلاعاتی (آبی) */
+.custom-message.info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border-color: #bee5eb;
+    font-weight: 700;
+    border-right: 10px solid red;
+}
+
+/* استایل برای متن زیر خط دار */
+.underline-text {
+    text-decoration: underline;
+}
+
+/* استایل برای نقل قول سفارشی */
+blockquote.custom-quote {
+    background-color: #f9f9f9;
+    border-left: 5px solid #ccc;
+    margin: 1.5em 10px;
+    padding: 0.5em 10px;
+    font-style: italic;
+    color: #555;
+}
+
+

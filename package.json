@@ -1,0 +1,59 @@
+{
+	"name": "asli",
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "vite preview",
+		"start": "node build"
+	},
+	"files": [
+		"dist",
+		"!dist/**/*.test.*",
+		"!dist/**/*.spec.*"
+	],
+	"sideEffects": [
+		"**/*.css"
+	],
+	"svelte": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"svelte": "./dist/index.js"
+		}
+	},
+	"peerDependencies": {
+		"svelte": "^5.0.0"
+	},
+	"devDependencies": {
+		"@iconify/svelte": "^5.0.0",
+		"@sveltejs/adapter-auto": "^6.0.0",
+		"@sveltejs/kit": "^2.16.0",
+		"@sveltejs/package": "^2.0.0",
+		"@sveltejs/vite-plugin-svelte": "^5.0.0",
+		"@vite-pwa/sveltekit": "^1.0.0",
+		"publint": "^0.3.2",
+		"svelte": "^5.0.0",
+		"svelte-check": "^4.0.0",
+		"typescript": "^5.0.0",
+		"vite": "^6.2.6"
+	},
+	"keywords": [
+		"svelte"
+	],
+	"dependencies": {
+		"@sveltejs/adapter-node": "^5.2.12",
+		"@tailwindcss/vite": "^4.1.7",
+		"@types/dompurify": "^3.0.5",
+		"axios": "^1.9.0",
+		"daisyui": "^5.0.35",
+		"dayjs": "^1.11.13",
+		"dompurify": "^3.2.5",
+		"jalaliday": "^2.3.0",
+		"mysql2": "^3.14.1",
+		"mysql2-promise": "^0.1.4",
+		"tailwindcss": "^4.1.7"
+	}
+}
