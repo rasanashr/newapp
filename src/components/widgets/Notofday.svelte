@@ -11,7 +11,7 @@
 </script>
 {#if posts && posts.length > 0}
   {#each posts as post}
-    <div class="card card-side bg-purple-500 flex-wrap md:flex-nowrap">
+    <div class="card card-side bg-purple-500 flex-wrap md:flex-nowrap mt-7">
       <figure class="w-full md:w-[40%] aspect-[4/3]">
         <img 
           src={post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/placeholder.jpg'} 
@@ -31,7 +31,6 @@
     </div>
   {/each}
   <br>
-  <a href="/category/یادداشت-روز"><h1 class="px-auto text-center font-black text-purple-600 text-2xl">--------یادداشت روز---------</h1></a>
 {:else}
   <div class="text-center p-4">در حال بارگذاری...</div>
 {/if}

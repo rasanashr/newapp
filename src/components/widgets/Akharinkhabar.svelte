@@ -16,7 +16,7 @@
           <img
             src={post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/placeholder.jpg'}
             alt={post.title.rendered}
-            class="size-12 rounded-xl"
+            class="size-12 rounded-lg"
             loading="lazy"
             decoding="async"
           />
