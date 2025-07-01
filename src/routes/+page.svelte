@@ -76,12 +76,9 @@
 <div class="mb-2"><Singlecard posts={data.singlecard1Posts} bgColor="bg-yellow-100" hoverColor="hover:bg-yellow-50" /></div>
 <div class="mb-2"><Singlecard posts={data.singlecard2Posts} bgColor="bg-green-100" hoverColor="hover:bg-green-50" /></div>
 <div class="mb-2"><Singlecard posts={data.singlecard3Posts} bgColor="bg-red-100" hoverColor="hover:bg-red-50"/></div>
-<div class="mb-2"><Singlecard posts={data.singlecard4Posts} bgColor="bg-blue-100" hoverColor="hover:bg-blue-50" /></div>     <Piccard posts={data.piccardPosts} />
+<div class="mb-2"><Singlecard posts={data.singlecard4Posts} bgColor="bg-blue-100" hoverColor="hover:bg-blue-50" /></div>    
     </div>
     <div class="p-2 bg-blue-50 rounded-lg shadow p-3">
-<BackLinks backlinks={data.backlinks} loading={false} />
-<hr>
-<br>
       <Minicard posts={data.minicardPosts} />
     </div>
   </div>
