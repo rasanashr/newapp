@@ -10,7 +10,7 @@
 </div>
   <ul class="list rounded-box w-[99%] ">
     {#each posts as post, i}
-      <li class="list-row bg-base-200 mb-1 items-center">
+      <li class="list-row bg-linear-to-r/hsl from-indigo-500 to-teal-400 mb-1 items-center">
         <div class="w-8 text-center text-xl font-bold text-red-700 tabular-nums">{i + 1}</div>
         <div class="flex items-center justify-center min-w-20">
           <img

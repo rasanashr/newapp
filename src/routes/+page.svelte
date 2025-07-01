@@ -50,7 +50,7 @@
     <div class="bg-red-600 p-4 rounded-[20px] min-w-[300px]">
       <Slider1 posts={data.slider1Posts} />
     </div>
-    <div class="bg-purple-300 p-1 rounded-[20px] min-w-[300px]">
+    <div class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-1 rounded-[20px] min-w-[300px]">
       <Notofday posts={data.notofdayPosts} />
     </div>
   </div>
