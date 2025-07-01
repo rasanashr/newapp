@@ -84,7 +84,7 @@
 <div class="md:hidden w-full mt-4">
   <div class=" my-auto px-3  overflow-hidden whitespace-nowrap">
     <div
-      class="inline-block animate-marquee"
+      class="inline-block animate-marquee text-black"
       style="white-space: nowrap;"
     >
       {#if temperature !== null}

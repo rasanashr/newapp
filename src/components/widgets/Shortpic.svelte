@@ -5,7 +5,7 @@
 {#if posts && posts.length > 0}
   <div class="badge badge-dash badge-success mb-2 text-2xl">اجتماعی</div>
   {#each posts as post}
-    <div class="object-center bg-base-100 shadow-xl rounded-2xl p-1 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-102">
+    <div class="object-center bg-white shadow-xl rounded-2xl p-1 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-102">
       <span class="indicator-item indicator-center indicator-middle text-sm"></span>
       <a href={`/${post.id}/${post.slug}`}>
         <img

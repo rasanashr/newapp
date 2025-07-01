@@ -8,7 +8,7 @@
     <!-- عنوان با نوار عمودی -->
     <div class="flex items-center gap-2 mb-4">
       <div class="w-1 h-6 bg-red-600 rounded-full"></div>
-      <h3 class="text-lg font-bold">مطالب مرتبط</h3>
+      <h3 class="text-lg font-bold text-red-800">مطالب مرتبط</h3>
     </div>
 
     <div class="space-y-2">
