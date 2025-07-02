@@ -1,12 +1,14 @@
 <script>
   import Akharinkhabar from '$components/widgets/Akharinkhabar.svelte'; 
-  import HomeSEO from '$lib/components/seo/HomeSEO.svelte';
+
   /** @type {import('./$types').PageData} */
- 
+  export let data;
 
-
+  $: metaData = {
+    title: 'آخرین اخبار 24 ساعت گذشته ایران و جهان | پایگاه خبری رسا نشر',
+   
+  };
 </script>
 
-<HomeSEO />
-<title>آخرین خبرهای 24 ساعت گذشته ایران و جهان | رسا نشر</title>
+<title>{metaData.title}</title>
 <Akharinkhabar posts={data.akharinkhabarPosts} />
