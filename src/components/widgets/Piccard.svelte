@@ -14,7 +14,7 @@
               class="w-full h-full object-cover"
             />
             <div class="absolute inset-0 flex flex-col justify-between p-4">
-              <h2 class="text-lg md:text-xl text-white text-right">{@html post.title.rendered}</h2>
+              <h2 class="text-lg md:text-lg text-orange text-right">{@html post.title.rendered}</h2>
               {#if post.tags_info?.length > 0}
                 <span class="text-sm bg-white/80 w-fit px-3 py-1 rounded-full text-gray-700">#{post.tags_info[0].name}</span>
               {/if}

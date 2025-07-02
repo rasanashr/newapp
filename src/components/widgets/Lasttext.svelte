@@ -7,7 +7,7 @@
   <ul class="list rounded-box w-[99%] ">
     {#each posts as post, i}
       <li class="list-row bg-violet-50 mb-1 items-center ">
-        <div class="w-8 text-center text-xl font-bold opacity-30 tabular-nums">{i + 1}</div>
+        <div class="w-8 text-center text-red text-xl font-bold opacity-30 tabular-nums">{i + 1}</div>
         <div class="flex items-center justify-center min-w-[48px]">
           <img
             src={post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/placeholder.jpg'}
