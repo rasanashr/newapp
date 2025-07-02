@@ -2,7 +2,7 @@
   import Akharinkhabar from '$components/widgets/Akharinkhabar.svelte'; 
 
   /** @type {import('./$types').PageData} */
-  export let data;
+ 
 
 
 </script>
