@@ -4,8 +4,9 @@
   /** @type {import('./$types').PageData} */
   export let data;
 
- 
+
 </script>
+
 <HomeSEO />
-<title>آخرین خبرها در 24 ساعت گذشته | رسا نشر</title>
+<title>آخرین خبرهای 24 ساعت گذشته ایران و جهان | رسا نشر</title>
 <Akharinkhabar posts={data.akharinkhabarPosts} />
