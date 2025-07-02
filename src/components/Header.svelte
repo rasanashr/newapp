@@ -75,7 +75,7 @@
   <div class="absolute inset-x-0 top-3 flex items-center justify-center z-10">
     <div class="w-24 h-24 rounded-full bg-white border-2 border-red-600 flex items-center justify-center">
       <a href="/" aria-label="صفحه اصلی رسا نشر">
-        <img src={mlogo} alt="لوگو رسا نشر" class="h-20 select-none animate-pulse " draggable="false" />
+        <img src={mlogo} alt="لوگو رسا نشر" class="h-19 select-none" draggable="false" />
       </a>
     </div>
   </div>
