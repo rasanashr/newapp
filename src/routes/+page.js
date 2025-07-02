@@ -31,7 +31,7 @@ export async function load({ fetch }) {
         const secondaryDataPromise = Promise.all([
             fetchPostsByCategory([136, 76], 1, 5),    // shortpic
             fetchPostsByCategory([81, 70, 792], 1, 7),  // piccard
-            fetchPostsByCategory(627, 1, 6),    // minicard
+            fetchPostsByCategory(627, 1, 5),    // minicard
             fetchPostsByCategory(8, 1, 1),      // singlecard1
             fetchPostsByCategory(4778, 1, 1),   // singlecard2
             fetchPostsByCategory(2, 1, 1),      // singlecard3

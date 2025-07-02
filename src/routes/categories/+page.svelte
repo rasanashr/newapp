@@ -21,10 +21,12 @@
     }
 </script>
 
+<HomeSEO />
+<title>دسته بندی خبرها | رسا نشر</title>
 
 
 <main class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold text-center mb-12">دسته‌بندی‌های موضوعی</h1>
+    <h1 class="text-2xl text-black font-bold text-center mb-12">دسته بندی مطالب منتشر شده در رسا نشر</h1>
     
     {#if categories.length === 0}
         <div class="text-center py-8">
