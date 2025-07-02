@@ -1,4 +1,5 @@
 <script lang="ts">
+     import HomeSEO from '$lib/components/seo/HomeSEO.svelte';
           /** @type {import('./$types').PageData} */
     export let data;
     

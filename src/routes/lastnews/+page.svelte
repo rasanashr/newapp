@@ -1,6 +1,6 @@
 <script>
   import Akharinkhabar from '$components/widgets/Akharinkhabar.svelte'; 
-
+  import HomeSEO from '$lib/components/seo/HomeSEO.svelte';
   /** @type {import('./$types').PageData} */
  
 
