@@ -25,7 +25,7 @@
 
 
 <main class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold text-center mb-12">دسته بندی مطالب منتشر شده در رسا</h1>
+    <h1 class="text-2xl font-bold text-black text-center mb-12">دسته بندی مطالب منتشر شده در رسا نشر</h1>
     
     {#if categories.length === 0}
         <div class="text-center py-8">

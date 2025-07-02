@@ -13,6 +13,7 @@
   import HomeSEO from '$lib/components/seo/HomeSEO.svelte';
   import BackLinks from '$components/BackLinks.svelte';
   import Akharinkhabar from '$components/widgets/Akharinkhabar.svelte';
+  import UpdatePrompt from '$lib/components/UpdatePrompt.svelte';
   
   import { page } from '$app/stores';
 
@@ -43,6 +44,7 @@
 </script>
 
 <HomeSEO />
+<UpdatePrompt />
 
 <!-- Real Content Desktop -->
 <div class="hidden md:block" dir="rtl">
