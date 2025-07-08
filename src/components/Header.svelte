@@ -3,6 +3,7 @@
     export let mlogo = '/logo.svg'; 
     export let logoUrl = 'https://rooidadha.ir/wp-content/uploads/2023/04/1402logo.png'; // Replace with your logo URL
     import WeatherWidget from '$components/widgets/WeatherWidget.svelte';
+    import TgjuWidget from '$components/widgets/tgjuwidget.svelte';
     import MobileMenu from '$components/MobileMenu.svelte';
     let menuOpen = false;
    </script>
@@ -97,6 +98,7 @@
   </div>
 
 </div>
+<TgjuWidget />
 
 <!-- منوی همبرگر -->
 <MobileMenu open={menuOpen} onClose={() => menuOpen = false} />

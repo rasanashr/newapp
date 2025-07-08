@@ -1,0 +1,39 @@
+{
+	"/": [
+		"src/routes/+page.js"
+	],
+	"/api/latest-post-id": [
+		"src/routes/api/latest-post-id/+server.js"
+	],
+	"/author/[slug]": [
+		"src/routes/author/[slug]/+page.js"
+	],
+	"/categories": [
+		"src/routes/categories/+page.ts"
+	],
+	"/category/[slug]": [
+		"src/routes/category/[slug]/+page.js"
+	],
+	"/lastnews": [
+		"src/routes/lastnews/+page.js"
+	],
+	"/news-sitemap.xml": [
+		"src/routes/news-sitemap.xml/+server.js"
+	],
+	"/page/[slug]": [
+		"src/routes/page/[slug]/+page.js"
+	],
+	"/search": [
+		"src/routes/search/+page.js"
+	],
+	"/sitemap.xml": [
+		"src/routes/sitemap.xml/+server.js"
+	],
+	"/tag/[slug]": [
+		"src/routes/tag/[slug]/+page.js"
+	],
+	"/[id]/[slug]": [
+		"src/routes/[id]/[slug]/+page.js"
+	],
+	"/[...catchall]": []
+}

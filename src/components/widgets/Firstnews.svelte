@@ -38,8 +38,8 @@
               decoding="async"
             />
             <div class="flex flex-col justify-between flex-grow">
-              <h2 class="font-bold text-lg text-justify">{@html post.title.rendered}</h2>
-              <div class="text-sm text-gray-600 line-clamp-3 mb-2 text-justify">
+              <h2 class="font-bold text-md text-justify">{@html post.title.rendered}</h2>
+              <div class="font-light text-sm text-gray-600 line-clamp-3 mb-2 text-justify">
                 {@html post.excerpt.rendered}
               </div>
             </div>

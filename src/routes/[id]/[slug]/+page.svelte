@@ -66,7 +66,7 @@
           <!-- Tags -->
           {#if post._embedded && post._embedded['wp:term']}
             <div class="border-t pt-6">
-              <h3 class="text-lg font-bold mb-4">برچسب‌ها:</h3>
+              <h3 class="text-lg text-black font-bold mb-4">برچسب‌ها:</h3>
               <div class="flex flex-wrap gap-2">
                 {#each post._embedded['wp:term'].find(terms => terms[0]?.taxonomy === 'post_tag') || [] as tag}
                   <a 

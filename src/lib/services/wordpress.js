@@ -290,3 +290,26 @@ export async function fetchRelatedPosts(currentPostId, categoryIds = [], count =
         return [];
     }
 }
+
+/**
+ * دریافت آخرین ID پست منتشر شده
+ */
+export async function fetchLatestPostId() {
+    try {
+        const response = await axios.get(`${WP_API_URL}/posts`, {
+            params: {
+                per_page: 1,
+                orderby: 'date',
+                order: 'desc',
+                _fields: 'id'
+            }
+        });
+        if (response.data && response.data.length > 0) {
+            return response.data[0].id;
+        }
+        return null;
+    } catch (error) {
+        console.error('Error fetching latest post id:', error);
+        return null;
+    }
+}

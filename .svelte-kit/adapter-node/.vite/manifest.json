@@ -1,0 +1,359 @@
+{
+  ".svelte-kit/generated/server/internal.js": {
+    "file": "internal.js",
+    "name": "internal",
+    "src": ".svelte-kit/generated/server/internal.js",
+    "isEntry": true,
+    "imports": [
+      "_internal.js"
+    ]
+  },
+  "_Lasttext.js": {
+    "file": "chunks/Lasttext.js",
+    "name": "Lasttext",
+    "imports": [
+      "_index.js",
+      "_html.js"
+    ]
+  },
+  "_Pagination.js": {
+    "file": "chunks/Pagination.js",
+    "name": "Pagination",
+    "imports": [
+      "_index.js"
+    ]
+  },
+  "_Sidebar.DegQjX0M.css": {
+    "file": "_app/immutable/assets/Sidebar.DegQjX0M.css",
+    "src": "_Sidebar.DegQjX0M.css"
+  },
+  "_Sidebar.js": {
+    "file": "chunks/Sidebar.js",
+    "name": "Sidebar",
+    "imports": [
+      "_index.js",
+      "_Lasttext.js",
+      "_client.js"
+    ],
+    "css": [
+      "_app/immutable/assets/Sidebar.DegQjX0M.css"
+    ]
+  },
+  "_client.js": {
+    "file": "chunks/client.js",
+    "name": "client",
+    "imports": [
+      "_exports.js",
+      "_index.js"
+    ]
+  },
+  "_exports.js": {
+    "file": "chunks/exports.js",
+    "name": "exports",
+    "imports": [
+      "_index.js"
+    ]
+  },
+  "_html.js": {
+    "file": "chunks/html.js",
+    "name": "html"
+  },
+  "_index.js": {
+    "file": "chunks/index.js",
+    "name": "index"
+  },
+  "_index2.js": {
+    "file": "chunks/index2.js",
+    "name": "index"
+  },
+  "_internal.js": {
+    "file": "chunks/internal.js",
+    "name": "internal",
+    "imports": [
+      "_index.js"
+    ]
+  },
+  "_stores.js": {
+    "file": "chunks/stores.js",
+    "name": "stores",
+    "imports": [
+      "_index.js",
+      "_client.js"
+    ]
+  },
+  "_wordpress.js": {
+    "file": "chunks/wordpress.js",
+    "name": "wordpress"
+  },
+  "node_modules/@sveltejs/kit/src/runtime/components/svelte-5/error.svelte": {
+    "file": "entries/fallbacks/error.svelte.js",
+    "name": "entries/fallbacks/error.svelte",
+    "src": "node_modules/@sveltejs/kit/src/runtime/components/svelte-5/error.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index.js",
+      "_client.js"
+    ]
+  },
+  "node_modules/@sveltejs/kit/src/runtime/server/index.js": {
+    "file": "index.js",
+    "name": "index",
+    "src": "node_modules/@sveltejs/kit/src/runtime/server/index.js",
+    "isEntry": true,
+    "imports": [
+      "_index.js",
+      "_internal.js",
+      "_index2.js",
+      "_exports.js"
+    ]
+  },
+  "src/routes/+layout.svelte": {
+    "file": "entries/pages/_layout.svelte.js",
+    "name": "entries/pages/_layout.svelte",
+    "src": "src/routes/+layout.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index.js",
+      "_stores.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_layout.DiqXTzzT.css"
+    ]
+  },
+  "src/routes/+page.js": {
+    "file": "entries/pages/_page.js",
+    "name": "entries/pages/_page",
+    "src": "src/routes/+page.js",
+    "isEntry": true,
+    "imports": [
+      "_wordpress.js"
+    ]
+  },
+  "src/routes/+page.svelte": {
+    "file": "entries/pages/_page.svelte.js",
+    "name": "entries/pages/_page.svelte",
+    "src": "src/routes/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index.js",
+      "_html.js",
+      "_Lasttext.js",
+      "_stores.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_page.D690OItg.css"
+    ]
+  },
+  "src/routes/[...catchall]/+page.svelte": {
+    "file": "entries/pages/_...catchall_/_page.svelte.js",
+    "name": "entries/pages/_...catchall_/_page.svelte",
+    "src": "src/routes/[...catchall]/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index.js"
+    ]
+  },
+  "src/routes/[id]/[slug]/+page.js": {
+    "file": "entries/pages/_id_/_slug_/_page.js",
+    "name": "entries/pages/_id_/_slug_/_page",
+    "src": "src/routes/[id]/[slug]/+page.js",
+    "isEntry": true,
+    "imports": [
+      "_wordpress.js"
+    ]
+  },
+  "src/routes/[id]/[slug]/+page.svelte": {
+    "file": "entries/pages/_id_/_slug_/_page.svelte.js",
+    "name": "entries/pages/_id_/_slug_/_page.svelte",
+    "src": "src/routes/[id]/[slug]/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index.js",
+      "_stores.js",
+      "_html.js",
+      "_Sidebar.js",
+      "_client.js"
+    ]
+  },
+  "src/routes/api/latest-post-id/+server.js": {
+    "file": "entries/endpoints/api/latest-post-id/_server.js",
+    "name": "entries/endpoints/api/latest-post-id/_server",
+    "src": "src/routes/api/latest-post-id/+server.js",
+    "isEntry": true,
+    "imports": [
+      "_index2.js",
+      "_wordpress.js"
+    ]
+  },
+  "src/routes/author/[slug]/+page.js": {
+    "file": "entries/pages/author/_slug_/_page.js",
+    "name": "entries/pages/author/_slug_/_page",
+    "src": "src/routes/author/[slug]/+page.js",
+    "isEntry": true,
+    "imports": [
+      "_wordpress.js"
+    ]
+  },
+  "src/routes/author/[slug]/+page.svelte": {
+    "file": "entries/pages/author/_slug_/_page.svelte.js",
+    "name": "entries/pages/author/_slug_/_page.svelte",
+    "src": "src/routes/author/[slug]/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index.js",
+      "_wordpress.js",
+      "_Sidebar.js",
+      "_Pagination.js",
+      "_stores.js",
+      "_html.js"
+    ]
+  },
+  "src/routes/categories/+page.svelte": {
+    "file": "entries/pages/categories/_page.svelte.js",
+    "name": "entries/pages/categories/_page.svelte",
+    "src": "src/routes/categories/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_page.CeUHtxGJ.css"
+    ]
+  },
+  "src/routes/categories/+page.ts": {
+    "file": "entries/pages/categories/_page.ts.js",
+    "name": "entries/pages/categories/_page.ts",
+    "src": "src/routes/categories/+page.ts",
+    "isEntry": true,
+    "imports": [
+      "_wordpress.js"
+    ]
+  },
+  "src/routes/category/[slug]/+page.js": {
+    "file": "entries/pages/category/_slug_/_page.js",
+    "name": "entries/pages/category/_slug_/_page",
+    "src": "src/routes/category/[slug]/+page.js",
+    "isEntry": true,
+    "imports": [
+      "_wordpress.js"
+    ]
+  },
+  "src/routes/category/[slug]/+page.svelte": {
+    "file": "entries/pages/category/_slug_/_page.svelte.js",
+    "name": "entries/pages/category/_slug_/_page.svelte",
+    "src": "src/routes/category/[slug]/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index.js",
+      "_wordpress.js",
+      "_Sidebar.js",
+      "_stores.js",
+      "_html.js",
+      "_Pagination.js"
+    ]
+  },
+  "src/routes/lastnews/+page.js": {
+    "file": "entries/pages/lastnews/_page.js",
+    "name": "entries/pages/lastnews/_page",
+    "src": "src/routes/lastnews/+page.js",
+    "isEntry": true,
+    "imports": [
+      "_wordpress.js"
+    ]
+  },
+  "src/routes/lastnews/+page.svelte": {
+    "file": "entries/pages/lastnews/_page.svelte.js",
+    "name": "entries/pages/lastnews/_page.svelte",
+    "src": "src/routes/lastnews/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index.js",
+      "_html.js"
+    ]
+  },
+  "src/routes/news-sitemap.xml/+server.js": {
+    "file": "entries/endpoints/news-sitemap.xml/_server.js",
+    "name": "entries/endpoints/news-sitemap.xml/_server",
+    "src": "src/routes/news-sitemap.xml/+server.js",
+    "isEntry": true,
+    "imports": [
+      "_wordpress.js"
+    ]
+  },
+  "src/routes/page/[slug]/+page.js": {
+    "file": "entries/pages/page/_slug_/_page.js",
+    "name": "entries/pages/page/_slug_/_page",
+    "src": "src/routes/page/[slug]/+page.js",
+    "isEntry": true,
+    "imports": [
+      "_wordpress.js"
+    ]
+  },
+  "src/routes/page/[slug]/+page.svelte": {
+    "file": "entries/pages/page/_slug_/_page.svelte.js",
+    "name": "entries/pages/page/_slug_/_page.svelte",
+    "src": "src/routes/page/[slug]/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index.js",
+      "_stores.js",
+      "_html.js",
+      "_Sidebar.js"
+    ]
+  },
+  "src/routes/search/+page.js": {
+    "file": "entries/pages/search/_page.js",
+    "name": "entries/pages/search/_page",
+    "src": "src/routes/search/+page.js",
+    "isEntry": true,
+    "imports": [
+      "_wordpress.js"
+    ]
+  },
+  "src/routes/search/+page.svelte": {
+    "file": "entries/pages/search/_page.svelte.js",
+    "name": "entries/pages/search/_page.svelte",
+    "src": "src/routes/search/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index.js",
+      "_stores.js",
+      "_client.js",
+      "_Sidebar.js",
+      "_Pagination.js",
+      "_html.js"
+    ]
+  },
+  "src/routes/sitemap.xml/+server.js": {
+    "file": "entries/endpoints/sitemap.xml/_server.js",
+    "name": "entries/endpoints/sitemap.xml/_server",
+    "src": "src/routes/sitemap.xml/+server.js",
+    "isEntry": true,
+    "imports": [
+      "_wordpress.js"
+    ]
+  },
+  "src/routes/tag/[slug]/+page.js": {
+    "file": "entries/pages/tag/_slug_/_page.js",
+    "name": "entries/pages/tag/_slug_/_page",
+    "src": "src/routes/tag/[slug]/+page.js",
+    "isEntry": true,
+    "imports": [
+      "_wordpress.js"
+    ]
+  },
+  "src/routes/tag/[slug]/+page.svelte": {
+    "file": "entries/pages/tag/_slug_/_page.svelte.js",
+    "name": "entries/pages/tag/_slug_/_page.svelte",
+    "src": "src/routes/tag/[slug]/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index.js",
+      "_wordpress.js",
+      "_stores.js",
+      "_Sidebar.js",
+      "_Pagination.js",
+      "_html.js"
+    ]
+  }
+}

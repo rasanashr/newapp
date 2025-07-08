@@ -99,7 +99,7 @@
                   <li transition:fade="{{delay: 350 + i * 50, duration: 300}}">
                     <a
                       href={`/category/${cat.slug}`}
-                      class="{pastelColors[i % 2]} transition-colors duration-200 rounded-lg px-3 py-2 block hover:bg-black hover:text-white pastel-animate"
+                      class="{pastelColors[i % 2]} transition-colors duration-200 rounded-lg px-3 py-2 block text-gray-800 hover:bg-black hover:text-white pastel-animate"
                       style="animation: pastelFade 0.7s;"
                       on:click={handleLinkClick}
                        aria-label="لینک دسته بندی"
@@ -131,7 +131,7 @@
                   <li transition:fade="{{delay: 450 + i * 50, duration: 300}}">
                     <a
                       href={`/page/${page.slug}`}
-                      class="{pastelColors[i % 2]} transition-colors duration-200 rounded-lg px-3 py-2 block hover:bg-black hover:text-white pastel-animate"
+                      class="{pastelColors[i % 2]} transition-colors duration-200 rounded-lg px-3 py-2 block text-gray-700 hover:bg-black hover:text-white pastel-animate"
                       style="animation: pastelFade 0.7s;"
                       on:click={handleLinkClick}
                        aria-label="لینک صفحات رسا نشر"

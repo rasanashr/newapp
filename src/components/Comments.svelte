@@ -48,7 +48,7 @@
 
 <div class="comments-section mt-8 bg-white rounded-lg shadow-lg p-6">
     <div class="flex justify-between items-center mb-6">
-        <h4 class="text-xl font-bold">نظرات ({comments.length})</h4>
+        <h4 class="text-xl text-black font-bold">نظرات ({comments.length})</h4>
         <button
             on:click={() => showCommentForm = true}
             class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition duration-200"
@@ -87,7 +87,7 @@
 {#if showCommentForm}
     <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div class="bg-white rounded-lg p-6 w-full max-w-lg mx-4">
-            <h3 class="text-xl font-bold mb-4">ثبت نظر جدید</h3>
+            <h3 class="text-xl text-black font-bold mb-4">ثبت نظر جدید</h3>
             
             <form on:submit|preventDefault={handleSubmit} class="space-y-4">
                 <div>
@@ -96,7 +96,7 @@
                         type="text"
                         id="name"
                         bind:value={formData.author_name}
-                        class="w-full p-2 border rounded-lg"
+                        class="w-full p-2 border rounded-lg text-red-500"
                         required
                     />
                 </div>
@@ -107,7 +107,7 @@
                         type="email"
                         id="email"
                         bind:value={formData.author_email}
-                        class="w-full p-2 border rounded-lg"
+                        class="w-full p-2 border rounded-lg text-red-500"
                         required
                     />
                 </div>
@@ -117,7 +117,7 @@
                     <textarea
                         id="comment"
                         bind:value={formData.content}
-                        class="w-full p-2 border rounded-lg h-32"
+                        class="w-full p-2 border rounded-lg h-32 text-red-500"
                         required
                     ></textarea>
                 </div>
