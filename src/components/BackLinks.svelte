@@ -67,7 +67,7 @@
     {/each}
   </div>
 {:else}
-  <div class="text-center my-8">هیچ بک لینکی وجود ندارد.</div>
+  <div class="text-center my-8">هیچ بک‌لینکی وجود ندارد.</div>
 {/if}
 
 <div id="div_eRasanehTrustseal_80537"></div>

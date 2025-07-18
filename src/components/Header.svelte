@@ -28,11 +28,11 @@
       <div class="w-full flex flex-row items-center justify-center bg-[#f7f0f0] rounded-full py-2">
               <div class="flex-1 text-center  text-l font-bold">
                 <a href="/" aria-label="صفحه اصلی"><span  class="text-black px-2">خانه</span></a><span class="text-lime-300">|</span>
-                <a href="/category/اجتماعی/" aria-label="اخبار اجتماعی"><span  class="text-black px-2">اجتماعی</span></a>  <span class="text-lime-300">|</span>
-                <a href="/category/سیاسی/" aria-label="اخبار سیاسی"><span  class="text-black px-2">سیاسی</span></a><span class="text-lime-300">|</span>
-                <a href="/category/فرهنگ-و-هنر/" aria-label="اخبار فرهنگی"><span  class="text-black px-2">فرهنگ و هنر</span></a><span class="text-lime-300">|</span>
-                <a href="/category/اخبار-هوش-مصنوعی/" aria-label="خبرهای هوش مصنوعی"><span  class="text-black px-2">هوش مصنوعی</span></a><span class="text-lime-300">|</span>
-                <a href="/category/فیلم-و-سینما/" aria-label="اخبار سینما"><span class="text-black px-2">سینما</span></a>
+                <a href="/category/اجتماعی/" target="_blank" aria-label="اخبار اجتماعی"><span  class="text-black px-2">اجتماعی</span></a>  <span class="text-lime-300">|</span>
+                <a href="/category/سیاسی/" target="_blank"  aria-label="اخبار سیاسی"><span  class="text-black px-2">سیاسی</span></a><span class="text-lime-300">|</span>
+                <a href="/category/فرهنگ-و-هنر/" target="_blank"  aria-label="اخبار فرهنگی"><span  class="text-black px-2">فرهنگ و هنر</span></a><span class="text-lime-300">|</span>
+                <a href="/category/اخبار-هوش-مصنوعی/" target="_blank"  aria-label="خبرهای هوش مصنوعی"><span  class="text-black px-2">هوش مصنوعی</span></a><span class="text-lime-300">|</span>
+                <a href="/category/فیلم-و-سینما/" target="_blank"  aria-label="اخبار سینما"><span class="text-black px-2">سینما</span></a>
 
               </div>
         <!-- Center Live Icon -->
@@ -42,12 +42,12 @@
           </div>
         </div>
         <div class="flex-1 text-center text-l font-bold">
-          <a href="/category/اقتصادی/" aria-label="اخبار اقتصادی"><span  class="text-black px-2">اقتصادی</span></a><span class="text-lime-300">|</span>
-          <a href="/category/ورزشی" aria-label="اخبار ورزشی"><span  class="text-black px-2">ورزشی</span></a>  <span class="text-lime-300">|</span>
-          <a href="/category/lifestyle/" aria-label="سبک زندگی"><span class="text-black px-2">سبک زندگی</span></a><span class="text-lime-300">|</span>
-          <a href="/category/فناوری_اطلاعات" aria-label="تازه های فناوری"><span class="text-black px-2">فناوری</span></a><span class="text-lime-300">|</span>
-          <a href="/category/بین-الملل/" aria-label="اخبار بین الملل"><span class="text-black px-2">بین الملل</span></a><span class="text-lime-300">|</span>
-          <a href="/category/چندرسانه-ای/" aria-label="عکس و فیلم"><span class="text-black px-2">چند رسانه ای</span></a>
+          <a href="/category/اقتصادی/" target="_blank"  aria-label="اخبار اقتصادی"><span  class="text-black px-2">اقتصادی</span></a><span class="text-lime-300">|</span>
+          <a href="/category/ورزشی" target="_blank"  aria-label="اخبار ورزشی"><span  class="text-black px-2">ورزشی</span></a>  <span class="text-lime-300">|</span>
+          <a href="/category/lifestyle/" target="_blank"  aria-label="سبک زندگی"><span class="text-black px-2">سبک زندگی</span></a><span class="text-lime-300">|</span>
+          <a href="/category/فناوری_اطلاعات" target="_blank"  aria-label="تازه های فناوری"><span class="text-black px-2">فناوری</span></a><span class="text-lime-300">|</span>
+          <a href="/category/بین-الملل/" target="_blank"  aria-label="اخبار بین الملل"><span class="text-black px-2">بین الملل</span></a><span class="text-lime-300">|</span>
+          <a href="/category/چندرسانه-ای/" target="_blank"  aria-label="عکس و فیلم"><span class="text-black px-2">چند رسانه ای</span></a>
         </div>
       </div>
     </div>

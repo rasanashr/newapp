@@ -1,0 +1,14 @@
+import{c as q,e as z,i as E,s as J}from"../chunks/24e2lO8G.js";import{t as i,a as l}from"../chunks/j7d9bldu.js";import{i as P}from"../chunks/DzluJWIa.js";import{p as R,b as g,f as T,e as A,c as a,r as e,n as B,t as D,J as F,g as d}from"../chunks/XjSzAxxV.js";import{s as _}from"../chunks/DuS9CJ1Y.js";import{p as G,i as H}from"../chunks/BQQYos4s.js";import{s as I}from"../chunks/B0j1-IUC.js";async function K(){try{return{categories:await q(),status:200}}catch(s){return console.error("Error loading categories:",s),{categories:[],status:500}}}const ae=Object.freeze(Object.defineProperty({__proto__:null,load:K},Symbol.toStringTag,{value:"Module"}));var L=i('<div class="text-center py-8 svelte-nfclae"><div class="loading loading-spinner loading-lg svelte-nfclae"></div></div>'),N=i('<a class="transform transition-all duration-300 hover:scale-105 group svelte-nfclae"><div><div class="svelte-nfclae"><span class="text-xl font-bold svelte-nfclae"> </span> <span class="text-sm opacity-75 svelte-nfclae"> </span></div> <span class="text-3xl opacity-50 group-hover:opacity-75 transition-opacity duration-300 svelte-nfclae">#</span></div></a>'),Q=i('<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 svelte-nfclae"></div>'),U=i('<title class="svelte-nfclae">دسته بندی خبرها | رسا نشر</title> <main class="container mx-auto px-4 py-8 svelte-nfclae"><h1 class="text-2xl font-bold text-black text-center mb-12 svelte-nfclae">دسته بندی مطالب منتشر شده در رسا نشر</h1> <!></main>',1);function re(s,p){R(p,!1);let f=G(p,"data",8)().categories;const b=["bg-yellow-200 text-yellow-800 hover:bg-yellow-300","bg-red-500 text-white hover:bg-red-600","bg-blue-300 text-blue-800 hover:bg-blue-400","bg-indigo-500 text-white hover:bg-indigo-600","bg-green-300 text-green-800 hover:bg-green-400","bg-pink-200 text-pink-800 hover:bg-pink-300","bg-sky-500 text-white hover:bg-indigo-600","bg-fuchsia-400 text-green-800 hover:bg-green-400","bg-orange-400 text-pink-800 hover:bg-pink-300"];function y(){return b[Math.floor(Math.random()*b.length)]}P();var h=U(),m=g(T(h),2),w=g(a(m),2);{var k=t=>{var r=L();l(t,r)},j=t=>{var r=Q();z(r,5,()=>f,E,(M,n)=>{var o=N(),c=a(o),u=a(c),v=a(u),C=a(v,!0);e(v);var x=g(v,2),O=a(x);e(x),e(u),B(2),e(c),e(o),D(S=>{J(o,"href",`/category/${d(n).slug??""}`),I(c,1,`
+                        relative
+                        rounded-2xl
+                        p-6
+                        shadow-lg
+                        hover:shadow-xl
+                        transition-all
+                        duration-300
+                        ${S??""}
+                        flex
+                        items-center
+                        justify-between
+                        rtl
+                    `,"svelte-nfclae"),_(C,d(n).name),_(O,`(${d(n).count??""} مطلب)`)},[y],F),l(M,o)}),e(r),l(t,r)};H(w,t=>{f.length===0?t(k):t(j,!1)})}e(m),l(s,h),A()}export{re as component,ae as universal};

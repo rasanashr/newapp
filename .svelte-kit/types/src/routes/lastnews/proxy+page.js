@@ -1,12 +1,17 @@
 // @ts-nocheck
-  export const prerender = true;
-
-import { fetchPosts } from '$lib/services/wordpress';
+import { fetchPosts } from '$lib/services/wordpress.js';
 
 /** */
 export async function load() {
-    const akharinkhabarData = await fetchPosts(1, 50);
-    return {
-        akharinkhabarPosts: akharinkhabarData.posts
-    };
+    try {
+        const akharinkhabarData = await fetchPosts(1, 50);
+        return {
+            akharinkhabarPosts: akharinkhabarData.posts
+        };
+    } catch (error) {
+        console.error('Error loading initial posts:', error);
+        return {
+            akharinkhabarPosts: []
+        };
+    }
 }

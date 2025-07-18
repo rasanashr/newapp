@@ -478,9 +478,9 @@ const options = {
   // added lazily, via `get_hooks`
   preload_strategy: "modulepreload",
   root,
-  service_worker: false,
+  service_worker: true,
   templates: {
-    app: ({ head, body, assets: assets2, nonce, env }) => '<!DOCTYPE html>\n<html lang="fa" dir="rtl">\n  <head>\n    <meta charset="utf-8" />\n    <link rel="icon" href="/favicon.png" />\n    <link rel="manifest" href="/manifest.json">\n    <meta name="theme-color" content="#f40000">\n    <link rel="apple-touch-icon" href="/icon-192.png">\n    <meta name="apple-mobile-web-app-capable" content="yes">\n    <meta name="apple-mobile-web-app-status-bar-style" content="black">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">\n' + head + '\n  </head>\n  <body>\n    <div id="svelte"> ' + body + "</div>\n    <script>\n      if ('serviceWorker' in navigator) {\n        window.addEventListener('load', () => {\n          navigator.serviceWorker.register('/service-worker.js', { scope: '/' })\n            .then(registration => {\n              console.log('SW registered:', registration);\n            })\n            .catch(error => {\n              console.log('SW registration failed:', error);\n            });\n        });\n      }\n    <\/script>\n  </body>\n</html>\n",
+    app: ({ head, body, assets: assets2, nonce, env }) => '<!DOCTYPE html>\n<html lang="fa" dir="rtl">\n  <head>\n    <meta charset="utf-8" />\n    <link rel="icon" href="/favicon.png" />\n    <link rel="manifest" href="/manifest.json">\n    <meta name="theme-color" content="#f40000">\n    <link rel="apple-touch-icon" href="/icon-192.png">\n    <meta name="mobile-web-app-capable" content="yes">\n    <meta name="apple-mobile-web-app-status-bar-style" content="black">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">\n' + head + '\n  </head>\n  <body>\n    <div id="svelte"> ' + body + "</div>\n    <script>\n      if ('serviceWorker' in navigator) {\n        window.addEventListener('load', () => {\n          navigator.serviceWorker.register('/service-worker.js', { scope: '/' })\n            .then(registration => {\n              console.log('SW registered:', registration);\n            })\n            .catch(error => {\n              console.log('SW registration failed:', error);\n            });\n        });\n      }\n    <\/script>\n  </body>\n</html>\n",
     error: ({ status, message }) => '<!doctype html>\n<html lang="en">\n	<head>\n		<meta charset="utf-8" />\n		<title>' + message + `</title>
 
 		<style>
@@ -552,7 +552,7 @@ const options = {
 		<div class="error">
 			<span class="status">` + status + '</span>\n			<div class="message">\n				<h1>' + message + "</h1>\n			</div>\n		</div>\n	</body>\n</html>\n"
   },
-  version_hash: "f9vw8t"
+  version_hash: "ouvp2w"
 };
 async function get_hooks() {
   let handle;

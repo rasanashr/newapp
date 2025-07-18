@@ -117,7 +117,7 @@
       "_stores.js"
     ],
     "css": [
-      "_app/immutable/assets/_layout.DiqXTzzT.css"
+      "_app/immutable/assets/_layout.CBcq7hN2.css"
     ]
   },
   "src/routes/+page.js": {
@@ -159,7 +159,8 @@
     "src": "src/routes/[id]/[slug]/+page.js",
     "isEntry": true,
     "imports": [
-      "_wordpress.js"
+      "_wordpress.js",
+      "_index2.js"
     ]
   },
   "src/routes/[id]/[slug]/+page.svelte": {

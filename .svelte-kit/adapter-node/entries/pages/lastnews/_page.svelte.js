@@ -24,12 +24,20 @@ function _page($$payload, $$props) {
   push();
   let metaData;
   let data = $$props["data"];
+  let posts = data.akharinkhabarPosts;
   metaData = {
     title: "آخرین اخبار 24 ساعت گذشته ایران و جهان | پایگاه خبری رسا نشر"
   };
   $$payload.out += `<title>${escape_html(metaData.title)}</title> `;
-  Akharinkhabar($$payload, { posts: data.akharinkhabarPosts });
-  $$payload.out += `<!---->`;
+  {
+    $$payload.out += "<!--[!-->";
+    Akharinkhabar($$payload, { posts });
+  }
+  $$payload.out += `<!--]--> `;
+  {
+    $$payload.out += "<!--[!-->";
+  }
+  $$payload.out += `<!--]-->`;
   bind_props($$props, { data });
   pop();
 }

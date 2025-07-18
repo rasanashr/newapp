@@ -25,7 +25,7 @@ function BackLinks($$payload, $$props) {
     $$payload.out += `<!--]--></div>`;
   } else {
     $$payload.out += "<!--[!-->";
-    $$payload.out += `<div class="text-center my-8">هیچ بک لینکی وجود ندارد.</div>`;
+    $$payload.out += `<div class="text-center my-8">هیچ بک‌لینکی وجود ندارد.</div>`;
   }
   $$payload.out += `<!--]--> <div id="div_eRasanehTrustseal_80537"></div>`;
   bind_props($$props, { backlinks, loading });

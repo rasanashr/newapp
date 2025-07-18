@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آفلاین | رسا نشر</title>
+    <style>
+        body {
+            font-family: system-ui;
+            text-align: center;
+            padding: 2rem;
+            background: #f8f9fa;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .logo {
+            width: 150px;
+            margin-bottom: 2rem;
+        }
+        .message {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="/logo.svg" alt="رسا نشر" class="logo">
+        <div class="message">
+            <h1>شما آفلاین هستید</h1>
+            <p>لطفاً اتصال اینترنت خود را بررسی کنید و دوباره تلاش کنید.</p>
+            <button onclick="window.location.reload()">تلاش مجدد</button>
+        </div>
+    </div>
+</body>
+</html>

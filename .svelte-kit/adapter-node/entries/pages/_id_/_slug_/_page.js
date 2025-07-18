@@ -1,5 +1,6 @@
 import { l as fetchPost, a as fetchPosts, m as fetchRelatedPosts } from "../../../../chunks/wordpress.js";
-async function load({ params }) {
+import { e as error } from "../../../../chunks/index2.js";
+async function load({ params, fetch }) {
   try {
     const post = await fetchPost(params.id);
     if (!post || post.status !== "publish") {
@@ -19,6 +20,7 @@ async function load({ params }) {
       relatedPosts
     };
   } catch (err) {
+    console.error("خطا در بارگذاری صفحه:", err);
     throw error(404, "پست پیدا نشد");
   }
 }
