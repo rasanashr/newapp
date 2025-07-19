@@ -5,15 +5,16 @@
   import Splash from '$components/widgets/Splash.svelte';
   import BackToTop from '$lib/components/BackToTop.svelte';
   import { page, navigating } from '$app/stores';
-  import { fetchCategories } from '$lib/services/wordpress';
-  import { onMount } from 'svelte';
+  import { setContext } from 'svelte';
+  import { writable } from 'svelte/store';
 
-  let categories = [];
+  export let data;
 
-  onMount(async () => {
-    categories = await fetchCategories();
-  });
+  // Create a writable store for categories and set it in the context
+  const categories = writable(data.categories);
+  setContext('categories', categories);
 
+  $: categories.set(data.categories);
 </script>
 
 {#if $navigating}
@@ -22,7 +23,7 @@
   </div>
 {/if}
 
-<div class="flex flex-col min-h-screen">
+<div class="flex min-h-screen flex-col bg-white dark:bg-gray-900">
   <Header {categories} />
   
   <main class="flex-grow">

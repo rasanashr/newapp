@@ -8,12 +8,16 @@
   /** @type {import('./$types').PageData} */
   export let data;
 
-  let posts = data.posts;
-  let category = data.category;
-  let totalPages = data.totalPages;
+  // Reactive declarations: These will now update whenever `data` changes.
+  $: ({ posts, category, totalPages, seo } = data);
+
   let currentPage = 1;
-  let seo = data.seo;
   let loading = false;
+
+  // Reset pagination when navigating to a new category
+  $: if (category) {
+    currentPage = 1;
+  }
 
   $: currentUrl = `https://rasanashr.ir${$page.url.pathname}`;
 

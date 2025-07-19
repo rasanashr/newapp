@@ -1,18 +1,3 @@
-import { fetchCategories } from '$lib/services/wordpress';
 
-/** @type {import('./$types').PageLoad} */
-export async function load() {
-    try {
-        const categories = await fetchCategories();
-        return {
-            categories,
-            status: 200
-        };
-    } catch (error) {
-        console.error('Error loading categories:', error);
-        return {
-            categories: [],
-            status: 500
-        };
-    }
-}
+// This file is no longer needed as categories are provided by the root layout.
+// You can safely delete this file.

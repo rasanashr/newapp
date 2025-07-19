@@ -1,5 +1,5 @@
-```typescript
 import { WORDPRESS_API_URL } from '$env/static/private';
+import * as cache from '$lib/server/cache';
 
 export async function fetchPosts(page = 1, perPage = 10, embed = false) {
     try {
@@ -13,7 +13,13 @@ export async function fetchPosts(page = 1, perPage = 10, embed = false) {
 }
 
 export async function fetchCategories() {
-    try {
+	const cacheKey = 'categories';
+	const cachedCategories = cache.get<any[]>(cacheKey);
+	if (cachedCategories) {
+		return cachedCategories;
+	}
+
+	try {
         // اول تعداد کل دسته‌ها را دریافت می‌کنیم
         const countResponse = await fetch(`${WORDPRESS_API_URL}/wp/v2/categories?per_page=1`);
         const totalCategories = parseInt(countResponse.headers.get('X-WP-Total') || '0');
@@ -41,13 +47,14 @@ export async function fetchCategories() {
         }));
 
         // فیلتر کردن دسته‌های خالی و مرتب‌سازی بر اساس تعداد پست‌ها
-        return allCategories
+        const filteredAndSorted = allCategories
             .filter(cat => cat.count > 0)
             .sort((a, b) => b.count - a.count);
 
+		cache.set(cacheKey, filteredAndSorted);
+		return filteredAndSorted;
     } catch (error) {
         console.error('Error fetching categories:', error);
         return [];
     }
 }
-```
