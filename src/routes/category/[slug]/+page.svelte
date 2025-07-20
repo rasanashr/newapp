@@ -8,15 +8,22 @@
   /** @type {import('./$types').PageData} */
   export let data;
 
-  // Reactive declarations: These will now update whenever `data` changes.
-  $: ({ posts, category, totalPages, seo } = data);
-
+  let posts = data.posts;
+  let category = data.category;
+  let totalPages = data.totalPages;
+  let seo = data.seo;
   let currentPage = 1;
   let loading = false;
 
-  // Reset pagination when navigating to a new category
-  $: if (category) {
-    currentPage = 1;
+  // This reactive block will re-initialize the component's state
+  // ONLY when navigating to a new category (when `data` prop changes).
+  // It no longer blocks client-side updates for pagination.
+  $: {
+      posts = data.posts;
+      category = data.category;
+      totalPages = data.totalPages;
+      seo = data.seo;
+      currentPage = 1;
   }
 
   $: currentUrl = `https://rasanashr.ir${$page.url.pathname}`;
