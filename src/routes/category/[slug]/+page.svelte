@@ -93,7 +93,7 @@
       {/if}
     {:else}
       <div class="text-center py-8">
-        <h1 class="text-3xl font-bold mb-4">دسته‌بندی یافت نشد</h1>
+        <h3 class="text-3xl font-bold mb-4">دسته‌بندی یافت نشد</h3>
         <p class="text-xl text-gray-600">متأسفانه دسته‌بندی مورد نظر شما در سایت وجود ندارد.</p>
         <a href="/" class="inline-block mt-4 bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">
           بازگشت به صفحه اصلی

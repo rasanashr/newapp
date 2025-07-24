@@ -21,7 +21,9 @@
     }
 </script>
 
-<title>دسته بندی خبرها | رسا نشر</title>
+<svelte:head>
+  <title>رسا نشر - دسته بندی مطالب منتشر شده در رسا نشر</title>
+</svelte:head>
 
 
 <main class="container mx-auto px-4 py-8">

@@ -10,9 +10,6 @@
   let showUpdatePopup = false;
   let loading = false;
 
-  $: metaData = {
-    title: 'آخرین اخبار 24 ساعت گذشته ایران و جهان | پایگاه خبری رسا نشر',
-  };
 
   // تابع بررسی وجود پست‌های جدید
   async function checkForNewPosts() {
@@ -43,7 +40,9 @@
   });
 </script>
 
-<title>{metaData.title}</title>
+<svelte:head>
+  <title>رسا نشر - آخرین خبرهای منتشر شده در رسا نشر</title>
+</svelte:head>
 
 {#if loading}
   <div class="text-center py-4">در حال بارگذاری...</div>
