@@ -81,7 +81,9 @@
 </script>
 
 <HomeSEO />
-
+<h1 class="absolute -left-9999 -top-9999 w-0 h-0 overflow-hidden opacity-0">
+پایگاه خبری تحلیلی رسا نشر - تازه ترین خبرهای ایران و جهان
+</h1>
 <!-- Real Content Desktop -->
 <div class="hidden md:block" dir="rtl">
   <div class="grid grid-cols-2 gap-2 mb-2 ">
