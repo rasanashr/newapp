@@ -1,16 +1,20 @@
 <script>
   import PostSEO from '$lib/components/seo/PostSEO.svelte';
   import Sidebar from '$components/Sidebar.svelte';
-  import Comments from '$components/Comments.svelte';
   import RelatedPosts from '$components/widgets/RelatedPosts.svelte';
-  import { page } from '$app/stores';
+  import Comments from '$components/Comments.svelte';
+  import Breadcrumbs from '$lib/components/Breadcrumbs.svelte';
 
-
-  
   /** @type {import('./$types').PageData} */
   export let data;
 
   $: post = data.post;
+  $: primaryCategory = post?._embedded?.['wp:term']?.[0]?.[0];
+
+  $: breadcrumbItems = primaryCategory ? [{
+    name: primaryCategory.name,
+    href: `/category/${primaryCategory.slug}`
+  }] : [];
 
   function formatDate(dateString) {
     const date = new Date(dateString);
@@ -24,20 +28,23 @@
   }
 </script>
 
-<PostSEO post={data.post} />
+<PostSEO {post} />
 
-<div class="flex flex-col lg:flex-row gap-8 w-full">
-  <div class="w-full lg:w-2/3 text-justify">
+<div class="flex flex-col lg:flex-row gap-8">
+  <!-- Main Content -->
+  <div class="w-full lg:w-2/3">
     {#if post}
-      <article class=" rounded-lg shadow-lg overflow-hidden">
-      
-        <div class="p-4">
-          <h1 class="text-lg font-bold mb-4 pt-2 lg:text-3xl text-justify text-black">
+      <article class="bg-white rounded-lg shadow-lg overflow-hidden">
+        
+        <div class="p-6">
+          <Breadcrumbs items={breadcrumbItems} postTitle={post.title.rendered} />
+
+          <h1 class="text-lg font-bold lg:text-3xl text-justify mt-4 mb-4">
             {@html post.title.rendered}
           </h1>
 
-          <!-- Meta Information -->
-          <div class="flex items-center gap-4 text-gray-600 mb-8 text-sm">
+          <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-gray-500 mb-4">
+            <!-- Author -->
             {#if post._embedded && post._embedded.author}
               <div class="flex items-center gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -48,31 +55,47 @@
                 </a>
               </div>
             {/if}
+            
+            <!-- Date -->
             <div class="flex items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+               <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
               </svg>
               <span>{formatDate(post.date)}</span>
             </div>
-          </div>
 
-          <div class="prose prose-lg max-w-none mb-8 px-1 text-justify leading-9 text-black">
-            {@html post.content.rendered}
+            <!-- Category -->
+            {#if primaryCategory}
+              <a href="/category/{primaryCategory.slug}" class="text-red-600 hover:underline">
+                {primaryCategory.name}
+              </a>
+            {/if}
           </div>
+        </div>
 
-          {#if data.relatedPosts && data.relatedPosts.length > 0}
-              <RelatedPosts relatedPosts={data.relatedPosts} />
-          {/if}
-          <!-- Tags -->
-          {#if post._embedded && post._embedded['wp:term']}
-            <div class="border-t pt-6">
-              <h3 class="text-lg text-black font-bold mb-4">برچسب‌ها:</h3>
+        {#if post._embedded && post._embedded['wp:featuredmedia']}
+          <img
+            src={post._embedded['wp:featuredmedia'][0].source_url}
+            alt={post.title.rendered}
+            class="w-full h-auto object-cover"
+          />
+        {/if}
+
+        <div class="p-6 prose prose-lg max-w-none text-justify leading-loose link-styles">
+          {@html post.content.rendered}
+        </div>
+        
+        <!-- Related Posts and Tags Section -->
+        <div class="p-4 border-t border-gray-200">
+          <RelatedPosts relatedPosts={data.relatedPosts} />
+          
+          <!-- Tags Section -->
+          {#if post._embedded && post._embedded['wp:term'] && post._embedded['wp:term'][1] && post._embedded['wp:term'][1].length > 0}
+            <div class="mt-8">
+              <h3 class="font-bold text-gray-800 mb-2">برچسب‌ها:</h3>
               <div class="flex flex-wrap gap-2">
-                {#each post._embedded['wp:term'].find(terms => terms[0]?.taxonomy === 'post_tag') || [] as tag}
-                  <a 
-                    href="/tag/{tag.slug}" 
-                    class="inline-block bg-gray-100 hover:bg-blue-100 text-gray-700 hover:text-blue-700 rounded-full px-3 py-1 text-sm"
-                  >
+                {#each post._embedded['wp:term'][1] as tag}
+                  <a href="/tag/{tag.slug}" class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm hover:bg-gray-300">
                     {tag.name}
                   </a>
                 {/each}
