@@ -24,16 +24,7 @@
         url: currentUrl
     };
 
-    function updateHead() {
-        // ...existing code if needed for hydration...
-    }
-
-    $: if (browser) {
-        updateHead();
-    }
-</script>
-
-<svelte:head>
+    <svelte:head>
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="keywords" content={keywords} />
@@ -45,5 +36,7 @@
     <meta property="og:url" content={og.url} />
     <meta property="og:site_name" content={og.site_name} />
     <meta property="og:locale" content={og.locale} />
-    <script type="application/ld+json">{JSON.stringify(schema)}</script>
+    <script type="application/ld+json">
+    {JSON.stringify(schema, null, 2)}
+</script>
 </svelte:head>
