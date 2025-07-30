@@ -1,36 +1,35 @@
-<!-- TagSEO.svelte -->
 <script>
   import { page } from '$app/stores';
 
   export let tag = null;
 
-  // متادیتای پیش‌فرض
+  // Default metadata
   const defaultMetaData = {
     title: 'آرشیو برچسب‌ها | رسا نشر',
     description: 'مطالب برچسب‌گذاری شده در رسا نشر',
-    canonical: 'https://rasanashr.ir/tag', 
+    canonical: 'https://rasanashr.ir/tag',
     ogTitle: 'آرشیو برچسب‌ها | رسا نشر',
     ogDescription: 'مجموعه مطالب برچسب‌گذاری شده در رسا نشر',
     ogType: 'website',
     ogSite_name: 'رسا نشر'
   };
 
-  // محاسبه متادیتا بر اساس موجود بودن tag
+  // Calculate metadata based on the presence of `tag`
   $: metaData = tag?.name ? {
     title: `${tag.name} | رسا نشر`,
     description: tag.description || `مطالب مرتبط با برچسب ${tag.name} در رسا نشر`,
-    canonical: `https://rasanashr.ir/tag/${tag.slug}`, 
+    canonical: `https://rasanashr.ir/tag/${tag.slug}`,
     ogTitle: `${tag.name} | رسا نشر`,
     ogDescription: tag.description || `مطالب مرتبط با برچسب ${tag.name}`,
     ogType: 'website',
     ogSite_name: 'رسا نشر'
   } : defaultMetaData;
 
-  $: currentUrl = `https://rasanashr.ir${$page.url.pathname}`; 
+  $: currentUrl = `https://rasanashr.ir${$page.url.pathname}`;
 
   // Schema.org JSON-LD
   $: schema = tag ? {
-    '@context': 'https://schema.org', 
+    '@context': 'https://schema.org',
     '@type': 'CollectionPage',
     name: metaData.title,
     description: metaData.description,
@@ -40,7 +39,7 @@
       name: 'رسا نشر',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://rasanashr.ir/duc.png' 
+        url: 'https://rasanashr.ir/duc.png'
       }
     }
   } : null;
