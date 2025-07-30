@@ -24,7 +24,9 @@
         url: currentUrl
     };
 
-    <svelte:head>
+</script>
+
+<svelte:head>
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="keywords" content={keywords} />
