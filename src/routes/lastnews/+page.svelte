@@ -28,7 +28,9 @@
       }
       loading = false;
     } catch (error) {
-      console.error('Error checking for new posts:', error);
+      if (process.env.NODE_ENV === 'production') {
+        console.error(`Error checking for new posts: ${error.message}`);
+      }
       loading = false;
     }
   }

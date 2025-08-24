@@ -5,7 +5,7 @@
 {#if posts && posts.length > 0}
   <div class="badge badge-md mb-2"><h1 class="font-extrabold text-red-600">آخرین خبرها</h1>
   <br>
-    <h2>آخرین خبرها در 24 ساعت گذشته</h2>
+    <h1>آخرین خبرها در 24 ساعت گذشته</h1>
 
 </div>
   <ul class="list rounded-box w-[99%] ">

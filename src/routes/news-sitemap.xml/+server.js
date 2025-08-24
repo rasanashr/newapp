@@ -59,7 +59,9 @@ export async function GET() {
             }
         });
     } catch (error) {
-        console.error('Error generating news sitemap:', error);
+        if (process.env.NODE_ENV === 'production') {
+            console.error(`News sitemap generation error: ${error.message}`);
+        }
         return new Response('Error generating sitemap', { status: 500 });
     }
 }

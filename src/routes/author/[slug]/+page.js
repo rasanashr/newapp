@@ -18,7 +18,7 @@ export async function load({ params }) {
 
         if (author && author.id) {
             // دریافت پست‌های نویسنده
-            console.log('Fetching posts for author ID:', author.id);
+
             const result = await fetchPostsByAuthor(author.id, 1);
             posts = result.posts;
             totalPages = result.totalPages;
@@ -51,7 +51,9 @@ export async function load({ params }) {
                 }
             };
         } else {
-            console.error('Author not found or invalid author ID');
+            if (process.env.NODE_ENV === 'production') {
+                console.error(`Author not found: ${params.slug}`);
+            }
         }
 
         // بازگرداندن داده‌ها به همراه داده‌های سایدبار
@@ -64,7 +66,9 @@ export async function load({ params }) {
             backlinks
         };
     } catch (error) {
-        console.error('Error in load function:', error);
+        if (process.env.NODE_ENV === 'production') {
+            console.error(`Author page error [slug=${params.slug}]: ${error.message}`);
+        }
         return {
             author: null,
             posts: [],

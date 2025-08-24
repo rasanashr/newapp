@@ -26,7 +26,7 @@
         type="search"
         bind:value={searchQuery}
         placeholder="جستجو در مطالب..."
-        class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-red-500"
+        class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-red-500 text-black"
       />
       <button
         type="submit"

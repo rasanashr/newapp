@@ -88,10 +88,9 @@
       style="white-space: nowrap;"
     >
       {#if temperature !== null}
-        ☀️ وضعیت آب و هوا: {weatherIcons[weatherIcon]} |
-        دما: {temperature} سانتیگراد |
-        📆 تاریخ: {dateNow} |
-        ⏰ ساعت: {timeNow}
+         تهران: {temperature} سانتی گراد |
+        📆 {dateNow} |
+        ⏰ {timeNow}
       {:else}
         در حال بارگذاری آب و هوا...
       {/if}

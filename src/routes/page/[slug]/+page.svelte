@@ -22,11 +22,11 @@
             {#if pageData}
                 <article class="bg-white rounded-lg shadow-lg overflow-hidden">
                     <div class="p-8">
-                        <h1 class="text-3xl font-bold mb-8 text-right">
+                        <h1 class="text-3xl font-bold mb-8 text-right text-black">
                             {@html pageData.title.rendered}
                         </h1>
 
-                        <div class="prose prose-lg max-w-none rtl">
+                        <div class="prose prose-lg text-black max-w-none rtl ">
                             {@html content}
                         </div>
                     </div>

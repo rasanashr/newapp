@@ -27,7 +27,9 @@
       // Scroll to top after loading new page
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (error) {
-      console.error('Error loading posts:', error);
+      if (process.env.NODE_ENV === 'production') {
+        console.error(`Error loading author posts [id=${authorId}, page=${page}]: ${error.message}`);
+      }
     } finally {
       loading = false;
     }

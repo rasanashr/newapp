@@ -43,6 +43,7 @@
       }
     }
   } : null;
+  $: safeSchema = schema ? JSON.stringify(schema, null, 2) : '';
 </script>
 
 <svelte:head>
@@ -59,11 +60,8 @@
   <meta property="og:url" content={currentUrl} />
   <meta property="og:site_name" content={metaData.ogSite_name} />
   <meta property="og:locale" content="fa_IR" />
-
-  <!-- Schema.org -->
-  {#if schema}
-    <script type="application/ld+json">
-      {JSON.stringify(schema, null, 2)}
-    </script>
-  {/if}
 </svelte:head>
+
+{#if safeSchema}
+  {@html `<script type=\"application/ld+json\">${safeSchema}</script>`}
+{/if}

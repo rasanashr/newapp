@@ -61,7 +61,7 @@
     {#each backlinks as link (link.id)}
       <div class="backlink-item text-sm font-reqular text-gray-700">
         <a href={link.url} target="_blank" rel="noopener noreferrer">
-          🌐 {link.name}
+          {link.name}
         </a>
       </div>
     {/each}

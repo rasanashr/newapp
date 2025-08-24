@@ -1,6 +1,22 @@
 import axios from 'axios';
 
 const WP_API_URL = 'https://rooidadha.ir/wp-json/wp/v2';
+const DISPLAY_DOMAIN = 'rasanashr.ir';
+
+// تابع کمکی برای اصلاح لینک‌های نمایشی به دامنه دیپلوی شده
+function fixDisplayLinks(post) {
+    if (!post) return post;
+    
+    // فقط لینک صفحه را تغییر می‌دهیم (URL نمایشی)
+    if (post.link) {
+        post.link = post.link.replace('rooidadha.ir', DISPLAY_DOMAIN);
+    }
+    
+    // تصاویر و سایر منابع باید از وردپرس (rooidadha.ir) باقی بمانند
+    // پس دیگر source_url را تغییر نمی‌دهیم
+    
+    return post;
+}
 
 export async function fetchPosts(page = 1, perPage = 10) {
     try {
@@ -11,22 +27,60 @@ export async function fetchPosts(page = 1, perPage = 10) {
                 _embed: true
             }
         });
+        
+        const sanitizedPosts = response.data.map(post => fixDisplayLinks(sanitizePostData(post)));
+        
         return {
-            posts: response.data,
+            posts: sanitizedPosts,
             totalPages: parseInt(response.headers['x-wp-totalpages']) || 1
         };
     } catch (error) {
-        console.error('Error fetching posts:', error);
+        if (process.env.NODE_ENV === 'production') {
+            const errorData = error.response?.data || error.message;
+            console.error(`API error in fetchPosts: ${errorData}`);
+        }
         return { posts: [], totalPages: 1 };
     }
+}
+
+// تابع کمکی برای تمیز کردن HTML و متن‌های دریافتی از API
+function sanitizePostData(post) {
+    if (!post) return null;
+    
+    // تمیز کردن عنوان
+    if (post.title?.rendered) {
+        post.title.rendered = post.title.rendered.trim();
+    }
+    
+    // تمیز کردن محتوا و خلاصه
+    if (post.excerpt?.rendered) {
+        post.excerpt.rendered = post.excerpt.rendered
+            .replace(/<[^>]*>/g, '')  // حذف تگ‌های HTML
+            .replace(/\s+/g, ' ')     // تبدیل چند فاصله به یک فاصله
+            .trim();
+    }
+    
+    // اطمینان از وجود تاریخ‌های معتبر
+    if (!post.date) {
+        post.date = new Date().toISOString();
+    }
+    if (!post.modified) {
+        post.modified = post.date;
+    }
+    
+    return post;
 }
 
 export async function fetchPost(id) {
     try {
         const response = await axios.get(`${WP_API_URL}/posts/${id}?_embed`);
-        return response.data;
+        const cleanData = fixDisplayLinks(sanitizePostData(response.data));
+        return cleanData;
     } catch (error) {
-        console.error('Error fetching post:', error);
+        if (process.env.NODE_ENV === 'production') {
+            const errorData = error.response?.data || error.message;
+            console.error(`API error in fetchPost: ${errorData}`);
+        }
         return null;
     }
 }
@@ -39,9 +93,12 @@ export async function fetchPostBySlug(slug) {
                 _embed: true
             }
         });
-        return response.data[0];
+        return fixDisplayLinks(sanitizePostData(response.data[0]));
     } catch (error) {
-        console.error('Error fetching post by slug:', error);
+        if (process.env.NODE_ENV === 'production') {
+            const errorData = error.response?.data || error.message;
+            console.error(`API error in fetchPostBySlug: ${errorData}`);
+        }
         return null;
     }
 }
@@ -51,7 +108,10 @@ export async function fetchCategories() {
         const response = await fetch(`${WP_API_URL}/categories?per_page=100`);
         return await response.json();
     } catch (error) {
-        console.error('Error fetching categories:', error);
+        if (process.env.NODE_ENV === 'production') {
+            const errorData = error.response?.data || error.message;
+            console.error(`API error in fetchCategories: ${errorData}`);
+        }
         return [];
     }
 }
@@ -61,14 +121,17 @@ export async function fetchCategory(slug) {
         // استفاده از REST API وردپرس برای جستجوی دسته‌بندی با اسلاگ
         const response = await axios.get(`${WP_API_URL}/categories?slug=${slug}`);
         if (response.data && response.data.length > 0) {
-            // برگرداندن اولین دسته‌بندی که پیدا شده
             return response.data[0];
         }
-        // اگر دسته‌بندی پیدا نشد
-        console.error('Category not found:', slug);
+        if (process.env.NODE_ENV === 'production') {
+            console.error(`Category not found: ${slug}`);
+        }
         return null;
     } catch (error) {
-        console.error('Error fetching category:', error);
+        if (process.env.NODE_ENV === 'production') {
+            const errorData = error.response?.data || error.message;
+            console.error(`API error in fetchCategory: ${errorData}`);
+        }
         return null;
     }
 }
@@ -83,12 +146,16 @@ export async function fetchPostsByCategory(categoryId, page = 1, perPage = 10) {
                 _embed: true
             }
         });
+        const sanitizedPosts = response.data.map(post => fixDisplayLinks(sanitizePostData(post)));
         return {
-            posts: response.data,
+            posts: sanitizedPosts,
             totalPages: parseInt(response.headers['x-wp-totalpages']) || 1
         };
     } catch (error) {
-        console.error('Error fetching posts by category:', error);
+        if (process.env.NODE_ENV === 'production') {
+            const errorData = error.response?.data || error.message;
+            console.error(`API error in fetchPostsByCategory: ${errorData}`);
+        }
         return { posts: [], totalPages: 1 };
     }
 }
@@ -98,7 +165,10 @@ export async function fetchTags() {
         const response = await axios.get(`${WP_API_URL}/tags`);
         return response.data;
     } catch (error) {
-        console.error('Error fetching tags:', error);
+        if (process.env.NODE_ENV === 'production') {
+            const errorData = error.response?.data || error.message;
+            console.error(`API error in fetchTags: ${errorData}`);
+        }
         return [];
     }
 }
@@ -108,9 +178,18 @@ export async function fetchTag(slug) {
         const response = await axios.get(`${WP_API_URL}/tags`, {
             params: { slug }
         });
-        return response.data[0];
+        if (response.data && response.data.length > 0) {
+            return response.data[0];
+        }
+        if (process.env.NODE_ENV === 'production') {
+            console.error(`Tag not found: ${slug}`);
+        }
+        return null;
     } catch (error) {
-        console.error('Error fetching tag:', error);
+        if (process.env.NODE_ENV === 'production') {
+            const errorData = error.response?.data || error.message;
+            console.error(`API error in fetchTag: ${errorData}`);
+        }
         return null;
     }
 }
@@ -125,12 +204,17 @@ export async function fetchPostsByTag(tagId, page = 1, perPage = 10) {
                 _embed: true
             }
         });
+        
+        const sanitizedPosts = response.data.map(post => fixDisplayLinks(sanitizePostData(post)));
         return {
-            posts: response.data,
+            posts: sanitizedPosts,
             totalPages: parseInt(response.headers['x-wp-totalpages']) || 1
         };
     } catch (error) {
-        console.error('Error fetching posts by tag:', error);
+        if (process.env.NODE_ENV === 'production') {
+            const errorData = error.response?.data || error.message;
+            console.error(`API error in fetchPostsByTag: ${errorData}`);
+        }
         return { posts: [], totalPages: 1 };
     }
 }
@@ -144,11 +228,14 @@ export async function fetchPage(slug) {
             }
         });
         if (response.data && response.data.length > 0) {
-            return response.data[0];
+            return fixDisplayLinks(sanitizePostData(response.data[0]));
         }
         return null;
     } catch (error) {
-        console.error('Error fetching page:', error);
+        if (process.env.NODE_ENV === 'production') {
+            const errorData = error.response?.data || error.message;
+            console.error(`API error in fetchPage: ${errorData}`);
+        }
         return null;
     }
 }
@@ -163,12 +250,17 @@ export async function searchPosts(query, page = 1, perPage = 10) {
                 _embed: true
             }
         });
+        
+        const sanitizedPosts = response.data.map(post => fixDisplayLinks(sanitizePostData(post)));
         return {
-            posts: response.data,
+            posts: sanitizedPosts,
             totalPages: parseInt(response.headers['x-wp-totalpages']) || 1
         };
     } catch (error) {
-        console.error('Error searching posts:', error);
+        if (process.env.NODE_ENV === 'production') {
+            const errorData = error.response?.data || error.message;
+            console.error(`API error in searchPosts: ${errorData}`);
+        }
         return { posts: [], totalPages: 1 };
     }
 }
@@ -184,7 +276,10 @@ export async function fetchComments(postId) {
         });
         return response.data;
     } catch (error) {
-        console.error('Error fetching comments:', error);
+        if (process.env.NODE_ENV === 'production') {
+            const errorData = error.response?.data || error.message;
+            console.error(`API error in fetchComments: ${errorData}`);
+        }
         return [];
     }
 }
@@ -199,7 +294,10 @@ export async function submitComment(postId, comment) {
         });
         return response.data;
     } catch (error) {
-        console.error('Error submitting comment:', error.response ? error.response.data : error.message);
+        if (process.env.NODE_ENV === 'production') {
+            const errorData = error.response?.data || error.message;
+            console.error(`API error in submitComment: ${errorData}`);
+        }
         throw error;
     }
 }
@@ -233,10 +331,15 @@ export async function fetchAuthor(slug) {
         if (response.data && response.data.length > 0) {
             return response.data[0];
         }
-        console.error('Author not found:', slug);
+        if (process.env.NODE_ENV === 'production') {
+            console.error(`Author not found: ${slug}`);
+        }
         return null;
     } catch (error) {
-        console.error('Error fetching author:', error);
+        if (process.env.NODE_ENV === 'production') {
+            const errorData = error.response?.data || error.message;
+            console.error(`API error in fetchAuthor: ${errorData}`);
+        }
         return null;
     }
 }
@@ -251,12 +354,17 @@ export async function fetchPostsByAuthor(authorId, page = 1, perPage = 10) {
                 _embed: true
             }
         });
+        
+        const sanitizedPosts = response.data.map(post => fixDisplayLinks(sanitizePostData(post)));
         return {
-            posts: response.data,
+            posts: sanitizedPosts,
             totalPages: parseInt(response.headers['x-wp-totalpages']) || 1
         };
     } catch (error) {
-        console.error('Error fetching posts by author:', error);
+        if (process.env.NODE_ENV === 'production') {
+            const errorData = error.response?.data || error.message;
+            console.error(`API error in fetchPostsByAuthor: ${errorData}`);
+        }
         return { posts: [], totalPages: 1 };
     }
 }
@@ -264,29 +372,34 @@ export async function fetchPostsByAuthor(authorId, page = 1, perPage = 10) {
 export async function fetchPages() {
     try {
         const response = await fetch(`${WP_API_URL}/pages?per_page=100`);
-        return await response.json();
+        const pages = await response.json();
+        return pages.map(page => fixDisplayLinks(sanitizePostData(page)));
     } catch (error) {
-        console.error('Error fetching pages:', error);
+        if (process.env.NODE_ENV === 'production') {
+            const errorData = error.response?.data || error.message;
+            console.error(`API error in fetchPages: ${errorData}`);
+        }
         return [];
     }
 }
 
 export async function fetchRelatedPosts(currentPostId, categoryIds = [], count = 3) {
     try {
-        // ابتدا پست‌های هم‌دسته
         const params = new URLSearchParams({
             per_page: count,
             exclude: currentPostId,
             categories: categoryIds.join(','),
-            _embed: ''
+            _embed: true
         });
 
-        const response = await fetch(`https://rooidadha.ir/wp-json/wp/v2/posts?${params}`);
+        const response = await fetch(`${WP_API_URL}/posts?${params}`);
         const posts = await response.json();
-        
-        return posts;
+        return posts.map(post => fixDisplayLinks(sanitizePostData(post)));
     } catch (error) {
-        console.error('Error fetching related posts:', error);
+        if (process.env.NODE_ENV === 'production') {
+            const errorData = error.response?.data || error.message;
+            console.error(`API error in fetchRelatedPosts: ${errorData}`);
+        }
         return [];
     }
 }
@@ -309,7 +422,17 @@ export async function fetchLatestPostId() {
         }
         return null;
     } catch (error) {
-        console.error('Error fetching latest post id:', error);
+        if (process.env.NODE_ENV === 'production') {
+            const errorData = error.response?.data || error.message;
+            console.error(`API error in fetchLatestPostId: ${errorData}`);
+        }
         return null;
     }
+}
+
+/**
+ * Fetch the latest 50 posts for the feed
+ */
+export async function fetchLatestPostsForFeed() {
+    return await fetchPosts(1, 50);
 }

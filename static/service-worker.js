@@ -21,28 +21,36 @@ self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)
       .then(response => {
+        // If the resource is in the cache, return it
         if (response) {
           return response;
         }
-        return fetch(event.request).then(response => {
-          // Check if we received a valid response
-          if (!response || response.status !== 200 || response.type !== 'basic') {
-            return response;
+
+        // If not in cache, fetch from the network
+        return fetch(event.request).then(networkResponse => {
+          // Check if we received a valid, same-origin response
+          // We should not cache opaque (cross-origin) responses as we can't verify their status
+          if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
+            return networkResponse;
           }
 
-          const responseToCache = response.clone();
+          // If the response is valid, clone it and cache it
+          const responseToCache = networkResponse.clone();
           caches.open(CACHE_NAME).then(cache => {
             cache.put(event.request, responseToCache);
           });
 
-          return response;
+          return networkResponse;
         });
       })
       .catch(() => {
-        // If offline, show offline page
+        // If the fetch fails (e.g., user is offline) and it's a navigation request, 
+        // serve the offline page from the cache.
         if (event.request.mode === 'navigate') {
           return caches.match('/offline.html');
         }
+        // For other failed requests (like images, API calls), we don't return anything,
+        // letting the browser handle the network error. This prevents the "non-Response" error.
       })
   );
 });

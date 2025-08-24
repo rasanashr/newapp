@@ -87,6 +87,28 @@
 							خانه
 						</a>
 					</li>
+					<li transition:fade={{ delay: 200, duration: 400 }}>
+						<a
+							href="hhttps://rasanashr.ir/page/%D8%AA%D9%85%D8%A7%D8%B3-%D8%A8%D8%A7-%D9%85%D8%A7"
+							class="flex items-center gap-2 text-red-600 transition-colors duration-200 rounded-lg px-3 py-2 block hover:bg-black hover:text-white"
+							on:click={handleLinkClick}
+							aria-label="لینک صفحه اصلی"
+						>
+							
+							تماس با ما
+						</a>
+					</li>
+					<li transition:fade={{ delay: 200, duration: 400 }}>
+						<a
+							href="https://rasanashr.ir/page/%D8%AF%D8%B1%D8%A8%D8%A7%D8%B1%D9%87-%D8%B1%D8%B3%D8%A7-%D9%86%D8%B4%D8%B1"
+							class="flex items-center gap-2 text-red-600 transition-colors duration-200 rounded-lg px-3 py-2 block hover:bg-black hover:text-white"
+							on:click={handleLinkClick}
+							aria-label="لینک صفحه اصلی"
+						>
+							
+							درباره ما
+						</a>
+					</li>
 					<li transition:fade={{ delay: 300, duration: 400 }}>
 						<span class="block py-2 font-bold text-gray-700 flex items-center gap-2">
 							<svg

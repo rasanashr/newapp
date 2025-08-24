@@ -24,9 +24,11 @@
 {/if}
 
 <div class="flex min-h-screen flex-col bg-white dark:bg-gray-900">
-  <Header {categories} />
+  {#if $page.route.id !== '/short'}
+    <Header {categories} />
+  {/if}
   
-  <main class="flex-grow">
+  <main class="flex-grow" class:is-short-page={$page.route.id === '/short'}>
     <slot />
   </main>
 
@@ -37,6 +39,13 @@
 </div>
 
 <style>
+  .is-short-page {
+    position: relative;
+    display: block;
+    flex-grow: 1;
+    overflow: hidden;
+  }
+
   .loading-overlay {
     position: fixed;
     top: 0;

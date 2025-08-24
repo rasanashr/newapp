@@ -25,7 +25,7 @@
                 '137121,391295,137138,137137,137139,137140,137141,137203,137205'
             );
             tgjuElement.setAttribute('columns', 'dot');
-            tgjuElement.setAttribute('speed', '60');
+            tgjuElement.setAttribute('speed', '90');
             tgjuElement.setAttribute('token', 'webservice');
             tgjuElement.setAttribute(
                 'styles',
@@ -40,5 +40,6 @@
         }
     });
 </script>
-
+<div  class="tex-black" >
 <div id="tgju-container"></div>
+</div>

@@ -36,7 +36,9 @@
       totalPages = result.totalPages;
       currentPage = page;
     } catch (error) {
-      console.error('Error loading posts:', error);
+      if (process.env.NODE_ENV === 'production') {
+        console.error(`Error loading home page posts: ${error.message}`);
+      }
     } finally {
       loading = false;
     }

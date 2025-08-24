@@ -30,7 +30,9 @@ export async function load({ params, fetch }) {
       relatedPosts
     };
   } catch (err) {
-    console.error('خطا در بارگذاری صفحه:', err);
+    if (process.env.NODE_ENV === 'production') {
+      console.error(`Error loading post [id=${params.id}, slug=${params.slug}]: ${err.message}`);
+    }
     throw error(404, 'پست پیدا نشد');
   }
 }

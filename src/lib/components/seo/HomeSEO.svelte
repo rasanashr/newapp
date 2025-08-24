@@ -22,6 +22,7 @@
         description,
         url: currentUrl
     };
+    $: safeSchema = JSON.stringify(schema, null, 2);
 </script>
 
 <svelte:head>
@@ -36,7 +37,6 @@
     <meta property="og:url" content={og.url} />
     <meta property="og:site_name" content={og.site_name} />
     <meta property="og:locale" content={og.locale} />
-    <script type="application/ld+json">
-    {JSON.stringify(schema, null, 2)}
-</script>
 </svelte:head>
+
+{@html `<script type="application/ld+json">${safeSchema}</script>`}

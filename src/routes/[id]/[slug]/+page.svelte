@@ -3,6 +3,7 @@
   import Sidebar from '$components/Sidebar.svelte';
   import RelatedPosts from '$components/widgets/RelatedPosts.svelte';
   import Comments from '$components/Comments.svelte';
+  import NewsVerification from '$lib/components/NewsVerification.svelte';
   import Breadcrumbs from '$lib/components/Breadcrumbs.svelte';
 
   /** @type {import('./$types').PageData} */
@@ -28,7 +29,7 @@
   }
 </script>
 
-<PostSEO {post} />
+<PostSEO post={data.post} />
 
 <div class="flex flex-col lg:flex-row gap-8">
   <!-- Main Content -->
@@ -39,10 +40,10 @@
         <div class="p-6">
           <Breadcrumbs items={breadcrumbItems} postTitle={post.title.rendered} />
 
-          <h1 class="text-lg font-bold lg:text-3xl text-justify mt-4 mb-4">
+          <h1 class="text-lg font-bold lg:text-3xl text-justify mt-4 mb-4 text-black">
             {@html post.title.rendered}
           </h1>
-
+     
           <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-gray-500 mb-4">
             <!-- Author -->
             {#if post._embedded && post._embedded.author}
@@ -73,15 +74,12 @@
           </div>
         </div>
 
-        {#if post._embedded && post._embedded['wp:featuredmedia']}
-          <img
-            src={post._embedded['wp:featuredmedia'][0].source_url}
-            alt={post.title.rendered}
-            class="w-full h-auto object-cover"
-          />
-        {/if}
+           <div class="flex md:justify-end justify-center my-1 ml-2">
+  <NewsVerification {post} />
+</div>   
 
-        <div class="p-6 prose prose-lg max-w-none text-justify leading-loose link-styles">
+
+        <div class="p-6 prose prose-lg max-w-none text-justify leading-loose link-styles text-gray-900">
           {@html post.content.rendered}
         </div>
         
@@ -105,6 +103,7 @@
         </div>
       </article>
 
+      
       <Comments postId={post.id} />
       
       <div class="mb-8"></div>
@@ -116,3 +115,9 @@
   </div>
 
 <Sidebar lasttextPosts={data.lasttextPosts} backlinks={data.backlinks} /></div>
+
+<style>
+  a {
+    color: blueviolet;
+  }
+</style>

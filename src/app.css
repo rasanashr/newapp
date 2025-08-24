@@ -10,18 +10,19 @@
 
 html {
     direction: rtl;
-    margin: 0;
-    padding: 0;
+    font-family: "Estedad", sans-serif;
+    font-size: 16px;
+    height: 100%; /* مهم برای layout */
     overflow-x: hidden;
-    width: 100%;
-    font-family: Estedad, sans-serif;
 }
 
 body {
-  
-    direction: rtl;
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    background-color: #f9fafb;
     text-align: right;
-    background-color: rgb(249 250 251);
+    /* اگر قد نیومد، html پس‌زمینه رو نشون می‌ده */
 }
 
 .container {
@@ -41,11 +42,14 @@ body {
 .content-prose h2,
 .content-prose h3,
 .content-prose h4,
+.content-prose h5,
+.content-prose h6,
 .content-prose p,
 .content-prose ul,
 .content-prose ol {
     text-align: right;
     margin-bottom: 1rem;
+    font-weight: bold;
 }
 
 .content-prose ul,
@@ -104,14 +108,7 @@ body {
   font-style: normal;
 }
 
-body{
-  direction: rtl;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  width: 100%;
-  font-family: Estedad, sans-serif;
-}
+
 
 
 main{
@@ -210,6 +207,34 @@ blockquote.custom-quote {
     padding: 0.5em 10px;
     font-style: italic;
     color: #555;
+}
+
+video {
+  /* مرکز کردن */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
+  /* گوشه‌های گرد */
+  border-radius: 20px;
+
+  /* محدودیت عرض: حداکثر 70% عرض صفحه، اما نه بیش از 700px */
+  max-width: 70vw;
+  width: 100%;
+  max-width: min(700px, 70vw);
+
+  /* محدودیت ارتفاع: برای ویدیوهای عمودی مهمه */
+  max-height: 70vh;
+
+  /* جلوگیری از کشیده شدن */
+  object-fit: contain;
+
+  /* حداقل اندازه برای نمایش مناسب */
+  min-width: 300px;
+  min-height: 200px;
+
+  /* اطمینان از اینکه ویدیو در صفحه می‌مونه */
+  height: auto;
 }
 
 
