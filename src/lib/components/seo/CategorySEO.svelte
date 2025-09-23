@@ -7,9 +7,9 @@
     $: currentUrl = `https://rasanashr.ir${$page.url.pathname}`;
 
     // SSR meta/title values
-    $: title = category ? `${category.name} | رسا نشر` : 'رسا نشر';
-    $: description = seo?.description || `آرشیو مطالب دسته ${category?.name} در رسا نشر`;
-    $: keywords = category ? `${category.name}, رسا نشر, اخبار ${category.name}` : '';
+    $: title = category ? `${category.name} | رسانه روز` : 'رسانه روز';
+    $: description = seo?.description || `آرشیو مطالب دسته ${category?.name} در رسانه روز`;
+    $: keywords = category ? `${category.name}, رسانه روز, اخبار ${category.name}` : '';
 
     // Open Graph
     $: og = {
@@ -17,7 +17,7 @@
         description,
         type: 'website',
         url: currentUrl,
-        site_name: 'رسا نشر',
+        site_name: 'رسانه روز',
         locale: 'fa_IR'
     };
 
@@ -33,10 +33,10 @@
         url: currentUrl,
         publisher: {
             '@type': 'Organization',
-            name: 'رسا نشر',
+            name: 'رسانه روز',
             logo: {
                 '@type': 'ImageObject',
-                url: 'https://rasanashr.ir/duc.png'
+                url: 'https://rasarooz.ir/duc.png'
             }
         }
     };

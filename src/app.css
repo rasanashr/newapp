@@ -34,30 +34,44 @@ body {
 }
 
 /* Typography styles for content */
-.content-prose {
-    max-width: none;
+#content-prose {
+   max-width: none;
+  --heading-base-size: 22px;
+  --heading-step: 1.6px; /* برای رسیدن به 16px در h6 */
 }
 
-.content-prose h1,
-.content-prose h2,
-.content-prose h3,
-.content-prose h4,
-.content-prose h5,
-.content-prose h6,
-.content-prose p,
-.content-prose ul,
-.content-prose ol {
-    text-align: right;
-    margin-bottom: 1rem;
-    font-weight: bold;
+
+#content-prose h2,
+#content-prose h3,
+#content-prose h4,
+#content-prose h5,
+#content-prose h6 {
+  text-align: right;
+  margin-bottom: 1rem;
+  font-weight: 700;
 }
 
-.content-prose ul,
-.content-prose ol {
-    padding-right: 1.75em;
-    padding-left: 0;
-    list-style-position: inside;
-}
+#content-prose h2 { font-size: var(--heading-base-size); }
+#content-prose h3 { font-size: calc(var(--heading-base-size) - 1 * var(--heading-step)); }
+#content-prose h4 { font-size: calc(var(--heading-base-size) - 2 * var(--heading-step)); }
+#content-prose h5 { font-size: calc(var(--heading-base-size) - 3 * var(--heading-step)); }
+#content-prose h6 { font-size: calc(var(--heading-base-size) - 4 * var(--heading-step)); }
+
+#content-prose ul,
+#content-prose ol {
+  text-align: right;
+  margin-bottom: 1rem;
+  margin-right: 1rem;
+  list-style-position: inside; /* این خط کلیدیه! */
+  padding-inline-start: 0;     /* حذف پدینگ پیش‌فرض (تا بولت دقیقاً راست بیوفته) */
+  padding-right: 1rem;
+  font-weight: 700;
+  color: #555;
+  border-right: 10px solid red;
+  
+} 
+
+
 
 @font-face {
   font-family: 'Estedad';

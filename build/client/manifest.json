@@ -1,7 +1,7 @@
 {
-  "name": "رسا نشر | پایگاه خبری رسا نشر",
-  "short_name": "رسا نشر",
-  "description": "پایگاه خبری تحلیلی رسا نشر",
+  "name": "رسانه روز | پایگاه خبری رسانه روز",
+  "short_name": "رسانه روز",
+  "description": "پایگاه خبری تحلیلی رسانه روز",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

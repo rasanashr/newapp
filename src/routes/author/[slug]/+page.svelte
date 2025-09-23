@@ -15,7 +15,7 @@
   let seo = data.seo;
   let loading = false;
 
-  $: currentUrl = `https://rasanashr.ir${$page.url.pathname}`;
+  $: currentUrl = `https://rasarooz.ir${$page.url.pathname}`;
 
   async function loadPosts(authorId, page = 1) {
     try {

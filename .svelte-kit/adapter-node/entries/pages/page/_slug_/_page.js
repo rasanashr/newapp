@@ -1,4 +1,4 @@
-import { i as fetchPage, a as fetchPosts } from "../../../../chunks/wordpress.js";
+import { h as fetchPage, a as fetchPosts } from "../../../../chunks/wordpress.js";
 async function load({ params }) {
   try {
     const [page, lasttextData, backlinksRes] = await Promise.all([
@@ -13,7 +13,9 @@ async function load({ params }) {
       backlinks
     };
   } catch (error) {
-    console.error("Error:", error);
+    if (process.env.NODE_ENV === "production") {
+      console.error(`Error loading page [slug=${params.slug}]: ${error.message}`);
+    }
     return {
       page: null,
       lasttextPosts: [],

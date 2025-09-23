@@ -79,7 +79,7 @@
 </div>   
 
 
-        <div class="p-6 prose prose-lg max-w-none text-justify leading-loose link-styles text-gray-900">
+        <div id="content-prose" class="p-6 prose prose-lg max-w-none text-justify leading-loose link-styles text-gray-900">
           {@html post.content.rendered}
         </div>
         
@@ -118,6 +118,6 @@
 
 <style>
   a {
-    color: blueviolet;
+    color: rgb(231, 18, 18);
   }
 </style>

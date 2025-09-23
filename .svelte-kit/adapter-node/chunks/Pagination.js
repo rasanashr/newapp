@@ -1,4 +1,4 @@
-import { E as fallback, N as ensure_array_like, Q as attr_class, G as attr, D as escape_html, F as bind_props, C as pop, z as push, P as stringify } from "./index.js";
+import { f as fallback, e as ensure_array_like, h as attr_class, b as attr, a as escape_html, c as bind_props, p as pop, d as push, s as stringify } from "./index2.js";
 function Pagination($$payload, $$props) {
   push();
   let currentPage = fallback($$props["currentPage"], 1);

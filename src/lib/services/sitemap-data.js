@@ -13,7 +13,7 @@ function getSiteURL(fetch) {
     }
     
     // مقدار پیش‌فرض
-    return 'https://rasanashr.ir';
+    return 'https://rasarooz.ir';
 }
 
 /**

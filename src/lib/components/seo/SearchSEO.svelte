@@ -3,19 +3,19 @@
     import { page } from '$app/stores';
     export let query = '';
     $: currentUrl = `https://rasanashr.ir${$page.url.pathname}`;
-    $: title = query ? `جستجو: ${query} | رسا نشر` : 'جستجو در رسا نشر';
+    $: title = query ? `جستجو: ${query} | رسانه روز` : 'جستجو در رسانه روز';
     $: description = query 
-        ? `نتایج جستجو برای ${query} در پایگاه خبری تحلیلی رسا نشر`
-        : 'جستجو در مطالب پایگاه خبری تحلیلی رسا نشر';
+        ? `نتایج جستجو برای ${query} در پایگاه خبری تحلیلی رسانه روز`
+        : 'جستجو در مطالب پایگاه خبری تحلیلی رسانه روز';
     $: og = {
         title,
         description,
         type: 'website',
         url: currentUrl,
-        site_name: 'رسا نشر',
+        site_name: 'رسانه روز',
         locale: 'fa_IR'
     };
-    $: canonical = 'https://rasanashr.ir/search';
+    $: canonical = 'https://rasarooz.ir/search';
 </script>
 
 <svelte:head>

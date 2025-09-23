@@ -1,4 +1,4 @@
-import { E as fallback, N as ensure_array_like, G as attr, F as bind_props, C as pop, z as push, O as attr_style, P as stringify, Q as attr_class, D as escape_html, I as store_get, R as head, K as unsubscribe_stores } from "../../chunks/index.js";
+import { f as fallback, e as ensure_array_like, b as attr, c as bind_props, p as pop, d as push, q as attr_style, s as stringify, h as attr_class, a as escape_html, j as store_get, i as head, u as unsubscribe_stores } from "../../chunks/index2.js";
 import { h as html } from "../../chunks/html.js";
 import { L as Lasttext } from "../../chunks/Lasttext.js";
 import { p as page } from "../../chunks/stores.js";
@@ -185,24 +185,33 @@ function Minicard($$payload, $$props) {
 function HomeSEO($$payload, $$props) {
   push();
   var $$store_subs;
-  let currentUrl, title, description, keywords, og, canonical;
+  let currentUrl, title, description, keywords, og, canonical, schema, safeSchema;
   currentUrl = `https://rasanashr.ir${store_get($$store_subs ??= {}, "$page", page).url.pathname}`;
-  title = " رسا نشر | تازه‌ترین اخبار اجتماعی، فرهنگی، سیاسی و اقتصادی ایران و جهان";
-  description = "پایگاه خبری تحلیلی رسا نشر - آخرین اخبار روز ایران و جهان";
+  title = "رسانه روز| تازه‌ترین اخبار اجتماعی، فرهنگی، سیاسی و اقتصادی ایران و جهان";
+  description = "پایگاه خبری تحلیلی رسانه روز - آخرین اخبار روز ایران و جهان";
   keywords = "رسا نشر, اخبار اجتماعی, اخبار فرهنگی, اخبار سیاسی, اخبار اقتصادی, پایگاه خبری تحلیلی, رسا نشر ایران, گزارش اجتماعی, هوش مصنوعی, اینترنت, فیلترینگ, تحلیل سیاسی, اخبار روز, اخبار جنگ, جنگ ایران و اسرائیل, حمله نظامی, مذاکره ایران و آمریکا";
   og = {
     title,
     description,
     type: "website",
     url: currentUrl,
-    site_name: "رسا نشر",
+    site_name: "رسانه روز",
     locale: "fa_IR"
   };
   canonical = currentUrl;
+  schema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "رسانه روز",
+    description,
+    url: currentUrl
+  };
+  safeSchema = JSON.stringify(schema, null, 2);
   head($$payload, ($$payload2) => {
     $$payload2.title = `<title>${escape_html(title)}</title>`;
-    $$payload2.out += `<meta name="description"${attr("content", description)}> <meta name="keywords"${attr("content", keywords)}> <meta name="robots" content="index, follow"> <link rel="canonical"${attr("href", canonical)}> <meta property="og:title"${attr("content", og.title)}> <meta property="og:description"${attr("content", og.description)}> <meta property="og:type"${attr("content", og.type)}> <meta property="og:url"${attr("content", og.url)}> <meta property="og:site_name"${attr("content", og.site_name)}> <meta property="og:locale"${attr("content", og.locale)}> <script type="application/ld+json">{JSON.stringify(schema)}<\/script>`;
+    $$payload2.out += `<meta name="description"${attr("content", description)}> <meta name="keywords"${attr("content", keywords)}> <meta name="robots" content="index, follow"> <link rel="canonical"${attr("href", canonical)}> <meta property="og:title"${attr("content", og.title)}> <meta property="og:description"${attr("content", og.description)}> <meta property="og:type"${attr("content", og.type)}> <meta property="og:url"${attr("content", og.url)}> <meta property="og:site_name"${attr("content", og.site_name)}> <meta property="og:locale"${attr("content", og.locale)}>`;
   });
+  $$payload.out += `${html(`<script type="application/ld+json">${safeSchema}<\/script>`)}`;
   if ($$store_subs) unsubscribe_stores($$store_subs);
   pop();
 }
@@ -212,9 +221,9 @@ function _page($$payload, $$props) {
   let data = $$props["data"];
   data.posts;
   data.totalPages;
-  `https://rasanashr.ir${store_get($$store_subs ??= {}, "$page", page).url.pathname}`;
+  `https://rasarooz.ir${store_get($$store_subs ??= {}, "$page", page).url.pathname}`;
   HomeSEO($$payload);
-  $$payload.out += `<!----> <div class="hidden md:block" dir="rtl"><div class="grid grid-cols-2 gap-2 mb-2"><div class="bg-red-600 p-4 rounded-[20px] min-w-[300px]">`;
+  $$payload.out += `<!----> <h1 class="absolute -left-9999 -top-9999 w-0 h-0 overflow-hidden opacity-0">پایگاه خبری تحلیلی رسانه روز - تازه ترین خبرهای ایران و جهان</h1> <div class="hidden md:block" dir="rtl"><div class="grid grid-cols-2 gap-2 mb-2"><div class="bg-red-600 p-4 rounded-[20px] min-w-[300px]">`;
   Slider1($$payload, { posts: data.slider1Posts });
   $$payload.out += `<!----></div> <div class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-1 rounded-[20px] min-w-[300px]">`;
   Notofday($$payload, { posts: data.notofdayPosts });

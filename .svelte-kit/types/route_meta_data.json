@@ -1,39 +1,91 @@
 {
 	"/": [
-		"src/routes/+page.js"
+		"src/routes/+page.js",
+		"src/routes/+layout.server.js",
+		"src/routes/+layout.server.js"
+	],
+	"/api/ai/analyze": [
+		"src/routes/api/ai/analyze/+server.js"
+	],
+	"/api/ai/verify": [
+		"src/routes/api/ai/verify/+server.js"
 	],
 	"/api/latest-post-id": [
 		"src/routes/api/latest-post-id/+server.js"
 	],
 	"/author/[slug]": [
-		"src/routes/author/[slug]/+page.js"
+		"src/routes/author/[slug]/+page.js",
+		"src/routes/+layout.server.js"
 	],
 	"/categories": [
-		"src/routes/categories/+page.ts"
+		"src/routes/categories/+page.ts",
+		"src/routes/+layout.server.js"
 	],
 	"/category/[slug]": [
-		"src/routes/category/[slug]/+page.js"
+		"src/routes/category/[slug]/+page.js",
+		"src/routes/+layout.server.js"
+	],
+	"/feed": [
+		"src/routes/feed/+server.js"
+	],
+	"/freegrokchat": [
+		"src/routes/freegrokchat/+page.js",
+		"src/routes/+layout.server.js"
 	],
 	"/lastnews": [
-		"src/routes/lastnews/+page.js"
+		"src/routes/lastnews/+page.js",
+		"src/routes/+layout.server.js"
 	],
 	"/news-sitemap.xml": [
 		"src/routes/news-sitemap.xml/+server.js"
 	],
 	"/page/[slug]": [
-		"src/routes/page/[slug]/+page.js"
+		"src/routes/page/[slug]/+page.js",
+		"src/routes/+layout.server.js"
 	],
 	"/search": [
-		"src/routes/search/+page.js"
+		"src/routes/search/+page.js",
+		"src/routes/+layout.server.js"
+	],
+	"/sitemap-categories.xml": [
+		"src/routes/sitemap-categories.xml/+server.js"
+	],
+	"/sitemap-index.xml": [
+		"src/routes/sitemap-index.xml/+server.js"
+	],
+	"/sitemap-posts-[page].xml": [
+		"src/routes/sitemap-posts-[page].xml/+server.js"
+	],
+	"/sitemap-tags-[page].xml": [
+		"src/routes/sitemap-tags-[page].xml/+server.js"
 	],
 	"/sitemap.xml": [
 		"src/routes/sitemap.xml/+server.js"
 	],
+	"/sitemaps/authors.xml": [
+		"src/routes/sitemaps/authors.xml/+server.js"
+	],
+	"/sitemaps/categories.xml": [
+		"src/routes/sitemaps/categories.xml/+server.js"
+	],
+	"/sitemaps/pages.xml": [
+		"src/routes/sitemaps/pages.xml/+server.js"
+	],
+	"/sitemaps/posts-[page].xml": [
+		"src/routes/sitemaps/posts-[page].xml/+server.js"
+	],
+	"/sitemaps/tags-[page].xml": [
+		"src/routes/sitemaps/tags-[page].xml/+server.js"
+	],
 	"/tag/[slug]": [
-		"src/routes/tag/[slug]/+page.js"
+		"src/routes/tag/[slug]/+page.js",
+		"src/routes/+layout.server.js"
 	],
 	"/[id]/[slug]": [
-		"src/routes/[id]/[slug]/+page.js"
+		"src/routes/[id]/[slug]/+page.js",
+		"src/routes/+layout.server.js"
 	],
-	"/[...catchall]": []
+	"/[...catchall]": [
+		"src/routes/+layout.server.js"
+	]
 }

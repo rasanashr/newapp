@@ -1,4 +1,4 @@
-import { E as fallback, R as head, F as bind_props, C as pop, z as push, D as escape_html, G as attr, I as store_get, N as ensure_array_like, P as stringify, K as unsubscribe_stores } from "../../../../chunks/index.js";
+import { f as fallback, i as head, c as bind_props, p as pop, d as push, a as escape_html, b as attr, j as store_get, e as ensure_array_like, s as stringify, u as unsubscribe_stores } from "../../../../chunks/index2.js";
 import { e as fetchPostsByAuthor } from "../../../../chunks/wordpress.js";
 import { S as Sidebar } from "../../../../chunks/Sidebar.js";
 import { P as Pagination } from "../../../../chunks/Pagination.js";
@@ -9,8 +9,8 @@ function AuthorSEO($$payload, $$props) {
   let metaTitle, metaDescription, metaOg;
   let author = fallback($$props["author"], null);
   let seo = fallback($$props["seo"], null);
-  metaTitle = seo?.title || (author ? `${author.name} | رسا نشر` : "رسا نشر");
-  metaDescription = seo?.description || author?.description || (author ? `مطالب ${author.name}` : "پایگاه خبری رسا نشر");
+  metaTitle = seo?.title || (author ? `${author.name} | رسانه روز` : "رسانه روز");
+  metaDescription = seo?.description || author?.description || (author ? `مطالب ${author.name}` : "پایگاه خبری رسانه روز");
   metaOg = seo?.og || {};
   head($$payload, ($$payload2) => {
     $$payload2.title = `<title>${escape_html(metaTitle)}</title>`;
@@ -33,7 +33,7 @@ function AuthorSEO($$payload, $$props) {
         publisher: {
           "@type": "Organization",
           name: "رسا نشر",
-          url: "https://rasanashr.ir"
+          url: "https://rasarooz.ir"
         }
       })}
     <\/script><!---->`;
@@ -64,12 +64,14 @@ function _page($$payload, $$props) {
       currentPage = page2;
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (error) {
-      console.error("Error loading posts:", error);
+      if (process.env.NODE_ENV === "production") {
+        console.error(`Error loading author posts [id=${authorId}, page=${page2}]: ${error.message}`);
+      }
     } finally {
       loading = false;
     }
   }
-  `https://rasanashr.ir${store_get($$store_subs ??= {}, "$page", page).url.pathname}`;
+  `https://rasarooz.ir${store_get($$store_subs ??= {}, "$page", page).url.pathname}`;
   AuthorSEO($$payload, { author, seo });
   $$payload.out += `<!----> <div class="flex flex-col lg:flex-row gap-8"><div class="w-full lg:w-2/3">`;
   if (author) {

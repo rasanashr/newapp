@@ -3,22 +3,22 @@
     import { page } from '$app/stores';
 
     $: currentUrl = `https://rasanashr.ir${$page.url.pathname}`;
-    $: title = 'رسا نشر | تازه‌ترین اخبار اجتماعی، فرهنگی، سیاسی و اقتصادی ایران و جهان';
-    $: description = 'پایگاه خبری تحلیلی رسا نشر - آخرین اخبار روز ایران و جهان';
+    $: title = 'رسانه روز| تازه‌ترین اخبار اجتماعی، فرهنگی، سیاسی و اقتصادی ایران و جهان';
+    $: description = 'پایگاه خبری تحلیلی رسانه روز - آخرین اخبار روز ایران و جهان';
     $: keywords = 'رسا نشر, اخبار اجتماعی, اخبار فرهنگی, اخبار سیاسی, اخبار اقتصادی, پایگاه خبری تحلیلی, رسا نشر ایران, گزارش اجتماعی, هوش مصنوعی, اینترنت, فیلترینگ, تحلیل سیاسی, اخبار روز, اخبار جنگ, جنگ ایران و اسرائیل, حمله نظامی, مذاکره ایران و آمریکا';
     $: og = {
         title,
         description,
         type: 'website',
         url: currentUrl,
-        site_name: 'رسا نشر',
+        site_name: 'رسانه روز',
         locale: 'fa_IR'
     };
     $: canonical = currentUrl;
     $: schema = {
         '@context': 'https://schema.org',
         '@type': 'WebSite',
-        name: 'رسا نشر',
+        name: 'رسانه روز',
         description,
         url: currentUrl
     };

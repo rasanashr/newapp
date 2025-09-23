@@ -89,7 +89,7 @@
 					</li>
 					<li transition:fade={{ delay: 200, duration: 400 }}>
 						<a
-							href="hhttps://rasanashr.ir/page/%D8%AA%D9%85%D8%A7%D8%B3-%D8%A8%D8%A7-%D9%85%D8%A7"
+							href="https://rasanashr.ir/page/%D8%AA%D9%85%D8%A7%D8%B3-%D8%A8%D8%A7-%D9%85%D8%A7"
 							class="flex items-center gap-2 text-red-600 transition-colors duration-200 rounded-lg px-3 py-2 block hover:bg-black hover:text-white"
 							on:click={handleLinkClick}
 							aria-label="لینک صفحه اصلی"

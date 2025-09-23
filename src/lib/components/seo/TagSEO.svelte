@@ -5,27 +5,27 @@
 
   // Default metadata
   const defaultMetaData = {
-    title: 'آرشیو برچسب‌ها | رسا نشر',
-    description: 'مطالب برچسب‌گذاری شده در رسا نشر',
-    canonical: 'https://rasanashr.ir/tag',
-    ogTitle: 'آرشیو برچسب‌ها | رسا نشر',
-    ogDescription: 'مجموعه مطالب برچسب‌گذاری شده در رسا نشر',
+    title: 'آرشیو برچسب‌ها | رسانه روز',
+    description: 'مطالب برچسب‌گذاری شده در رسانه روز',
+    canonical: 'https://rasarooz.ir/tag',
+    ogTitle: 'آرشیو برچسب‌ها | رسانه روز',
+    ogDescription: 'مجموعه مطالب برچسب‌گذاری شده در رسانه روز',
     ogType: 'website',
-    ogSite_name: 'رسا نشر'
+    ogSite_name: 'رسانه روز'
   };
 
   // Calculate metadata based on the presence of `tag`
   $: metaData = tag?.name ? {
-    title: `${tag.name} | رسا نشر`,
-    description: tag.description || `مطالب مرتبط با برچسب ${tag.name} در رسا نشر`,
-    canonical: `https://rasanashr.ir/tag/${tag.slug}`,
-    ogTitle: `${tag.name} | رسا نشر`,
+    title: `${tag.name} | رسانه روز`,
+    description: tag.description || `مطالب مرتبط با برچسب ${tag.name} در رسانه روز`,
+    canonical: `https://rasarooz.ir/tag/${tag.slug}`,
+    ogTitle: `${tag.name} | رسانه روز`,
     ogDescription: tag.description || `مطالب مرتبط با برچسب ${tag.name}`,
     ogType: 'website',
-    ogSite_name: 'رسا نشر'
+    ogSite_name: 'رسانه روز'
   } : defaultMetaData;
 
-  $: currentUrl = `https://rasanashr.ir${$page.url.pathname}`;
+  $: currentUrl = `https://rasarooz.ir${$page.url.pathname}`;
 
   // Schema.org JSON-LD
   $: schema = tag ? {
@@ -36,10 +36,10 @@
     url: currentUrl,
     publisher: {
       '@type': 'Organization',
-      name: 'رسا نشر',
+      name: 'رسانه روز',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://rasanashr.ir/duc.png'
+        url: 'https://rasarooz.ir/duc.png'
       }
     }
   } : null;
@@ -50,7 +50,7 @@
   <title>{metaData.title}</title>
   <meta name="description" content={metaData.description} />
   <link rel="canonical" href={metaData.canonical} />
-  <meta name="keywords" content={tag?.name ? `${tag.name}, رسا نشر, اخبار ${tag.name}, آرشیو ${tag.name}` : ''} />
+  <meta name="keywords" content={tag?.name ? `${tag.name}, رسانه روز, اخبار ${tag.name}, آرشیو ${tag.name}` : ''} />
   <meta name="robots" content="index, follow" />
 
   <!-- Open Graph -->

@@ -9,7 +9,9 @@ export async function load() {
             akharinkhabarPosts: akharinkhabarData.posts
         };
     } catch (error) {
-        console.error('Error loading initial posts:', error);
+        if (process.env.NODE_ENV === 'production') {
+            console.error(`Last news page load error: ${error.message}`);
+        }
         return {
             akharinkhabarPosts: []
         };

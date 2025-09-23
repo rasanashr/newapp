@@ -1,11 +1,89 @@
 User-agent: *
-Disallow: /wp-
-Disallow: /feed
-Disallow: /xmlrpc.php
-Disallow: /*.php$
-Disallow: /*?
 
+Disallow: /wp-
+Disallow: /wp-admin/
+Disallow: /wp-includes/
+Disallow: /wp-content/plugins/
+Disallow: /wp-login?redirect_to=
+Disallow: /wp-json/
+Disallow: /xmlrpc.php
+Disallow: /feed/
+Disallow: /*/feed/
+Disallow: /*feed/
+
+Disallow: /pcmypage
+Disallow: /safe_search
+Disallow: /items/
+Disallow: /b/
+Disallow: /gmd/
+Disallow: /frm/
+Disallow: /azteb1/
+Disallow: /multipara-vs/
+Disallow: /a0lzgwb/
+Disallow: /98/
+Disallow: /99/
+Disallow: /9/
+Disallow: /old/
+Disallow: /index/
+Disallow: /note/
+Disallow: /doc/
+Disallow: /s/
+Disallow: /manager/
+Disallow: /author/manager/
+Disallow: /chugoku/
+Disallow: /entry/
+Disallow: /p/
+Disallow: /ostad/
+Disallow: /event/
+Disallow: /photo/
+Disallow: /store/
+
+
+Disallow: /1395/
+Disallow: /1396/
+Disallow: /1397/
+Disallow: /1398/
+Disallow: /1399/
+Disallow: /date/1396/
+Disallow: /date/1397/
+Disallow: /date/1398/
+Disallow: /date/1399/
+
+
+Disallow: /product/
+Disallow: /products/
+Disallow: /tag/*/?amp
+Disallow: /page/*/?amp
+Disallow: /page/*/?wiziapp_display=
+Disallow: /news/
+
+
+Disallow: /*?g=
+Disallow: /*?y=
+Disallow: /*?c=g&l=
+Disallow: /*?key=
+Disallow: /*?callback=
+Disallow: /*?return_url=
+Disallow: /*?s=
+Disallow: /*?noamp=
+Disallow: /*?amp=
+
+Disallow: /amp/
+Disallow: /*/*/amp
+Disallow: /*/*/amp/
+Disallow: /amp/*/*
+Disallow: /amp/tag/*
+Disallow: /amp/page/*
+
+
+Disallow: /*.php$
+Disallow: /*.shtml$
+Disallow: /cgi-bin/
+Disallow: /img/
+
+
+Disallow: /search
+Disallow: /ghost-login?redirect_to=
 
 Sitemap: https://rasanashr.ir/sitemap.xml
 Sitemap: https://rasanashr.ir/news-sitemap.xml
-

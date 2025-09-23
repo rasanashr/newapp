@@ -1,5 +1,5 @@
-import { h as fetchCategory, d as fetchPostsByCategory, a as fetchPosts } from "../../../../chunks/wordpress.js";
-async function load({ params }) {
+import { g as fetchCategory, c as fetchPostsByCategory, a as fetchPosts } from "../../../../chunks/wordpress.js";
+async function load({ params, setHeaders }) {
   try {
     const category = await fetchCategory(params.slug);
     const [categoryData, lasttextData, backlinksRes] = await Promise.all([
@@ -8,6 +8,10 @@ async function load({ params }) {
       fetch("https://rooidadha.ir/wp-json/backlink/v1/links")
     ]);
     const backlinks = await backlinksRes.json();
+    setHeaders({
+      "Cache-Control": "public, max-age=300, s-maxage=300"
+      // 5 minutes
+    });
     return {
       category,
       posts: categoryData.posts,

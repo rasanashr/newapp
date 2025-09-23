@@ -1,3 +1,3 @@
-import * as universal from "../../../../src/routes/lastnews/+page.js";
+import * as universal from "../../../../src/routes/freegrokchat/+page.js";
 export { universal };
-export { default as component } from "../../../../src/routes/lastnews/+page.svelte";
+export { default as component } from "../../../../src/routes/freegrokchat/+page.svelte";

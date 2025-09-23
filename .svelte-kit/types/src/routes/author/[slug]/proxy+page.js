@@ -19,7 +19,7 @@ export async function load({ params }) {
 
         if (author && author.id) {
             // دریافت پست‌های نویسنده
-            console.log('Fetching posts for author ID:', author.id);
+
             const result = await fetchPostsByAuthor(author.id, 1);
             posts = result.posts;
             totalPages = result.totalPages;
@@ -28,14 +28,14 @@ export async function load({ params }) {
             const authorDescription = author.description || `مطالب ${author.name}`;
 
             seo = {
-                title: `${author.name} | پایگاه خبری تحلیلی رسا نشر`,
+                title: `${author.name} | پایگاه خبری تحلیلی رسانه روز`,
                 description: authorDescription,
                 robots: 'index, follow',
                 og: {
-                    title: `${author.name} | رسا نشر`,
+                    title: `${author.name} | رسانه روز`,
                     description: authorDescription,
                     type: 'website',
-                    site_name: 'رسا نشر',
+                    site_name: 'رسانه روز',
                     locale: 'fa_IR'
                 },
                 jsonLd: {
@@ -43,16 +43,18 @@ export async function load({ params }) {
                     "@type": "ProfilePage",
                     "name": author.name,
                     "description": authorDescription,
-                    "url": `https://rasanashr.ir/author/${params.slug}`,
+                    "url": `https://rasarooz.ir/author/${params.slug}`,
                     "publisher": {
                         "@type": "Organization",
-                        "name": "پایگاه خبری تحلیلی رسا نشر",
-                        "url": "https://rasanashr.ir"
+                        "name": "پایگاه خبری تحلیلی رسانه روز",
+                        "url": "https://rasarooz.ir"
                     }
                 }
             };
         } else {
-            console.error('Author not found or invalid author ID');
+            if (process.env.NODE_ENV === 'production') {
+                console.error(`Author not found: ${params.slug}`);
+            }
         }
 
         // بازگرداندن داده‌ها به همراه داده‌های سایدبار
@@ -65,7 +67,9 @@ export async function load({ params }) {
             backlinks
         };
     } catch (error) {
-        console.error('Error in load function:', error);
+        if (process.env.NODE_ENV === 'production') {
+            console.error(`Author page error [slug=${params.slug}]: ${error.message}`);
+        }
         return {
             author: null,
             posts: [],

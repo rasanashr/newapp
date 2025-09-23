@@ -1,5 +1,13 @@
 import axios from "axios";
 const WP_API_URL = "https://rooidadha.ir/wp-json/wp/v2";
+const DISPLAY_DOMAIN = "rasarooz.ir";
+function fixDisplayLinks(post) {
+  if (!post) return post;
+  if (post.link) {
+    post.link = post.link.replace("rooidadha.ir", DISPLAY_DOMAIN);
+  }
+  return post;
+}
 async function fetchPosts(page = 1, perPage = 10) {
   try {
     const response = await axios.get(`${WP_API_URL}/posts`, {
@@ -9,21 +17,45 @@ async function fetchPosts(page = 1, perPage = 10) {
         _embed: true
       }
     });
+    const sanitizedPosts = response.data.map((post) => fixDisplayLinks(sanitizePostData(post)));
     return {
-      posts: response.data,
+      posts: sanitizedPosts,
       totalPages: parseInt(response.headers["x-wp-totalpages"]) || 1
     };
   } catch (error) {
-    console.error("Error fetching posts:", error);
+    if (process.env.NODE_ENV === "production") {
+      const errorData = error.response?.data || error.message;
+      console.error(`API error in fetchPosts: ${errorData}`);
+    }
     return { posts: [], totalPages: 1 };
   }
+}
+function sanitizePostData(post) {
+  if (!post) return null;
+  if (post.title?.rendered) {
+    post.title.rendered = post.title.rendered.trim();
+  }
+  if (post.excerpt?.rendered) {
+    post.excerpt.rendered = post.excerpt.rendered.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
+  }
+  if (!post.date) {
+    post.date = (/* @__PURE__ */ new Date()).toISOString();
+  }
+  if (!post.modified) {
+    post.modified = post.date;
+  }
+  return post;
 }
 async function fetchPost(id) {
   try {
     const response = await axios.get(`${WP_API_URL}/posts/${id}?_embed`);
-    return response.data;
+    const cleanData = fixDisplayLinks(sanitizePostData(response.data));
+    return cleanData;
   } catch (error) {
-    console.error("Error fetching post:", error);
+    if (process.env.NODE_ENV === "production") {
+      const errorData = error.response?.data || error.message;
+      console.error(`API error in fetchPost: ${errorData}`);
+    }
     return null;
   }
 }
@@ -32,7 +64,10 @@ async function fetchCategories() {
     const response = await fetch(`${WP_API_URL}/categories?per_page=100`);
     return await response.json();
   } catch (error) {
-    console.error("Error fetching categories:", error);
+    if (process.env.NODE_ENV === "production") {
+      const errorData = error.response?.data || error.message;
+      console.error(`API error in fetchCategories: ${errorData}`);
+    }
     return [];
   }
 }
@@ -42,10 +77,15 @@ async function fetchCategory(slug) {
     if (response.data && response.data.length > 0) {
       return response.data[0];
     }
-    console.error("Category not found:", slug);
+    if (process.env.NODE_ENV === "production") {
+      console.error(`Category not found: ${slug}`);
+    }
     return null;
   } catch (error) {
-    console.error("Error fetching category:", error);
+    if (process.env.NODE_ENV === "production") {
+      const errorData = error.response?.data || error.message;
+      console.error(`API error in fetchCategory: ${errorData}`);
+    }
     return null;
   }
 }
@@ -59,22 +99,17 @@ async function fetchPostsByCategory(categoryId, page = 1, perPage = 10) {
         _embed: true
       }
     });
+    const sanitizedPosts = response.data.map((post) => fixDisplayLinks(sanitizePostData(post)));
     return {
-      posts: response.data,
+      posts: sanitizedPosts,
       totalPages: parseInt(response.headers["x-wp-totalpages"]) || 1
     };
   } catch (error) {
-    console.error("Error fetching posts by category:", error);
+    if (process.env.NODE_ENV === "production") {
+      const errorData = error.response?.data || error.message;
+      console.error(`API error in fetchPostsByCategory: ${errorData}`);
+    }
     return { posts: [], totalPages: 1 };
-  }
-}
-async function fetchTags() {
-  try {
-    const response = await axios.get(`${WP_API_URL}/tags`);
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching tags:", error);
-    return [];
   }
 }
 async function fetchTag(slug) {
@@ -82,9 +117,18 @@ async function fetchTag(slug) {
     const response = await axios.get(`${WP_API_URL}/tags`, {
       params: { slug }
     });
-    return response.data[0];
+    if (response.data && response.data.length > 0) {
+      return response.data[0];
+    }
+    if (process.env.NODE_ENV === "production") {
+      console.error(`Tag not found: ${slug}`);
+    }
+    return null;
   } catch (error) {
-    console.error("Error fetching tag:", error);
+    if (process.env.NODE_ENV === "production") {
+      const errorData = error.response?.data || error.message;
+      console.error(`API error in fetchTag: ${errorData}`);
+    }
     return null;
   }
 }
@@ -98,12 +142,16 @@ async function fetchPostsByTag(tagId, page = 1, perPage = 10) {
         _embed: true
       }
     });
+    const sanitizedPosts = response.data.map((post) => fixDisplayLinks(sanitizePostData(post)));
     return {
-      posts: response.data,
+      posts: sanitizedPosts,
       totalPages: parseInt(response.headers["x-wp-totalpages"]) || 1
     };
   } catch (error) {
-    console.error("Error fetching posts by tag:", error);
+    if (process.env.NODE_ENV === "production") {
+      const errorData = error.response?.data || error.message;
+      console.error(`API error in fetchPostsByTag: ${errorData}`);
+    }
     return { posts: [], totalPages: 1 };
   }
 }
@@ -116,11 +164,14 @@ async function fetchPage(slug) {
       }
     });
     if (response.data && response.data.length > 0) {
-      return response.data[0];
+      return fixDisplayLinks(sanitizePostData(response.data[0]));
     }
     return null;
   } catch (error) {
-    console.error("Error fetching page:", error);
+    if (process.env.NODE_ENV === "production") {
+      const errorData = error.response?.data || error.message;
+      console.error(`API error in fetchPage: ${errorData}`);
+    }
     return null;
   }
 }
@@ -134,12 +185,16 @@ async function searchPosts(query, page = 1, perPage = 10) {
         _embed: true
       }
     });
+    const sanitizedPosts = response.data.map((post) => fixDisplayLinks(sanitizePostData(post)));
     return {
-      posts: response.data,
+      posts: sanitizedPosts,
       totalPages: parseInt(response.headers["x-wp-totalpages"]) || 1
     };
   } catch (error) {
-    console.error("Error searching posts:", error);
+    if (process.env.NODE_ENV === "production") {
+      const errorData = error.response?.data || error.message;
+      console.error(`API error in searchPosts: ${errorData}`);
+    }
     return { posts: [], totalPages: 1 };
   }
 }
@@ -154,10 +209,15 @@ async function fetchAuthor(slug) {
     if (response.data && response.data.length > 0) {
       return response.data[0];
     }
-    console.error("Author not found:", slug);
+    if (process.env.NODE_ENV === "production") {
+      console.error(`Author not found: ${slug}`);
+    }
     return null;
   } catch (error) {
-    console.error("Error fetching author:", error);
+    if (process.env.NODE_ENV === "production") {
+      const errorData = error.response?.data || error.message;
+      console.error(`API error in fetchAuthor: ${errorData}`);
+    }
     return null;
   }
 }
@@ -171,12 +231,16 @@ async function fetchPostsByAuthor(authorId, page = 1, perPage = 10) {
         _embed: true
       }
     });
+    const sanitizedPosts = response.data.map((post) => fixDisplayLinks(sanitizePostData(post)));
     return {
-      posts: response.data,
+      posts: sanitizedPosts,
       totalPages: parseInt(response.headers["x-wp-totalpages"]) || 1
     };
   } catch (error) {
-    console.error("Error fetching posts by author:", error);
+    if (process.env.NODE_ENV === "production") {
+      const errorData = error.response?.data || error.message;
+      console.error(`API error in fetchPostsByAuthor: ${errorData}`);
+    }
     return { posts: [], totalPages: 1 };
   }
 }
@@ -186,48 +250,34 @@ async function fetchRelatedPosts(currentPostId, categoryIds = [], count = 3) {
       per_page: count,
       exclude: currentPostId,
       categories: categoryIds.join(","),
-      _embed: ""
+      _embed: true
     });
-    const response = await fetch(`https://rooidadha.ir/wp-json/wp/v2/posts?${params}`);
+    const response = await fetch(`${WP_API_URL}/posts?${params}`);
     const posts = await response.json();
-    return posts;
+    return posts.map((post) => fixDisplayLinks(sanitizePostData(post)));
   } catch (error) {
-    console.error("Error fetching related posts:", error);
+    if (process.env.NODE_ENV === "production") {
+      const errorData = error.response?.data || error.message;
+      console.error(`API error in fetchRelatedPosts: ${errorData}`);
+    }
     return [];
   }
 }
-async function fetchLatestPostId() {
-  try {
-    const response = await axios.get(`${WP_API_URL}/posts`, {
-      params: {
-        per_page: 1,
-        orderby: "date",
-        order: "desc",
-        _fields: "id"
-      }
-    });
-    if (response.data && response.data.length > 0) {
-      return response.data[0].id;
-    }
-    return null;
-  } catch (error) {
-    console.error("Error fetching latest post id:", error);
-    return null;
-  }
+async function fetchLatestPostsForFeed() {
+  return await fetchPosts(1, 50);
 }
 export {
   fetchPosts as a,
   fetchCategories as b,
-  fetchTags as c,
-  fetchPostsByCategory as d,
+  fetchPostsByCategory as c,
+  fetchAuthor as d,
   fetchPostsByAuthor as e,
-  fetchLatestPostId as f,
-  fetchAuthor as g,
-  fetchCategory as h,
-  fetchPage as i,
+  fetchLatestPostsForFeed as f,
+  fetchCategory as g,
+  fetchPage as h,
+  fetchTag as i,
   fetchPostsByTag as j,
-  fetchTag as k,
-  fetchPost as l,
-  fetchRelatedPosts as m,
+  fetchPost as k,
+  fetchRelatedPosts as l,
   searchPosts as s
 };

@@ -8,7 +8,7 @@
     export let data;
 
     $: pageData = data.page;
-    $: currentUrl = `https://rasanashr.ir${$page.url.pathname}`;
+    $: currentUrl = `https://rasarooz.ir${$page.url.pathname}`;
 
     // پاکسازی محتوای HTML با استفاده از utils
     $: content = pageData?.content?.rendered ? sanitizeHtml(pageData.content.rendered) : '';

@@ -32,17 +32,17 @@ function createVideoSchema(videoUrl, post, thumbnailUrl, meta = {}) {
         '@context': 'https://schema.org',
         '@type': 'VideoObject',
         name: cleanHtml(post.title?.rendered) || 'ویدیو بدون عنوان',
-        description: cleanHtml(post.excerpt?.rendered) || 'ویدیوی رسا نشر',
+        description: cleanHtml(post.excerpt?.rendered) || 'ویدیوی رسانه روز',
         thumbnailUrl: [thumbnailUrl],
         uploadDate: post.date ? new Date(post.date).toISOString() : new Date().toISOString(),
         contentUrl: videoUrl,
         embedUrl: videoUrl,
         publisher: {
             '@type': 'Organization',
-            name: 'رسا نشر',
+            name: 'رسانه روز',
             logo: {
                 '@type': 'ImageObject',
-                url: 'https://rasanashr.ir/icon-512.png',
+                url: 'https://rasarooz.ir/icon-512.png',
                 width: '512',
                 height: '512'
             }
@@ -68,10 +68,10 @@ function createVideoSchema(videoUrl, post, thumbnailUrl, meta = {}) {
 export function createPostSchema(post, currentUrl, breadcrumbs = null) {
     if (!post) return null;
 
-    const authorName = post._embedded?.author?.[0]?.name || 'رسا نشر';
+    const authorName = post._embedded?.author?.[0]?.name || 'رسانه روز';
     const imageUrl =
         post._embedded?.['wp:featuredmedia']?.[0]?.source_url ||
-        'https://rasanashr.ir/placeholder.jpg';
+        'https://rasarooz.ir/placeholder.jpg';
     const publishedDate = post.date
         ? new Date(post.date).toISOString()
         : new Date().toISOString();
@@ -83,7 +83,7 @@ export function createPostSchema(post, currentUrl, breadcrumbs = null) {
         '@context': 'https://schema.org',
         '@type': 'NewsArticle',
         headline: cleanHtml(post.title?.rendered) || 'مقاله بدون عنوان',
-        description: cleanHtml(post.excerpt?.rendered) || 'مقاله رسا نشر',
+        description: cleanHtml(post.excerpt?.rendered) || 'مقاله رسانه روز',
         image: [imageUrl],
         datePublished: publishedDate,
         dateModified: modifiedDate,
@@ -92,18 +92,18 @@ export function createPostSchema(post, currentUrl, breadcrumbs = null) {
             name: cleanHtml(authorName),
             url:
                 post._embedded?.author?.[0]?.link ||
-                'https://rasanashr.ir/about-us'
+                'https://rasarooz.ir/about-us'
         },
         publisher: {
             '@type': 'Organization',
-            name: 'رسا نشر',
+            name: 'رسانه روز',
             logo: {
                 '@type': 'ImageObject',
-                url: 'https://rasanashr.ir/icon-512.png',
+                url: 'https://rasarooz.ir/icon-512.png',
                 width: '512',
                 height: '512'
             },
-            url: 'https://rasanashr.ir'
+            url: 'https://rasarooz.ir'
         },
         mainEntityOfPage: {
             '@type': 'WebPage',

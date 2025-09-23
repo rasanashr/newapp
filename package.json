@@ -1,6 +1,6 @@
 {
-	"name": "asli",
-	"version": "0.0.1",
+	"name": "Rasane Rooz",
+	"version": "1.0.01",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
@@ -52,12 +52,8 @@
 		"dayjs": "^1.11.13",
 		"dompurify": "^3.2.5",
 		"dotenv": "^17.2.0",
-		"https-proxy-agent": "^7.0.6",
 		"jalaliday": "^2.3.0",
-		"mysql2": "^3.14.2",
-		"mysql2-promise": "^0.1.4",
 		"node-fetch": "^3.3.2",
-		"redis": "^5.6.0",
 		"tailwindcss": "^4.1.7"
 	}
 }

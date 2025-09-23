@@ -26,6 +26,8 @@
  * ```
  */
 declare module '$env/static/private' {
+	export const WORDPRESS_API_URL: string;
+	export const OPENAI_API_KEY: string;
 	export const ALLUSERSPROFILE: string;
 	export const APPDATA: string;
 	export const COLOR: string;
@@ -39,6 +41,7 @@ declare module '$env/static/private' {
 	export const HOME: string;
 	export const HOMEDRIVE: string;
 	export const HOMEPATH: string;
+	export const http_proxy: string;
 	export const INIT_CWD: string;
 	export const INTEL_DEV_REDIST: string;
 	export const LOCALAPPDATA: string;
@@ -124,6 +127,8 @@ declare module '$env/static/public' {
  */
 declare module '$env/dynamic/private' {
 	export const env: {
+		WORDPRESS_API_URL: string;
+		OPENAI_API_KEY: string;
 		ALLUSERSPROFILE: string;
 		APPDATA: string;
 		COLOR: string;
@@ -137,6 +142,7 @@ declare module '$env/dynamic/private' {
 		HOME: string;
 		HOMEDRIVE: string;
 		HOMEPATH: string;
+		http_proxy: string;
 		INIT_CWD: string;
 		INTEL_DEV_REDIST: string;
 		LOCALAPPDATA: string;

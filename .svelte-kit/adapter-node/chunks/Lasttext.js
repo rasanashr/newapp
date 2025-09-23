@@ -1,4 +1,4 @@
-import { E as fallback, N as ensure_array_like, D as escape_html, G as attr, F as bind_props, C as pop, z as push } from "./index.js";
+import { f as fallback, e as ensure_array_like, a as escape_html, b as attr, c as bind_props, p as pop, d as push } from "./index2.js";
 import { h as html } from "./html.js";
 function Lasttext($$payload, $$props) {
   push();

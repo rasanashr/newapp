@@ -1,4 +1,4 @@
-import { k as fetchTag, a as fetchPosts, j as fetchPostsByTag } from "../../../../chunks/wordpress.js";
+import { i as fetchTag, a as fetchPosts, j as fetchPostsByTag } from "../../../../chunks/wordpress.js";
 async function load({ params }) {
   const tag = await fetchTag(params.slug);
   if (!tag) {

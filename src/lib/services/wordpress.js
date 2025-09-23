@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const WP_API_URL = 'https://rooidadha.ir/wp-json/wp/v2';
-const DISPLAY_DOMAIN = 'rasanashr.ir';
+const DISPLAY_DOMAIN = 'rasarooz.ir';
 
 // تابع کمکی برای اصلاح لینک‌های نمایشی به دامنه دیپلوی شده
 function fixDisplayLinks(post) {

@@ -1,4 +1,4 @@
-import { N as ensure_array_like, G as attr, Q as attr_class, D as escape_html, P as stringify, F as bind_props, C as pop, z as push } from "../../../chunks/index.js";
+import { i as head, e as ensure_array_like, b as attr, h as attr_class, a as escape_html, s as stringify, c as bind_props, p as pop, d as push } from "../../../chunks/index2.js";
 function _page($$payload, $$props) {
   push();
   let data = $$props["data"];
@@ -17,7 +17,10 @@ function _page($$payload, $$props) {
   function getRandomColor() {
     return colors[Math.floor(Math.random() * colors.length)];
   }
-  $$payload.out += `<title class="svelte-nfclae">دسته بندی خبرها | رسا نشر</title> <main class="container mx-auto px-4 py-8 svelte-nfclae"><h1 class="text-2xl font-bold text-black text-center mb-12 svelte-nfclae">دسته بندی مطالب منتشر شده در رسا نشر</h1> `;
+  head($$payload, ($$payload2) => {
+    $$payload2.title = `<title>رسانه روز - دسته بندی مطالب منتشر شده در رسانه روز</title>`;
+  });
+  $$payload.out += `<main class="container mx-auto px-4 py-8 svelte-nfclae"><h1 class="text-2xl font-bold text-black dark:text-white text-center mb-12 svelte-nfclae">دسته بندی مطالب منتشر شده در رسانه روز</h1> `;
   if (categories.length === 0) {
     $$payload.out += "<!--[-->";
     $$payload.out += `<div class="text-center py-8 svelte-nfclae"><div class="loading loading-spinner loading-lg svelte-nfclae"></div></div>`;

@@ -1,5 +1,5 @@
-import { I as store_get, R as head, K as unsubscribe_stores, F as bind_props, C as pop, z as push, D as escape_html, G as attr, N as ensure_array_like, P as stringify } from "../../../../chunks/index.js";
-import { d as fetchPostsByCategory } from "../../../../chunks/wordpress.js";
+import { j as store_get, i as head, u as unsubscribe_stores, c as bind_props, p as pop, d as push, a as escape_html, b as attr, e as ensure_array_like, s as stringify } from "../../../../chunks/index2.js";
+import { c as fetchPostsByCategory } from "../../../../chunks/wordpress.js";
 import { S as Sidebar } from "../../../../chunks/Sidebar.js";
 import { p as page } from "../../../../chunks/stores.js";
 import { h as html } from "../../../../chunks/html.js";
@@ -11,15 +11,15 @@ function CategorySEO($$payload, $$props) {
   let seo = $$props["seo"];
   let category = $$props["category"];
   currentUrl = `https://rasanashr.ir${store_get($$store_subs ??= {}, "$page", page).url.pathname}`;
-  title = category ? `${category.name} | رسا نشر` : "رسا نشر";
-  description = seo?.description || `آرشیو مطالب دسته ${category?.name} در رسا نشر`;
-  keywords = category ? `${category.name}, رسا نشر, اخبار ${category.name}` : "";
+  title = category ? `${category.name} | رسانه روز` : "رسانه روز";
+  description = seo?.description || `آرشیو مطالب دسته ${category?.name} در رسانه روز`;
+  keywords = category ? `${category.name}, رسانه روز, اخبار ${category.name}` : "";
   og = {
     title,
     description,
     type: "website",
     url: currentUrl,
-    site_name: "رسا نشر",
+    site_name: "رسانه روز",
     locale: "fa_IR"
   };
   canonical = currentUrl;
@@ -31,10 +31,10 @@ function CategorySEO($$payload, $$props) {
     url: currentUrl,
     publisher: {
       "@type": "Organization",
-      name: "رسا نشر",
+      name: "رسانه روز",
       logo: {
         "@type": "ImageObject",
-        url: "https://rasanashr.ir/duc.png"
+        url: "https://rasarooz.ir/duc.png"
       }
     }
   };
@@ -53,8 +53,8 @@ function _page($$payload, $$props) {
   let posts = data.posts;
   let category = data.category;
   let totalPages = data.totalPages;
-  let currentPage = 1;
   let seo = data.seo;
+  let currentPage = 1;
   let loading = false;
   async function loadPosts(categoryId, page2 = 1) {
     try {
@@ -65,12 +65,21 @@ function _page($$payload, $$props) {
       currentPage = page2;
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (error) {
-      console.error("Error loading posts:", error);
+      if (process.env.NODE_ENV === "production") {
+        console.error(`Error loading category posts [id=${categoryId}, page=${page2}]: ${error.message}`);
+      }
     } finally {
       loading = false;
     }
   }
-  `https://rasanashr.ir${store_get($$store_subs ??= {}, "$page", page).url.pathname}`;
+  {
+    posts = data.posts;
+    category = data.category;
+    totalPages = data.totalPages;
+    seo = data.seo;
+    currentPage = 1;
+  }
+  `https://rasarooz.ir${store_get($$store_subs ??= {}, "$page", page).url.pathname}`;
   CategorySEO($$payload, { category, seo });
   $$payload.out += `<!----> <div class="flex flex-col lg:flex-row gap-8"><div class="w-full lg:w-2/3">`;
   if (category) {
@@ -110,7 +119,7 @@ function _page($$payload, $$props) {
     $$payload.out += `<!--]-->`;
   } else {
     $$payload.out += "<!--[!-->";
-    $$payload.out += `<div class="text-center py-8"><h1 class="text-3xl font-bold mb-4">دسته‌بندی یافت نشد</h1> <p class="text-xl text-gray-600">متأسفانه دسته‌بندی مورد نظر شما در سایت وجود ندارد.</p> <a href="/" class="inline-block mt-4 bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">بازگشت به صفحه اصلی</a></div>`;
+    $$payload.out += `<div class="text-center py-8"><h3 class="text-3xl font-bold mb-4">دسته‌بندی یافت نشد</h3> <p class="text-xl text-gray-600">متأسفانه دسته‌بندی مورد نظر شما در سایت وجود ندارد.</p> <a href="/" class="inline-block mt-4 bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">بازگشت به صفحه اصلی</a></div>`;
   }
   $$payload.out += `<!--]--> <div class="mb-15"></div></div> `;
   Sidebar($$payload, {

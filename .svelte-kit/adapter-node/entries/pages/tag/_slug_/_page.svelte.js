@@ -1,37 +1,60 @@
-import { E as fallback, I as store_get, R as head, K as unsubscribe_stores, F as bind_props, C as pop, z as push, D as escape_html, G as attr, N as ensure_array_like, P as stringify } from "../../../../chunks/index.js";
+import { f as fallback, j as store_get, i as head, u as unsubscribe_stores, c as bind_props, p as pop, d as push, a as escape_html, b as attr, e as ensure_array_like, s as stringify } from "../../../../chunks/index2.js";
 import { j as fetchPostsByTag } from "../../../../chunks/wordpress.js";
 import { p as page } from "../../../../chunks/stores.js";
+import { h as html } from "../../../../chunks/html.js";
 import { S as Sidebar } from "../../../../chunks/Sidebar.js";
 import { P as Pagination } from "../../../../chunks/Pagination.js";
-import { h as html } from "../../../../chunks/html.js";
 function TagSEO($$payload, $$props) {
   push();
   var $$store_subs;
-  let metaData, currentUrl;
+  let metaData, currentUrl, schema, safeSchema;
   let tag = fallback($$props["tag"], null);
   const defaultMetaData = {
-    title: "آرشیو برچسب‌ها | رسا نشر",
-    description: "مطالب برچسب‌گذاری شده در رسا نشر",
-    canonical: "https://rasanashr.ir/tag",
-    ogTitle: "آرشیو برچسب‌ها | رسا نشر",
-    ogDescription: "مجموعه مطالب برچسب‌گذاری شده در رسا نشر",
+    title: "آرشیو برچسب‌ها | رسانه روز",
+    description: "مطالب برچسب‌گذاری شده در رسانه روز",
+    canonical: "https://rasarooz.ir/tag",
+    ogTitle: "آرشیو برچسب‌ها | رسانه روز",
+    ogDescription: "مجموعه مطالب برچسب‌گذاری شده در رسانه روز",
     ogType: "website",
-    ogSite_name: "رسا نشر"
+    ogSite_name: "رسانه روز"
   };
   metaData = tag?.name ? {
-    title: `${tag.name} | رسا نشر`,
-    description: tag.description || `مطالب مرتبط با برچسب ${tag.name} در رسا نشر`,
-    canonical: `https://rasanashr.ir/tag/${tag.slug}`,
-    ogTitle: `${tag.name} | رسا نشر`,
+    title: `${tag.name} | رسانه روز`,
+    description: tag.description || `مطالب مرتبط با برچسب ${tag.name} در رسانه روز`,
+    canonical: `https://rasarooz.ir/tag/${tag.slug}`,
+    ogTitle: `${tag.name} | رسانه روز`,
     ogDescription: tag.description || `مطالب مرتبط با برچسب ${tag.name}`,
     ogType: "website",
-    ogSite_name: "رسا نشر"
+    ogSite_name: "رسانه روز"
   } : defaultMetaData;
-  currentUrl = `https://rasanashr.ir${store_get($$store_subs ??= {}, "$page", page).url.pathname}`;
+  currentUrl = `https://rasarooz.ir${store_get($$store_subs ??= {}, "$page", page).url.pathname}`;
+  schema = tag ? {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: metaData.title,
+    description: metaData.description,
+    url: currentUrl,
+    publisher: {
+      "@type": "Organization",
+      name: "رسانه روز",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://rasarooz.ir/duc.png"
+      }
+    }
+  } : null;
+  safeSchema = schema ? JSON.stringify(schema, null, 2) : "";
   head($$payload, ($$payload2) => {
     $$payload2.title = `<title>${escape_html(metaData.title)}</title>`;
-    $$payload2.out += `<meta name="description"${attr("content", metaData.description)}> <link rel="canonical"${attr("href", metaData.canonical)}> <meta property="og:title"${attr("content", metaData.ogTitle)}> <meta property="og:description"${attr("content", metaData.ogDescription)}> <meta property="og:type"${attr("content", metaData.ogType)}> <meta property="og:url"${attr("content", currentUrl)}> <meta property="og:site_name"${attr("content", metaData.ogSite_name)}> <meta property="og:locale" content="fa_IR">`;
+    $$payload2.out += `<meta name="description"${attr("content", metaData.description)}> <link rel="canonical"${attr("href", metaData.canonical)}> <meta name="keywords"${attr("content", tag?.name ? `${tag.name}, رسانه روز, اخبار ${tag.name}, آرشیو ${tag.name}` : "")}> <meta name="robots" content="index, follow"> <meta property="og:title"${attr("content", metaData.ogTitle)}> <meta property="og:description"${attr("content", metaData.ogDescription)}> <meta property="og:type"${attr("content", metaData.ogType)}> <meta property="og:url"${attr("content", currentUrl)}> <meta property="og:site_name"${attr("content", metaData.ogSite_name)}> <meta property="og:locale" content="fa_IR">`;
   });
+  if (safeSchema) {
+    $$payload.out += "<!--[-->";
+    $$payload.out += `${html(`<script type="application/ld+json">${safeSchema}<\/script>`)}`;
+  } else {
+    $$payload.out += "<!--[!-->";
+  }
+  $$payload.out += `<!--]-->`;
   if ($$store_subs) unsubscribe_stores($$store_subs);
   bind_props($$props, { tag });
   pop();
@@ -50,7 +73,7 @@ function _page($$payload, $$props) {
     totalPages = result.totalPages;
     currentPage = page2;
   }
-  `https://rasanashr.ir${store_get($$store_subs ??= {}, "$page", page).url.pathname}`;
+  `https://rasarooz.ir${store_get($$store_subs ??= {}, "$page", page).url.pathname}`;
   data.tag?.name || "";
   TagSEO($$payload, { tag: data.tag });
   $$payload.out += `<!----> <div class="flex flex-col lg:flex-row gap-8"><div class="w-full lg:w-2/3">`;

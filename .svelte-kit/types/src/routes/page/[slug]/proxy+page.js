@@ -19,7 +19,9 @@ export async function load({ params }) {
             backlinks
         };
     } catch (error) {
-        console.error('Error:', error);
+        if (process.env.NODE_ENV === 'production') {
+            console.error(`Error loading page [slug=${params.slug}]: ${error.message}`);
+        }
         return {
             page: null,
             lasttextPosts: [],

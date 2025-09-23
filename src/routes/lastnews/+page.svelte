@@ -12,38 +12,43 @@
 
 
   // تابع بررسی وجود پست‌های جدید
-  async function checkForNewPosts() {
-    try {
-      loading = true;
-      const result = await fetchPosts(1, 50);
-      
-      // مقایسه ID آخرین پست
-      if (result.posts.length > 0 && posts.length > 0 && 
-          result.posts[0].id !== posts[0].id) {
-        showUpdatePopup = true;
-        setTimeout(() => {
-          posts = result.posts;
-          location.reload();
-        }, 3000);
-      }
-      loading = false;
-    } catch (error) {
-      if (process.env.NODE_ENV === 'production') {
-        console.error(`Error checking for new posts: ${error.message}`);
-      }
-      loading = false;
+async function checkForNewPosts() {
+  try {
+    loading = true;
+    const result = await fetchPosts(1, 50);
+    
+    console.log('Current posts:', posts.map(p => p.id));
+    console.log('New posts:', result.posts.map(p => p.id));
+    
+    const hasNewPosts = result.posts.some(
+      newPost => !posts.some(oldPost => oldPost.id === newPost.id)
+    );
+    
+    console.log('Has new posts:', hasNewPosts);
+    
+    if (hasNewPosts) {
+      showUpdatePopup = true;
+      setTimeout(() => {
+        posts = result.posts;
+        location.reload();
+      }, 3000);
     }
+    loading = false;
+  } catch (error) {
+    console.error(`Error checking for new posts: ${error.message}`);
+    loading = false;
   }
+}
 
   // هر ۲ دقیقه یک بار بررسی انجام شود
-  onMount(() => {
-    const interval = setInterval(checkForNewPosts, 2 * 60 * 1000); // هر ۲ دقیقه
-    return () => clearInterval(interval);
-  });
+ onMount(() => {
+  const interval = setInterval(checkForNewPosts, 5 * 60 * 1000); // هر ۵ دقیقه
+  return () => clearInterval(interval);
+});
 </script>
 
 <svelte:head>
-  <title>رسا نشر - آخرین خبرهای منتشر شده در رسا نشر</title>
+  <title>رسانه روز - آخرین خبرهای منتشر شده در رسانه روز</title>
 </svelte:head>
 
 {#if loading}

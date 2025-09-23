@@ -26,7 +26,7 @@
   // وضعیت نمایش پاپ‌آپ
   let showUpdatePopup = false;
 
-  $: currentUrl = `https://rasanashr.ir${$page.url.pathname}`;
+  $: currentUrl = `https://rasarooz.ir${$page.url.pathname}`;
 
   async function loadPosts(page = 1) {
     try {
@@ -72,19 +72,19 @@
     }
   }
 
-  // هر ۲ دقیقه یک بار کش پاک و بررسی انجام شود
+  // هر 5 دقیقه یک بار کش پاک و بررسی انجام شود
   onMount(() => {
     const interval = setInterval(async () => {
       await clearServiceWorkerCache();
       await checkForUpdates();
-    }, 2 * 60 * 1000); // هر ۲ دقیقه
+    }, 5 * 60 * 1000); // هر ۵ دقیقه
     return () => clearInterval(interval);
   });
 </script>
 
 <HomeSEO />
 <h1 class="absolute -left-9999 -top-9999 w-0 h-0 overflow-hidden opacity-0">
-پایگاه خبری تحلیلی رسا نشر - تازه ترین خبرهای ایران و جهان
+پایگاه خبری تحلیلی رسانه روز - تازه ترین خبرهای ایران و جهان
 </h1>
 <!-- Real Content Desktop -->
 <div class="hidden md:block" dir="rtl">

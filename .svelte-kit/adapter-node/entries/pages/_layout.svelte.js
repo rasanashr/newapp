@@ -1,10 +1,11 @@
-import { D as escape_html, C as pop, z as push, E as fallback, F as bind_props, G as attr, I as store_get, J as slot, K as unsubscribe_stores } from "../../chunks/index.js";
+import { a as escape_html, p as pop, d as push, f as fallback, g as getContext, e as ensure_array_like, j as store_get, b as attr, h as attr_class, u as unsubscribe_stores, c as bind_props, s as stringify, r as setContext, l as slot } from "../../chunks/index2.js";
 import "clsx";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc.js";
 import timezone from "dayjs/plugin/timezone.js";
 import jalaliday from "jalaliday";
-import { n as navigating } from "../../chunks/stores.js";
+import { w as writable } from "../../chunks/exports.js";
+import { n as navigating, p as page } from "../../chunks/stores.js";
 function WeatherWidget($$payload, $$props) {
   push();
   dayjs.extend(utc);
@@ -73,31 +74,36 @@ function WeatherWidget($$payload, $$props) {
 }
 function Tgjuwidget($$payload, $$props) {
   push();
-  $$payload.out += `<div id="tgju-container"></div>`;
+  $$payload.out += `<div class="tex-black"><div id="tgju-container"></div></div>`;
   pop();
 }
 function MobileMenu($$payload, $$props) {
   push();
+  var $$store_subs;
   let open = fallback($$props["open"], false);
   let onClose = fallback($$props["onClose"], () => {
   });
+  const categories = getContext("categories") || writable([]);
+  const pastelColors = [
+    "bg-[#ffe5ec]",
+    // صورتی روشن
+    "bg-[#e0f7fa]"
+    // آبی روشن
+  ];
   if (open) {
     $$payload.out += "<!--[-->";
-    $$payload.out += `<div class="fixed inset-0 z-40"><button type="button" class="absolute inset-0 bg-black bg-opacity-40 cursor-pointer" aria-label="بستن منو" tabindex="0" style="border:none;outline:none;padding:0;margin:0;"></button> <nav class="fixed top-0 right-0 h-full w-3/4 max-w-xs bg-white shadow-lg z-50 flex flex-col"><div class="flex items-center justify-between p-4 border-b"><span class="font-bold text-lg flex items-center gap-2 text-red-600"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12h18M3 6h18M3 18h18" stroke-linecap="round" stroke-linejoin="round"></path></svg> منو</span> <button class="btn btn-sm btn-ghost" aria-label="بستن"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button></div> <div class="flex-1 overflow-y-auto px-4 py-2"><ul class="space-y-2"><li><a href="/" class="flex items-center gap-2 text-red-600 transition-colors duration-200 rounded-lg px-3 py-2 block hover:bg-black hover:text-white pastel-animate svelte-t3cu0w" aria-label="لینک صفحه اصلی"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0h6" stroke-linecap="round" stroke-linejoin="round"></path></svg> خانه</a></li> <li><span class="block py-2 font-bold text-gray-700 flex items-center gap-2"><svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round"></path></svg> دسته‌بندی‌ها</span> `;
-    {
-      $$payload.out += "<!--[-->";
-      $$payload.out += `<div class="text-xs text-gray-400">در حال بارگذاری...</div>`;
+    const each_array = ensure_array_like(store_get($$store_subs ??= {}, "$categories", categories));
+    $$payload.out += `<div class="fixed inset-0 z-40"><button type="button" class="absolute inset-0 bg-black bg-opacity-40 cursor-pointer" aria-label="بستن منو" tabindex="0" style="border:none;outline:none;padding:0;margin:0;"></button> <nav class="fixed top-0 right-0 h-full w-3/4 max-w-xs bg-white shadow-lg z-50 flex flex-col"><div class="flex items-center justify-between p-4 border-b"><span class="font-bold text-lg flex items-center gap-2 text-red-600"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12h18M3 6h18M3 18h18" stroke-linecap="round" stroke-linejoin="round"></path></svg> منو</span> <button class="btn btn-sm btn-ghost" aria-label="بستن"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button></div> <div class="flex-1 overflow-y-auto px-4 py-2"><ul class="space-y-2"><li><a href="/" class="flex items-center gap-2 text-red-600 transition-colors duration-200 rounded-lg px-3 py-2 block hover:bg-black hover:text-white" aria-label="لینک صفحه اصلی"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0h6" stroke-linecap="round" stroke-linejoin="round"></path></svg> خانه</a></li> <li><a href="https://rasanashr.ir/page/%D8%AA%D9%85%D8%A7%D8%B3-%D8%A8%D8%A7-%D9%85%D8%A7" class="flex items-center gap-2 text-red-600 transition-colors duration-200 rounded-lg px-3 py-2 block hover:bg-black hover:text-white" aria-label="لینک صفحه اصلی">تماس با ما</a></li> <li><a href="https://rasanashr.ir/page/%D8%AF%D8%B1%D8%A8%D8%A7%D8%B1%D9%87-%D8%B1%D8%B3%D8%A7-%D9%86%D8%B4%D8%B1" class="flex items-center gap-2 text-red-600 transition-colors duration-200 rounded-lg px-3 py-2 block hover:bg-black hover:text-white" aria-label="لینک صفحه اصلی">درباره ما</a></li> <li><span class="block py-2 font-bold text-gray-700 flex items-center gap-2"><svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round"></path></svg> دسته‌بندی‌ها</span> <ul class="pl-2 space-y-1"><!--[-->`;
+    for (let i = 0, $$length = each_array.length; i < $$length; i++) {
+      let cat = each_array[i];
+      $$payload.out += `<li><a${attr("href", `/category/${cat.slug}`)}${attr_class(`${stringify(pastelColors[i % 2])} transition-colors duration-200 rounded-lg px-3 py-2 block text-gray-800 hover:bg-black hover:text-white`)} aria-label="لینک دسته بندی">${escape_html(cat.name)}</a></li>`;
     }
-    $$payload.out += `<!--]--></li> <li><span class="block py-2 font-bold text-gray-700 flex items-center gap-2"><svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"></circle><path d="M8 12h8M12 8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg> صفحات</span> `;
-    {
-      $$payload.out += "<!--[-->";
-      $$payload.out += `<div class="text-xs text-gray-400">در حال بارگذاری...</div>`;
-    }
-    $$payload.out += `<!--]--></li></ul></div></nav></div>`;
+    $$payload.out += `<!--]--></ul></li></ul></div></nav></div>`;
   } else {
     $$payload.out += "<!--[!-->";
   }
   $$payload.out += `<!--]-->`;
+  if ($$store_subs) unsubscribe_stores($$store_subs);
   bind_props($$props, { open, onClose });
   pop();
 }
@@ -108,7 +114,7 @@ function Header($$payload, $$props) {
   let menuOpen = false;
   $$payload.out += `<header><div class="w-full bg-[#f40000] flex flex-col items-center pt-4 pb-0 hidden md:flex"><div class="w-full flex flex-row justify-between items-start px-0"><div class="w-[25px] h-[176px] mt-2 ml-[10vw]"></div> <div class="bg-white rounded-lg w-[250px] h-[176px] mt-2 ml-[10vw]"><img${attr("src", mojavez)} alt="پایگاه خبری رسا نشر" class="w-[250px] h-[176px] select-none" draggable="false"></div> <div class="flex flex-col items-center justify-center"><a href="/" aria-label="صفحه اصلی رسا نشر"><img${attr("src", logoUrl)} alt="لوگو رسا نشر" class="h-[120px] mt-2 select-none" draggable="false"></a></div> <div class="bg-white rounded-lg w-[250px] h-[176px] mt-2 mr-[10vw]">`;
   WeatherWidget($$payload);
-  $$payload.out += `<!----></div> <div class="w-[25px] h-[176px] mt-2 ml-[10vw]"></div></div> <div class="w-[95%] flex flex-row items-center justify-center mt-4 mb-2"><div class="w-full flex flex-row items-center justify-center bg-[#f7f0f0] rounded-full py-2"><div class="flex-1 text-center text-l font-bold"><a href="/" aria-label="صفحه اصلی"><span class="text-black px-2">خانه</span></a><span class="text-lime-300">|</span> <a href="/category/اجتماعی/" target="_blank" aria-label="اخبار اجتماعی"><span class="text-black px-2">اجتماعی</span></a> <span class="text-lime-300">|</span> <a href="/category/سیاسی/" target="_blank" aria-label="اخبار سیاسی"><span class="text-black px-2">سیاسی</span></a><span class="text-lime-300">|</span> <a href="/category/فرهنگ-و-هنر/" target="_blank" aria-label="اخبار فرهنگی"><span class="text-black px-2">فرهنگ و هنر</span></a><span class="text-lime-300">|</span> <a href="/category/اخبار-هوش-مصنوعی/" target="_blank" aria-label="خبرهای هوش مصنوعی"><span class="text-black px-2">هوش مصنوعی</span></a><span class="text-lime-300">|</span> <a href="/category/فیلم-و-سینما/" target="_blank" aria-label="اخبار سینما"><span class="text-black px-2">سینما</span></a></div> <div class="flex items-center justify-center m-auto"><div class="rounded-full bg-[#39e600] border-4 border-white flex items-center justify-center w-15 h-15 -mt-8 z-10"><a href="/categories" aria-label="همه دسته بندی ها"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path fill="#fff" d="M20.023 17.484c-1.732-.205-3.022-.908-4.212-1.7l-.558.278l-2.578 8.924c1.217.805 2.905 1.707 4.682 1.914c2.686.312 5.56-.744 6.39-1.195l2.618-9.06l-.56-.28s-2.61 1.492-5.78 1.12zm-5.6-2.66c-1.266-.87-2.577-1.65-4.374-1.815a10 10 0 0 0-.926-.043c-3.01 0-4.948 1.347-4.948 1.347L1.61 23.19l.527.282a10.1 10.1 0 0 1 5.09-.984c1.665.113 2.92.78 4.117 1.53l.507-.26l2.574-8.933zm-4.222-2.73c1.665.114 2.922.78 4.118 1.533l.51-.26L17.4 4.43c-1.27-.87-2.58-1.652-4.377-1.815a10 10 0 0 0-.924-.042c-3.012 0-4.95 1.347-4.95 1.347l-2.566 8.878l.526.282a10.1 10.1 0 0 1 5.09-.986zM28.78 5.97c0 .002-2.61 1.493-5.78 1.12c-1.734-.204-3.023-.907-4.213-1.7l-.56.28l-2.576 8.923c1.216.803 2.907 1.71 4.68 1.915c2.688.312 5.56-.745 6.393-1.197l2.615-9.058l-.56-.28z"></path></svg></a></div></div> <div class="flex-1 text-center text-l font-bold"><a href="/category/اقتصادی/" target="_blank" aria-label="اخبار اقتصادی"><span class="text-black px-2">اقتصادی</span></a><span class="text-lime-300">|</span> <a href="/category/ورزشی" target="_blank" aria-label="اخبار ورزشی"><span class="text-black px-2">ورزشی</span></a> <span class="text-lime-300">|</span> <a href="/category/lifestyle/" target="_blank" aria-label="سبک زندگی"><span class="text-black px-2">سبک زندگی</span></a><span class="text-lime-300">|</span> <a href="/category/فناوری_اطلاعات" target="_blank" aria-label="تازه های فناوری"><span class="text-black px-2">فناوری</span></a><span class="text-lime-300">|</span> <a href="/category/بین-الملل/" target="_blank" aria-label="اخبار بین الملل"><span class="text-black px-2">بین الملل</span></a><span class="text-lime-300">|</span> <a href="/category/چندرسانه-ای/" target="_blank" aria-label="عکس و فیلم"><span class="text-black px-2">چند رسانه ای</span></a></div></div></div></div></header> <div class="lg:hidden relative"><div class="bg-red-600 h-14 flex items-center justify-center shadow-sm relative z-0"></div> <div class="bg-gray-300 h-10 pb-3 flex items-center justify-center z-0"><div class="md:hidden">`;
+  $$payload.out += `<!----></div> <div class="w-[25px] h-[176px] mt-2 ml-[10vw]"></div></div> <div class="w-[95%] flex flex-row items-center justify-center mt-4 mb-2"><div class="w-full flex flex-row items-center justify-center bg-[#f7f0f0] rounded-full py-2"><div class="flex-1 text-center text-l font-bold"><a href="/" aria-label="صفحه اصلی"><span class="text-black px-2">خانه</span></a><span class="text-lime-300">|</span> <a href="/category/اجتماعی/" aria-label="اخبار اجتماعی"><span class="text-black px-2">اجتماعی</span></a> <span class="text-lime-300">|</span> <a href="/category/سیاسی/" aria-label="اخبار سیاسی"><span class="text-black px-2">سیاسی</span></a><span class="text-lime-300">|</span> <a href="/category/فرهنگ-و-هنر/" aria-label="اخبار فرهنگی"><span class="text-black px-2">فرهنگ و هنر</span></a><span class="text-lime-300">|</span> <a href="/category/اخبار-هوش-مصنوعی/" aria-label="خبرهای هوش مصنوعی"><span class="text-black px-2">هوش مصنوعی</span></a><span class="text-lime-300">|</span> <a href="/category/فیلم-و-سینما/" aria-label="اخبار سینما"><span class="text-black px-2">سینما</span></a></div> <div class="flex items-center justify-center m-auto"><div class="rounded-full bg-[#39e600] border-4 border-white flex items-center justify-center w-15 h-15 -mt-8 z-10"><a href="/categories" aria-label="همه دسته بندی ها"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path fill="#fff" d="M20.023 17.484c-1.732-.205-3.022-.908-4.212-1.7l-.558.278l-2.578 8.924c1.217.805 2.905 1.707 4.682 1.914c2.686.312 5.56-.744 6.39-1.195l2.618-9.06l-.56-.28s-2.61 1.492-5.78 1.12zm-5.6-2.66c-1.266-.87-2.577-1.65-4.374-1.815a10 10 0 0 0-.926-.043c-3.01 0-4.948 1.347-4.948 1.347L1.61 23.19l.527.282a10.1 10.1 0 0 1 5.09-.984c1.665.113 2.92.78 4.117 1.53l.507-.26l2.574-8.933zm-4.222-2.73c1.665.114 2.922.78 4.118 1.533l.51-.26L17.4 4.43c-1.27-.87-2.58-1.652-4.377-1.815a10 10 0 0 0-.924-.042c-3.012 0-4.95 1.347-4.95 1.347l-2.566 8.878l.526.282a10.1 10.1 0 0 1 5.09-.986zM28.78 5.97c0 .002-2.61 1.493-5.78 1.12c-1.734-.204-3.023-.907-4.213-1.7l-.56.28l-2.576 8.923c1.216.803 2.907 1.71 4.68 1.915c2.688.312 5.56-.745 6.393-1.197l2.615-9.058l-.56-.28z"></path></svg></a></div></div> <div class="flex-1 text-center text-l font-bold"><a href="/category/اقتصادی/" aria-label="اخبار اقتصادی"><span class="text-black px-2">اقتصادی</span></a><span class="text-lime-300">|</span> <a href="/category/ورزشی" aria-label="اخبار ورزشی"><span class="text-black px-2">ورزشی</span></a> <span class="text-lime-300">|</span> <a href="/category/lifestyle/" aria-label="سبک زندگی"><span class="text-black px-2">سبک زندگی</span></a><span class="text-lime-300">|</span> <a href="/category/فناوری_اطلاعات" aria-label="تازه های فناوری"><span class="text-black px-2">فناوری</span></a><span class="text-lime-300">|</span> <a href="/category/بین-الملل/" aria-label="اخبار بین الملل"><span class="text-black px-2">بین الملل</span></a><span class="text-lime-300">|</span> <a href="/category/چندرسانه-ای/" aria-label="عکس و فیلم"><span class="text-black px-2">چند رسانه ای</span></a></div></div></div></div></header> <div class="lg:hidden relative"><div class="bg-red-600 h-14 flex items-center justify-center shadow-sm relative z-0"></div> <div class="bg-gray-300 h-10 pb-3 flex items-center justify-center z-0"><div class="md:hidden">`;
   WeatherWidget($$payload);
   $$payload.out += `<!----></div></div> <div class="absolute inset-x-0 top-3 flex items-center justify-center z-10"><div class="w-24 h-24 rounded-full bg-white border-2 border-red-600 flex items-center justify-center"><a href="/" aria-label="صفحه اصلی رسا نشر"><img${attr("src", mlogo)} alt="لوگو رسا نشر" class="h-19 select-none" draggable="false"></a></div></div> <div class="absolute right-4 top-4 z-20"><button class="btn btn-ghost btn-circle text-white" aria-label="باز کردن منوی اصلی"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button></div></div> `;
   Tgjuwidget($$payload);
@@ -125,7 +131,7 @@ function Footer($$payload) {
 }
 function Splash_1($$payload, $$props) {
   let Splash = fallback($$props["Splash"], "/splash.png");
-  $$payload.out += `<div class="text-center text-2xl font-bold text-red-600 font-extra"><img${attr("src", Splash)} alt="پایگاه خبری رسا نشر" class="w-[50%] mx-auto select-none" draggable="false"> <p>پایگاه خبری تحلیلی رسا نشر</p></div>`;
+  $$payload.out += `<div class="text-center text-2xl font-bold text-red-600 font-extra"><img${attr("src", Splash)} alt="پایگاه خبری رسا نشر" class="w-[25%] mx-auto select-none" draggable="false"> <p>پایگاه خبری تحلیلی رسا نشر</p></div>`;
   bind_props($$props, { Splash });
 }
 function BackToTop($$payload, $$props) {
@@ -139,25 +145,36 @@ function BackToTop($$payload, $$props) {
 function _layout($$payload, $$props) {
   push();
   var $$store_subs;
-  let categories = [];
+  let data = $$props["data"];
+  const categories = writable(data.categories);
+  setContext("categories", categories);
+  categories.set(data.categories);
   if (store_get($$store_subs ??= {}, "$navigating", navigating)) {
     $$payload.out += "<!--[-->";
-    $$payload.out += `<div class="loading-overlay svelte-ktihyh">`;
+    $$payload.out += `<div class="loading-overlay svelte-jju39e">`;
     Splash_1($$payload, {});
     $$payload.out += `<!----></div>`;
   } else {
     $$payload.out += "<!--[!-->";
   }
-  $$payload.out += `<!--]--> <div class="flex flex-col min-h-screen">`;
-  Header($$payload, { categories });
-  $$payload.out += `<!----> <main class="flex-grow"><!---->`;
-  slot($$payload, $$props, "default", {});
+  $$payload.out += `<!--]--> <div class="flex min-h-screen flex-col bg-white dark:bg-gray-900">`;
+  if (store_get($$store_subs ??= {}, "$page", page).route.id !== "/short") {
+    $$payload.out += "<!--[-->";
+    Header($$payload, { categories });
+  } else {
+    $$payload.out += "<!--[!-->";
+  }
+  $$payload.out += `<!--]--> <main${attr_class("flex-grow svelte-jju39e", void 0, {
+    "is-short-page": store_get($$store_subs ??= {}, "$page", page).route.id === "/short"
+  })}><!---->`;
+  slot($$payload, $$props, "default", {}, null);
   $$payload.out += `<!----></main> `;
   Footer($$payload);
   $$payload.out += `<!----> `;
   BackToTop($$payload);
   $$payload.out += `<!----></div>`;
   if ($$store_subs) unsubscribe_stores($$store_subs);
+  bind_props($$props, { data });
   pop();
 }
 export {

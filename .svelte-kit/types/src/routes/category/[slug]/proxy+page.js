@@ -2,7 +2,7 @@
 import { fetchCategory, fetchPostsByCategory, fetchPosts } from '$lib/services/wordpress';
 
 /** @param {Parameters<import('./$types').PageLoad>[0]} event */
-export async function load({ params }) {
+export async function load({ params, setHeaders }) {
     try {
         // واکشی اطلاعات اصلی دسته و پست‌ها
         const category = await fetchCategory(params.slug);
@@ -15,6 +15,11 @@ export async function load({ params }) {
         ]);
 
         const backlinks = await backlinksRes.json();
+
+        // Set cache headers
+        setHeaders({
+            'Cache-Control': 'public, max-age=300, s-maxage=300' // 5 minutes
+        });
 
         return {
             category,

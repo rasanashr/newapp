@@ -3,18 +3,18 @@
   import { createPostSchema } from '$lib/utils/createSchema.js';
   export let post;
 
-  $: currentUrl = `https://rasanashr.ir${$page.url.pathname}`;
+  $: currentUrl = `https://rasarooz.ir${$page.url.pathname}`;
   
   $: breadcrumbs = [
     {
       position: 1,
       name: 'خانه',
-      item: 'https://rasanashr.ir/'
+      item: 'https://rasarooz.ir/'
     },
     ...(post?.categories_info || []).map((category, index) => ({
       position: index + 2,
       name: category.name,
-      item: `https://rasanashr.ir/category/${category.slug}/`
+      item: `https://rasarooz.ir/category/${category.slug}/`
     })),
     {
       position: (post?.categories_info?.length || 0) + 2,
@@ -23,7 +23,7 @@
     }
   ];
 
-  $: title = post ? `${post.title.rendered} | رسا نشر` : 'رسا نشر';
+  $: title = post ? `${post.title.rendered} | رسانه روز` : 'رسانه روز';
   $: description = 
     post?.excerpt?.rendered?.replace(/<[^>]*>/g, '').slice(0, 160) || '';
   $: keywords = post?.tags_info?.map(tag => tag.name).join(', ') || '';
@@ -35,7 +35,7 @@
       type: 'article',
       url: currentUrl,
       image: post?._embedded?.['wp:featuredmedia']?.[0]?.source_url || '',
-      site_name: 'رسا نشر',
+      site_name: 'رسانه روز',
       locale: 'fa_IR',
       'article:published_time': post?.date ? new Date(post.date).toISOString() : '',
       'article:modified_time': post?.modified ? new Date(post.modified).toISOString() : ''
@@ -50,7 +50,7 @@
   <meta name="description" content={description} />
   <meta name="keywords" content={keywords} />
   <meta name="robots" content="index, follow" />
-  <meta name="author" content={post?._embedded?.author?.[0]?.name || 'رسا نشر'} />
+  <meta name="author" content={post?._embedded?.author?.[0]?.name || 'رسانه روز'} />
   <link rel="canonical" href={canonical} />
 
   <!-- Open Graph -->

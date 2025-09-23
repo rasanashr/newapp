@@ -1,4 +1,4 @@
-import { I as store_get, R as head, K as unsubscribe_stores, F as bind_props, C as pop, z as push, D as escape_html, G as attr } from "../../../../chunks/index.js";
+import { j as store_get, i as head, u as unsubscribe_stores, c as bind_props, p as pop, d as push, a as escape_html, b as attr } from "../../../../chunks/index2.js";
 import { p as page } from "../../../../chunks/stores.js";
 import { h as html } from "../../../../chunks/html.js";
 import { S as Sidebar } from "../../../../chunks/Sidebar.js";
@@ -9,16 +9,16 @@ function PageSEO($$payload, $$props) {
   let currentUrl, title, description, keywords, og, canonical, schema;
   let pageData = $$props["pageData"];
   currentUrl = `https://rasanashr.ir${store_get($$store_subs ??= {}, "$page", page).url.pathname}`;
-  title = pageData ? `${pageData.title.rendered} | رسا نشر` : "رسا نشر";
+  title = pageData ? `${pageData.title.rendered} | رسانه روز` : "رسانه روز";
   description = pageData?.excerpt?.rendered?.replace(/<[^>]*>/g, "").slice(0, 160) || "";
-  keywords = pageData ? `رسا نشر, ${pageData.title.rendered}` : "";
+  keywords = pageData ? `رسانه روز, ${pageData.title.rendered}` : "";
   og = {
     title,
     description,
     type: "article",
     url: currentUrl,
     image: pageData?._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "",
-    site_name: "رسا نشر",
+    site_name: "رسانه روز",
     locale: "fa_IR",
     "article:published_time": pageData?.date,
     "article:modified_time": pageData?.modified
@@ -33,21 +33,21 @@ function PageSEO($$payload, $$props) {
     dateModified: pageData?.modified,
     author: {
       "@type": "Person",
-      name: pageData?._embedded?.author?.[0]?.name || "رسا نشر"
+      name: pageData?._embedded?.author?.[0]?.name || "رسانه روز"
     },
     publisher: {
       "@type": "Organization",
-      name: "رسا نشر",
+      name: "رسانه روز",
       logo: {
         "@type": "ImageObject",
-        url: "https://rasanashr.ir/duc.png"
+        url: "https://rasarooz.ir/duc.png"
       }
     },
     mainEntityOfPage: { "@type": "WebPage", "@id": currentUrl }
   };
   head($$payload, ($$payload2) => {
     $$payload2.title = `<title>${escape_html(title)}</title>`;
-    $$payload2.out += `<meta name="description"${attr("content", description)}> <meta name="keywords"${attr("content", keywords)}> <meta name="robots" content="index, follow"> <meta name="author"${attr("content", pageData?._embedded?.author?.[0]?.name || "رسا نشر")}> <link rel="canonical"${attr("href", canonical)}> <meta property="og:title"${attr("content", og.title)}> <meta property="og:description"${attr("content", og.description)}> <meta property="og:type"${attr("content", og.type)}> <meta property="og:url"${attr("content", og.url)}> <meta property="og:image"${attr("content", og.image)}> <meta property="og:site_name"${attr("content", og.site_name)}> <meta property="og:locale"${attr("content", og.locale)}> <meta property="article:published_time"${attr("content", og["article:published_time"])}> <meta property="article:modified_time"${attr("content", og["article:modified_time"])}> ${html(`<script type="application/ld+json">${JSON.stringify(schema)}<\/script>`)}`;
+    $$payload2.out += `<meta name="description"${attr("content", description)}> <meta name="keywords"${attr("content", keywords)}> <meta name="robots" content="index, follow"> <meta name="author"${attr("content", pageData?._embedded?.author?.[0]?.name || "رسانه روز")}> <link rel="canonical"${attr("href", canonical)}> <meta property="og:title"${attr("content", og.title)}> <meta property="og:description"${attr("content", og.description)}> <meta property="og:type"${attr("content", og.type)}> <meta property="og:url"${attr("content", og.url)}> <meta property="og:image"${attr("content", og.image)}> <meta property="og:site_name"${attr("content", og.site_name)}> <meta property="og:locale"${attr("content", og.locale)}> <meta property="article:published_time"${attr("content", og["article:published_time"])}> <meta property="article:modified_time"${attr("content", og["article:modified_time"])}> ${html(`<script type="application/ld+json">${JSON.stringify(schema)}<\/script>`)}`;
   });
   if ($$store_subs) unsubscribe_stores($$store_subs);
   bind_props($$props, { pageData });
@@ -107,13 +107,13 @@ function _page($$payload, $$props) {
   let pageData, content;
   let data = $$props["data"];
   pageData = data.page;
-  `https://rasanashr.ir${store_get($$store_subs ??= {}, "$page", page).url.pathname}`;
+  `https://rasarooz.ir${store_get($$store_subs ??= {}, "$page", page).url.pathname}`;
   content = pageData?.content?.rendered ? sanitizeHtml(pageData.content.rendered) : "";
   PageSEO($$payload, { pageData: data.page });
   $$payload.out += `<!----> <div class="flex flex-col lg:flex-row gap-8"><div class="w-full lg:w-2/3">`;
   if (pageData) {
     $$payload.out += "<!--[-->";
-    $$payload.out += `<article class="bg-white rounded-lg shadow-lg overflow-hidden"><div class="p-8"><h1 class="text-3xl font-bold mb-8 text-right">${html(pageData.title.rendered)}</h1> <div class="prose prose-lg max-w-none rtl">${html(content)}</div></div></article>`;
+    $$payload.out += `<article class="bg-white rounded-lg shadow-lg overflow-hidden"><div class="p-8"><h1 class="text-3xl font-bold mb-8 text-right text-black">${html(pageData.title.rendered)}</h1> <div class="prose prose-lg text-black max-w-none rtl">${html(content)}</div></div></article>`;
   } else {
     $$payload.out += "<!--[!-->";
     $$payload.out += `<div class="bg-white rounded-lg shadow-lg p-8 text-center"><h1 class="text-3xl font-bold mb-4">صفحه مورد نظر یافت نشد</h1> <p class="text-xl text-gray-600 mb-6">متأسفانه صفحه مورد نظر شما در سایت وجود ندارد.</p> <a href="/" class="btn btn-primary">بازگشت به صفحه اصلی</a></div>`;

@@ -3,16 +3,16 @@
     import { page } from '$app/stores';
     export let pageData;
     $: currentUrl = `https://rasanashr.ir${$page.url.pathname}`;
-    $: title = pageData ? `${pageData.title.rendered} | رسا نشر` : 'رسا نشر';
+    $: title = pageData ? `${pageData.title.rendered} | رسانه روز` : 'رسانه روز';
     $: description = pageData?.excerpt?.rendered?.replace(/<[^>]*>/g, '').slice(0, 160) || '';
-    $: keywords = pageData ? `رسا نشر, ${pageData.title.rendered}` : '';
+    $: keywords = pageData ? `رسانه روز, ${pageData.title.rendered}` : '';
     $: og = {
         title,
         description,
         type: 'article',
         url: currentUrl,
         image: pageData?._embedded?.['wp:featuredmedia']?.[0]?.source_url || '',
-        site_name: 'رسا نشر',
+        site_name: 'رسانه روز',
         locale: 'fa_IR',
         'article:published_time': pageData?.date,
         'article:modified_time': pageData?.modified
@@ -27,14 +27,14 @@
         dateModified: pageData?.modified,
         author: {
             '@type': 'Person',
-            name: pageData?._embedded?.author?.[0]?.name || 'رسا نشر'
+            name: pageData?._embedded?.author?.[0]?.name || 'رسانه روز'
         },
         publisher: {
             '@type': 'Organization',
-            name: 'رسا نشر',
+            name: 'رسانه روز',
             logo: {
                 '@type': 'ImageObject',
-                url: 'https://rasanashr.ir/duc.png'
+                url: 'https://rasarooz.ir/duc.png'
             }
         },
         mainEntityOfPage: {
@@ -49,7 +49,7 @@
     <meta name="description" content={description} />
     <meta name="keywords" content={keywords} />
     <meta name="robots" content="index, follow" />
-    <meta name="author" content={pageData?._embedded?.author?.[0]?.name || 'رسا نشر'} />
+    <meta name="author" content={pageData?._embedded?.author?.[0]?.name || 'رسانه روز'} />
     <link rel="canonical" href={canonical} />
     <meta property="og:title" content={og.title} />
     <meta property="og:description" content={og.description} />

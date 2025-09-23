@@ -26,7 +26,7 @@
       currentPage = 1;
   }
 
-  $: currentUrl = `https://rasanashr.ir${$page.url.pathname}`;
+  $: currentUrl = `https://rasarooz.ir${$page.url.pathname}`;
 
   async function loadPosts(categoryId, page = 1) {
     try {

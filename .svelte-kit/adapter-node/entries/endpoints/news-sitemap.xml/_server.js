@@ -3,7 +3,7 @@ async function GET() {
   try {
     const postsResult = await fetchPosts(1, 100, true);
     const posts = postsResult.posts || [];
-    const baseUrl = "https://rasanashr.ir";
+    const baseUrl = "https://rasarooz.ir";
     const now = /* @__PURE__ */ new Date();
     let xml = '<?xml version="1.0" encoding="UTF-8"?>';
     xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" ';
@@ -20,7 +20,7 @@ async function GET() {
     <loc>${baseUrl}/${post.id}/${post.slug}</loc>
     <news:news>
       <news:publication>
-        <news:name>رسا نشر</news:name>
+        <news:name>رسانه روز</news:name>
         <news:language>fa</news:language>
       </news:publication>
       <news:publication_date>${pubDate}</news:publication_date>
@@ -45,7 +45,9 @@ async function GET() {
       }
     });
   } catch (error) {
-    console.error("Error generating news sitemap:", error);
+    if (process.env.NODE_ENV === "production") {
+      console.error(`News sitemap generation error: ${error.message}`);
+    }
     return new Response("Error generating sitemap", { status: 500 });
   }
 }

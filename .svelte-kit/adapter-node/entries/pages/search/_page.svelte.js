@@ -1,4 +1,4 @@
-import { E as fallback, I as store_get, R as head, K as unsubscribe_stores, F as bind_props, C as pop, z as push, D as escape_html, G as attr, N as ensure_array_like, P as stringify } from "../../../chunks/index.js";
+import { f as fallback, j as store_get, i as head, u as unsubscribe_stores, c as bind_props, p as pop, d as push, a as escape_html, b as attr, e as ensure_array_like, s as stringify } from "../../../chunks/index2.js";
 import { p as page } from "../../../chunks/stores.js";
 import { g as goto } from "../../../chunks/client.js";
 import { S as Sidebar } from "../../../chunks/Sidebar.js";
@@ -10,17 +10,17 @@ function SearchSEO($$payload, $$props) {
   let currentUrl, title, description, og, canonical;
   let query = fallback($$props["query"], "");
   currentUrl = `https://rasanashr.ir${store_get($$store_subs ??= {}, "$page", page).url.pathname}`;
-  title = query ? `جستجو: ${query} | رسا نشر` : "جستجو در رسا نشر";
-  description = query ? `نتایج جستجو برای ${query} در پایگاه خبری تحلیلی رسا نشر` : "جستجو در مطالب پایگاه خبری تحلیلی رسا نشر";
+  title = query ? `جستجو: ${query} | رسانه روز` : "جستجو در رسانه روز";
+  description = query ? `نتایج جستجو برای ${query} در پایگاه خبری تحلیلی رسانه روز` : "جستجو در مطالب پایگاه خبری تحلیلی رسانه روز";
   og = {
     title,
     description,
     type: "website",
     url: currentUrl,
-    site_name: "رسا نشر",
+    site_name: "رسانه روز",
     locale: "fa_IR"
   };
-  canonical = "https://rasanashr.ir/search";
+  canonical = "https://rasarooz.ir/search";
   head($$payload, ($$payload2) => {
     $$payload2.title = `<title>${escape_html(title)}</title>`;
     $$payload2.out += `<meta name="description"${attr("content", description)}> <meta name="robots" content="noindex, follow"> <link rel="canonical"${attr("href", canonical)}> <meta property="og:title"${attr("content", og.title)}> <meta property="og:description"${attr("content", og.description)}> <meta property="og:type"${attr("content", og.type)}> <meta property="og:url"${attr("content", og.url)}> <meta property="og:site_name"${attr("content", og.site_name)}> <meta property="og:locale"${attr("content", og.locale)}>`;

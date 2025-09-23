@@ -6,9 +6,9 @@ import { fetchLatestPostsForFeed } from '$lib/services/wordpress.js';
 export async function GET() {
     const { posts } = await fetchLatestPostsForFeed();
 
-    const siteUrl = 'https://rasanashr.ir';
-    const feedTitle = 'Rasanashr News Feed';
-    const feedDescription = 'آخرین اخبار رسانه نشر';
+    const siteUrl = 'https://rasarooz.ir';
+    const feedTitle = 'Rasanooz News Feed';
+    const feedDescription = 'آخرین اخبار رسانه روز';
     const feedLink = `${siteUrl}/feed`;
 
     const items = posts.map(post => {

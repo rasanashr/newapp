@@ -9,7 +9,7 @@
 </script>
 
 <svelte:head>
-  <title>صفحه پیدا نشد | رسا نشر</title>
+  <title>صفحه پیدا نشد | رسانه روز</title>
   <meta name="robots" content="noindex, nofollow" />
   <meta name="description" content="صفحه مورد نظر شما پیدا نشد. لطفاً از منوی سایت یا جستجو استفاده کنید." />
 </svelte:head>

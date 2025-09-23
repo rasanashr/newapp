@@ -1,4 +1,4 @@
-import { a as fetchPosts, d as fetchPostsByCategory } from "../../chunks/wordpress.js";
+import { a as fetchPosts, c as fetchPostsByCategory } from "../../chunks/wordpress.js";
 async function load({ fetch }) {
   try {
     const [result, mediapostData, firstnewsData, notofdayData, slider1Data, lasttextData] = await Promise.all([

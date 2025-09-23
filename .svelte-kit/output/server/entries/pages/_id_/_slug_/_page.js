@@ -1,5 +1,5 @@
-import { l as fetchPost, a as fetchPosts, m as fetchRelatedPosts } from "../../../../chunks/wordpress.js";
-import { e as error } from "../../../../chunks/index2.js";
+import { k as fetchPost, a as fetchPosts, l as fetchRelatedPosts } from "../../../../chunks/wordpress.js";
+import { e as error } from "../../../../chunks/index.js";
 async function load({ params, fetch }) {
   try {
     const post = await fetchPost(params.id);
@@ -20,7 +20,9 @@ async function load({ params, fetch }) {
       relatedPosts
     };
   } catch (err) {
-    console.error("خطا در بارگذاری صفحه:", err);
+    if (process.env.NODE_ENV === "production") {
+      console.error(`Error loading post [id=${params.id}, slug=${params.slug}]: ${err.message}`);
+    }
     throw error(404, "پست پیدا نشد");
   }
 }

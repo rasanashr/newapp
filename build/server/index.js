@@ -1,6 +1,7 @@
-import { r as render, s as set, L as LEGACY_PROPS, g as get, f as flushSync, d as define_property, m as mutable_source, i as init_operations, a as get_first_child, H as HYDRATION_START, b as get_next_sibling, c as HYDRATION_ERROR, e as HYDRATION_END, h as hydration_failed, j as clear_text_content, k as array_from, l as component_root, n as set_active_reaction, o as set_active_effect, p as is_array, q as active_effect, t as active_reaction, u as create_text, v as branch, w as push, x as setContext, y as pop, z as push$1, A as component_context, B as pop$1, C as BROWSER } from './chunks/index-Dyzm0Ju0.js';
-import { H as HttpError, j as json, t as text, R as Redirect, S as SvelteKitError, A as ActionFailure } from './chunks/index2-CvuFLVuQ.js';
-import { d as decode_pathname, a as decode_params, n as normalize_path, b as disable_search, v as validate_layout_server_exports, c as validate_layout_exports, e as validate_page_server_exports, f as validate_page_exports, r as resolve, m as make_trackable, g as readable, w as writable } from './chunks/exports-bw_aLFL-.js';
+import { t as render, v as set, L as LEGACY_PROPS, w as get, x as flushSync, y as define_property, z as mutable_source, A as init_operations, B as get_first_child, H as HYDRATION_START, C as get_next_sibling, D as HYDRATION_ERROR, E as HYDRATION_END, F as hydration_failed, G as clear_text_content, I as array_from, J as component_root, K as set_active_reaction, M as set_active_effect, N as is_array, O as active_effect, P as active_reaction, Q as create_text, R as branch, p as push, s as setContext, e as pop, S as push$1, T as component_context, U as pop$1, V as BROWSER } from './chunks/index2-D34Xi-nR.js';
+import { H as HttpError, j as json, t as text, R as Redirect, S as SvelteKitError, A as ActionFailure } from './chunks/index-CvuFLVuQ.js';
+import { d as decode_pathname, a as decode_params, n as normalize_path, b as disable_search, v as validate_layout_server_exports, c as validate_layout_exports, e as validate_page_server_exports, f as validate_page_exports, r as resolve, m as make_trackable, g as readable, w as writable } from './chunks/exports-Djz9nIiK.js';
+import { a as public_env, s as safe_public_env, b as set_public_env, c as set_safe_public_env, d as set_private_env } from './chunks/shared-server-D35IkZbF.js';
 
 let base = "";
 let assets = base;
@@ -13,14 +14,6 @@ function override(paths) {
 function reset() {
   base = initial.base;
   assets = initial.assets;
-}
-let public_env = {};
-let safe_public_env = {};
-function set_public_env(environment) {
-  public_env = environment;
-}
-function set_safe_public_env(environment) {
-  safe_public_env = environment;
 }
 function hydration_mismatch(location) {
   {
@@ -469,7 +462,7 @@ const options = {
   root,
   service_worker: true,
   templates: {
-    app: ({ head, body, assets: assets2, nonce, env }) => '<!DOCTYPE html>\n<html lang="fa" dir="rtl">\n  <head>\n    <meta charset="utf-8" />\n    <link rel="icon" href="/favicon.png" />\n    <link rel="manifest" href="/manifest.json">\n    <meta name="theme-color" content="#f40000">\n    <link rel="apple-touch-icon" href="/icon-192.png">\n    <meta name="mobile-web-app-capable" content="yes">\n    <meta name="apple-mobile-web-app-status-bar-style" content="black">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">\n' + head + '\n  </head>\n  <body>\n    <div id="svelte"> ' + body + "</div>\n    <script>\n      if ('serviceWorker' in navigator) {\n        window.addEventListener('load', () => {\n          navigator.serviceWorker.register('/service-worker.js', { scope: '/' })\n            .then(registration => {\n              console.log('SW registered:', registration);\n            })\n            .catch(error => {\n              console.log('SW registration failed:', error);\n            });\n        });\n      }\n    <\/script>\n  </body>\n</html>\n",
+    app: ({ head, body, assets: assets2, nonce, env }) => '<!DOCTYPE html>\n<html lang="fa" dir="rtl">\n  <head>\n    <meta charset="utf-8" />\n    <link rel="icon" href="/favicon.png" />\n    <link rel="manifest" href="/manifest.json">\n    <link rel="alternate" type="application/rss+xml" href="https://rasarooz.ir/feed">\n    <meta name="theme-color" content="#f40000">\n    <link rel="apple-touch-icon" href="/icon-192.png">\n    <meta name="mobile-web-app-capable" content="yes">\n    <meta name="apple-mobile-web-app-status-bar-style" content="black">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">\n  \n    \n' + head + '</head>\n  <body>\n    <div id="svelte"> ' + body + "</div>\n    <script>\n      if ('serviceWorker' in navigator) {\n        window.addEventListener('load', () => {\n          navigator.serviceWorker.register('/service-worker.js', { scope: '/' })\n            .then(registration => {\n              console.log('SW registered:', registration);\n            })\n            .catch(error => {\n              console.log('SW registration failed:', error);\n            });\n        });\n      }\n    <\/script>\n  </body>\n</html>\n",
     error: ({ status, message }) => '<!doctype html>\n<html lang="en">\n	<head>\n		<meta charset="utf-8" />\n		<title>' + message + `</title>
 
 		<style>
@@ -541,7 +534,7 @@ const options = {
 		<div class="error">
 			<span class="status">` + status + '</span>\n			<div class="message">\n				<h1>' + message + "</h1>\n			</div>\n		</div>\n	</body>\n</html>\n"
   },
-  version_hash: "ouvp2w"
+  version_hash: "wnt6ep"
 };
 async function get_hooks() {
   let handle;
@@ -4980,8 +4973,11 @@ class Server {
       public_prefix: this.#options.env_public_prefix,
       private_prefix: this.#options.env_private_prefix
     };
-    filter_private_env(env, prefixes);
+    const private_env = filter_private_env(env, prefixes);
     const public_env2 = filter_public_env(env, prefixes);
+    set_private_env(
+      private_env
+    );
     set_public_env(
       public_env2
     );

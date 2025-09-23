@@ -27,7 +27,9 @@ export async function load({ url, depends }) {
             backlinks
         };
     } catch (error) {
-        console.error('Error in search page load:', error);
+        if (process.env.NODE_ENV === 'production') {
+            console.error(`Search page error [q=${query}]: ${error.message}`);
+        }
         return {
             query,
             posts: [],
