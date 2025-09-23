@@ -89,7 +89,7 @@
 <!-- Real Content Desktop -->
 <div class="hidden md:block" dir="rtl">
   <div class="grid grid-cols-2 gap-2 mb-2 ">
-    <div class="bg-red-600 p-4 rounded-[20px] min-w-[300px]">
+    <div class="bg-[#ed129a] p-4 rounded-[20px] min-w-[300px]">
       <Slider1 posts={data.slider1Posts} />
     </div>
     <div class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-1 rounded-[20px] min-w-[300px]">
@@ -101,7 +101,7 @@
     <div>
       <Firstnews posts={data.firstnewsPosts} />
     </div>
-    <div class="bg-red-600 p-4 rounded-lg">
+    <div class="bg-[#12ed65] p-4 rounded-lg">
       <Lasttext posts={data.lasttextPosts} />
     </div>
     <div class="bg-black p-4 text-white rounded-lg">

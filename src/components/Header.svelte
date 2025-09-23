@@ -1,7 +1,7 @@
 <script>
-    export let mojavez = '/duc.png'; // Replace with your logo URL
+    export let mojavez = '/duc.png'; 
     export let mlogo = '/logo.svg'; 
-    export let logoUrl = 'https://rooidadha.ir/wp-content/uploads/2023/04/1402logo.png'; // Replace with your logo URL
+    export let logoUrl = '/mainlogo.png'; // Replace with your logo URL
     import WeatherWidget from '$components/widgets/WeatherWidget.svelte';
     import TgjuWidget from '$components/widgets/tgjuwidget.svelte';
     import MobileMenu from '$components/MobileMenu.svelte';
@@ -9,7 +9,7 @@
    </script>
 
 <header>
-  <div class="w-full bg-[#f40000] flex flex-col items-center pt-4 pb-0 hidden md:flex">    
+  <div class="w-full bg-[#eff7f6] flex flex-col items-center pt-4 pb-0 hidden md:flex">    
     <div class="w-full flex flex-row justify-between items-start px-0">
         <div class=" w-[25px] h-[176px] mt-2 ml-[10vw]"></div>
       <!-- Left Box -->
@@ -25,13 +25,13 @@
     </div>
     <!-- Navigation Bar -->
     <div class="w-[95%] flex flex-row items-center justify-center mt-4 mb-2">
-      <div class="w-full flex flex-row items-center justify-center bg-[#f7f0f0] rounded-full py-2">
+      <div class="w-full flex flex-row items-center justify-center bg-[#99c1de] rounded-full py-2">
               <div class="flex-1 text-center  text-l font-bold">
-                <a href="/" aria-label="صفحه اصلی"><span  class="text-black px-2">خانه</span></a><span class="text-lime-300">|</span>
-                <a href="/category/اجتماعی/"  aria-label="اخبار اجتماعی"><span  class="text-black px-2">اجتماعی</span></a>  <span class="text-lime-300">|</span>
-                <a href="/category/سیاسی/"  aria-label="اخبار سیاسی"><span  class="text-black px-2">سیاسی</span></a><span class="text-lime-300">|</span>
-                <a href="/category/فرهنگ-و-هنر/"   aria-label="اخبار فرهنگی"><span  class="text-black px-2">فرهنگ و هنر</span></a><span class="text-lime-300">|</span>
-                <a href="/category/اخبار-هوش-مصنوعی/"   aria-label="خبرهای هوش مصنوعی"><span  class="text-black px-2">هوش مصنوعی</span></a><span class="text-lime-300">|</span>
+                <a href="/" aria-label="صفحه اصلی"><span  class="text-black px-2">خانه</span></a><span class="text-[#ff70a6]">|</span>
+                <a href="/category/اجتماعی/"  aria-label="اخبار اجتماعی"><span  class="text-black px-2">اجتماعی</span></a>  <span class="text-[#ff70a6]">|</span>
+                <a href="/category/سیاسی/"  aria-label="اخبار سیاسی"><span  class="text-black px-2">سیاسی</span></a><span class="text-[#ff70a6]">|</span>
+                <a href="/category/فرهنگ-و-هنر/"   aria-label="اخبار فرهنگی"><span  class="text-black px-2">فرهنگ و هنر</span></a><span class="text-[#ff70a6]">|</span>
+                <a href="/category/اخبار-هوش-مصنوعی/"   aria-label="خبرهای هوش مصنوعی"><span  class="text-black px-2">هوش مصنوعی</span></a><span class="text-[#ff70a6]">|</span>
                 <a href="/category/فیلم-و-سینما/"   aria-label="اخبار سینما"><span class="text-black px-2">سینما</span></a>
 
               </div>
@@ -42,11 +42,11 @@
           </div>
         </div>
         <div class="flex-1 text-center text-l font-bold">
-          <a href="/category/اقتصادی/"   aria-label="اخبار اقتصادی"><span  class="text-black px-2">اقتصادی</span></a><span class="text-lime-300">|</span>
-          <a href="/category/ورزشی"   aria-label="اخبار ورزشی"><span  class="text-black px-2">ورزشی</span></a>  <span class="text-lime-300">|</span>
-          <a href="/category/lifestyle/"   aria-label="سبک زندگی"><span class="text-black px-2">سبک زندگی</span></a><span class="text-lime-300">|</span>
-          <a href="/category/فناوری_اطلاعات"   aria-label="تازه های فناوری"><span class="text-black px-2">فناوری</span></a><span class="text-lime-300">|</span>
-          <a href="/category/بین-الملل/"  aria-label="اخبار بین الملل"><span class="text-black px-2">بین الملل</span></a><span class="text-lime-300">|</span>
+          <a href="/category/اقتصادی/"   aria-label="اخبار اقتصادی"><span  class="text-black px-2">اقتصادی</span></a><span class="text-[#ff70a6]">|</span>
+          <a href="/category/ورزشی"   aria-label="اخبار ورزشی"><span  class="text-black px-2">ورزشی</span></a>  <span class="text-[#ff70a6]">|</span>
+          <a href="/category/lifestyle/"   aria-label="سبک زندگی"><span class="text-black px-2">سبک زندگی</span></a><span class="text-[#ff70a6]">|</span>
+          <a href="/category/فناوری_اطلاعات"   aria-label="تازه های فناوری"><span class="text-black px-2">فناوری</span></a><span class="text-[#ff70a6]">|</span>
+          <a href="/category/بین-الملل/"  aria-label="اخبار بین الملل"><span class="text-black px-2">بین الملل</span></a><span class="text-[#ff70a6]">|</span>
           <a href="/category/چندرسانه-ای/"   aria-label="عکس و فیلم"><span class="text-black px-2">چند رسانه ای</span></a>
         </div>
       </div>
@@ -63,7 +63,7 @@
 <div class="lg:hidden relative">
 
   <!-- کادر قرمز بالایی -->
-  <div class="bg-red-600 h-14 flex items-center justify-center shadow-sm relative z-0">
+  <div class="bg-[#ed129a] h-14 flex items-center justify-center shadow-sm relative z-0">
     <!-- فقط برای زمینه قرمز -->
   </div>
 
@@ -74,7 +74,7 @@
 
   <!-- دایره سفید -->
   <div class="absolute inset-x-0 top-3 flex items-center justify-center z-10">
-    <div class="w-24 h-24 rounded-full bg-white border-2 border-red-600 flex items-center justify-center">
+    <div class="w-24 h-24 rounded-full bg-white border-2 border-[#ed129a] flex items-center justify-center">
       <a href="/" aria-label="صفحه اصلی رسا نشر">
         <img src={mlogo} alt="لوگو رسا نشر" class="h-19 select-none" draggable="false" />
       </a>

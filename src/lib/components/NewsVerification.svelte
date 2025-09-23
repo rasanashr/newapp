@@ -55,7 +55,7 @@
 
 <div class="flex gap-2 mt-4">
     <button
-        class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center gap-2"
+        class="px-4 py-2 bg-[#ed129a] text-white rounded hover:bg-[#c70d80] flex items-center gap-2"
         on:click={handleVerifyNews}
         disabled={isLoading}
     >
@@ -73,13 +73,13 @@
     <div class="prose max-w-none">
         {#if isLoading}
             <div class="flex justify-center items-center py-8">
-                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-[#ed129a]"></div>
             </div>
         {:else}
             <div class="whitespace-pre-wrap text-justify">
                 {#if questionLoading}
                     <div class="flex flex-col items-center justify-center py-8">
-                        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mb-4"></div>
+                        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-[#ed129a] mb-4"></div>
                         <p class="text-gray-600">در حال دریافت پاسخ، لطفاً منتظر بمانید...</p>
                     </div>
                 {:else if result}
@@ -101,11 +101,11 @@
                             type="text"
                             bind:value={userQuestion}
                             placeholder="سوال خود را درباره این خبر بپرسید..."
-                            class="flex-1 px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
+                            class="flex-1 px-4 py-2 border rounded focus:outline-none focus:border-[#ed129a]"
                             disabled={questionLoading || !aiService.canAskMoreQuestions()}
                         />
                         <button
-                            class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                            class="px-4 py-2 bg-[#12ed65] text-white rounded hover:bg-[#0abf50] disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                             disabled={questionLoading || !userQuestion.trim()}
                             on:click={async () => {
                                 if (userQuestion.trim() && !questionLoading) {
@@ -149,7 +149,7 @@
                 
                 {#if showAnalyzeButton && !isLoading}
                     <button
-                        class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                        class="px-4 py-2 bg-[#ed129a] text-white rounded hover:bg-[#c70b7f]"
                         on:click={handleAnalyzeNews}
                     >
                         تحلیل بیشتر محتوا

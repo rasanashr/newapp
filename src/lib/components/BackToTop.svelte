@@ -26,7 +26,7 @@
 {#if visible}
     <button
         on:click={scrollToTop}
-        class="fixed bottom-15 left-12 btn btn-circle btn-primary shadow-lg opacity-80 bg-red-500  hover:opacity-100 transition-all duration-300 z-50"
+        class="fixed bottom-15 left-12 btn btn-circle btn-primary shadow-lg opacity-80 bg-[#ed129a]  hover:opacity-100 transition-all duration-300 z-50"
         aria-label="برگشت به بالای صفحه"
         style="animation: fadeIn 0.3s ease-in-out"
     >

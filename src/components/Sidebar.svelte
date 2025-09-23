@@ -30,14 +30,14 @@
       />
       <button
         type="submit"
-        class="w-full bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition-colors"
+        class="w-full bg-[#12ed65] text-black px-4 py-2 rounded hover:bg-[#0acb54] transition-colors"
       >
         جستجو
       </button>
     </form>
   </div>
 
-  <div class="bg-red-600 rounded-lg shadow p-3">
+  <div class="bg-[#12ed65] rounded-lg shadow p-3">
     <Lasttext posts={lasttextPosts} />
   </div>
 

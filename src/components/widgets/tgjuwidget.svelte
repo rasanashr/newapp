@@ -10,7 +10,7 @@
         if (!document.getElementById('tgju-script')) {
             const script = document.createElement('script');
             script.id = 'tgju-script';
-            script.src = 'https://api.tgju.org/v1/widget/v2 ';
+            script.src = '/tala.js ';
             script.defer = true;
             document.head.appendChild(script);
         }
@@ -40,6 +40,6 @@
         }
     });
 </script>
-<div  class="tex-black" >
-<div id="tgju-container"></div>
+<div   >
+<div class="bg-dark-bg-white dark:bg-gray-800" id="tgju-container"></div>
 </div>

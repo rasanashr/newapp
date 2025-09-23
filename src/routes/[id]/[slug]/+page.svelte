@@ -5,6 +5,8 @@
   import Comments from '$components/Comments.svelte';
   import NewsVerification from '$lib/components/NewsVerification.svelte';
   import Breadcrumbs from '$lib/components/Breadcrumbs.svelte';
+  import Firstnews from '$components/widgets/Firstnews.svelte';
+
 
   /** @type {import('./$types').PageData} */
   export let data;
