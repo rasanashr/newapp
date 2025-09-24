@@ -52,23 +52,29 @@
     }
   }
 
-  // بررسی وجود مطالب جدید (مثلاً با آخرین تاریخ پست)
+  // بررسی وجود مطالب جدید
   async function checkForUpdates() {
     try {
-      // فرض: آخرین پست فعلی
-      const lastPostId = posts && posts.length > 0 ? posts[0].id : null;
-      // درخواست به سرور برای دریافت آخرین پست
-      const res = await fetch('/api/latest-post-id');
-      const data = await res.json();
-      if (data.latestId && data.latestId !== lastPostId) {
+      const result = await fetchPosts(1, 1); // فقط آخرین پست را دریافت کن
+      const latestPost = result.posts[0];
+      const currentLatestPost = posts[0];
+      
+      if (latestPost && currentLatestPost && latestPost.id !== currentLatestPost.id) {
         showUpdatePopup = true;
         await tick();
+        // پاک کردن کش سرویس ورکر
+        if ('serviceWorker' in navigator) {
+          const registrations = await navigator.serviceWorker.getRegistrations();
+          for (const registration of registrations) {
+            await registration.update();
+          }
+        }
         setTimeout(() => {
-          location.reload();
-        }, 3000); // بعد از ۳ ثانیه رفرش شود
+          window.location.reload();
+        }, 3000);
       }
     } catch (e) {
-      // خطا را نادیده بگیر
+      console.error('خطا در بررسی به‌روزرسانی:', e);
     }
   }
 
@@ -77,7 +83,7 @@
     const interval = setInterval(async () => {
       await clearServiceWorkerCache();
       await checkForUpdates();
-    }, 5 * 60 * 1000); // هر ۵ دقیقه
+    }, 1 * 60 * 1000); // هر ۵ دقیقه
     return () => clearInterval(interval);
   });
 </script>
@@ -141,7 +147,7 @@
 {#if showUpdatePopup}
   <div class="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50 bg-black bg-opacity-50">
     <div class="bg-white rounded-lg shadow-lg p-6 text-center">
-      <p class="text-lg font-bold mb-2 text-red-600">نسخه جدید رسا نشر منتشر شد</p>
+      <p class="text-lg font-bold mb-2 text-red-600">مطالب جدیدی در رسانه روز منتشر شد</p>
       <p class="text-gray-400">در حال اجرای نسخه جدید</p>
     </div>
   </div>

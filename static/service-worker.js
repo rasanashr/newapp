@@ -1,8 +1,8 @@
-const CACHE_NAME = 'rasa-cache-v1';
+const CACHE_NAME = 'rasa-cache-v2';
+const STATIC_CACHE_NAME = 'rasa-static-v2';
 
-// Assets to cache
-const ASSETS = [
-  '/',
+// Static assets to cache
+const STATIC_ASSETS = [
   '/offline.html',
   '/manifest.json',
   '/icon-192.png',
@@ -10,21 +10,55 @@ const ASSETS = [
   '/logo.svg'
 ];
 
+// Check if the request is for content that should be network-first
+function isContentRequest(request) {
+  return request.mode === 'navigate' || 
+         request.url.includes('/api/') || 
+         request.url.endsWith('/');
+}
+
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(ASSETS))
+    caches.open(STATIC_CACHE_NAME)
+      .then(cache => cache.addAll(STATIC_ASSETS))
+  );
+});
+
+// Activate event to clean up old caches
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cacheName => {
+          if (cacheName !== CACHE_NAME && cacheName !== STATIC_CACHE_NAME) {
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
   );
 });
 
 self.addEventListener('fetch', event => {
   event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        // If the resource is in the cache, return it
-        if (response) {
-          return response;
-        }
+    // For content requests, try network first, then cache
+    isContentRequest(event.request) ?
+      fetch(event.request)
+        .then(networkResponse => {
+          if (!networkResponse || networkResponse.status !== 200) {
+            return caches.match(event.request);
+          }
+          // Cache the new response
+          const responseToCache = networkResponse.clone();
+          caches.open(CACHE_NAME)
+            .then(cache => cache.put(event.request, responseToCache));
+          return networkResponse;
+        })
+        .catch(() => caches.match(event.request))
+      :
+      // For static assets, try cache first, then network
+      caches.match(event.request)
+        .then(response => {
 
         // If not in cache, fetch from the network
         return fetch(event.request).then(networkResponse => {

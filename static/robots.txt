@@ -85,5 +85,5 @@ Disallow: /img/
 Disallow: /search
 Disallow: /ghost-login?redirect_to=
 
-Sitemap: https://rasanashr.ir/sitemap.xml
-Sitemap: https://rasanashr.ir/news-sitemap.xml
+Sitemap: https://rasarooz.ir/sitemap.xml
+Sitemap: https://rasarooz.ir/news-sitemap.xml

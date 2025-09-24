@@ -42,7 +42,7 @@ async function checkForNewPosts() {
 
   // هر ۲ دقیقه یک بار بررسی انجام شود
  onMount(() => {
-  const interval = setInterval(checkForNewPosts, 5 * 60 * 1000); // هر ۵ دقیقه
+  const interval = setInterval(checkForNewPosts, 2 * 60 * 1000); // هر ۵ دقیقه
   return () => clearInterval(interval);
 });
 </script>
@@ -60,8 +60,8 @@ async function checkForNewPosts() {
 {#if showUpdatePopup}
   <div class="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50 bg-black bg-opacity-50">
     <div class="bg-white rounded-lg shadow-lg p-6 text-center">
-      <p class="text-lg font-bold mb-2 text-red-600">اخبار جدید منتشر شد</p>
-      <p class="text-gray-400">در حال به‌روزرسانی صفحه...</p>
+      <p class="text-lg font-bold mb-2 text-red-600">مطالب جدیدی در رسانه روز منتشر شد</p>
+      <p class="text-gray-400"">در حال اجرای نسخه جدید</p>
     </div>
   </div>
 {/if}
