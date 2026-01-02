@@ -1,4 +1,4 @@
-import { fetchPosts, fetchPostsByCategory } from '../lib/services/wordpress.js';
+import { fetchPosts, fetchPostsByCategory, fetchBacklinks } from '../lib/services/wordpress.js';
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ fetch }) {
@@ -38,7 +38,7 @@ export async function load({ fetch }) {
             fetchPostsByCategory(188, 1, 1),    // singlecard4
               fetchPostsByCategory(204, 1, 1),      // singlecard5
             fetchPostsByCategory(327, 1, 1),    // singlecard6
-            fetch('https://rooidadha.ir/new/wp-json/backlink/v1/links').then(res => res.json())
+            fetchBacklinks()
         ]).catch(err => {
             console.error('Secondary data fetch error:', err);
             return Array(8).fill({ posts: [] }); // مقادیر پیش‌فرض در صورت خطا

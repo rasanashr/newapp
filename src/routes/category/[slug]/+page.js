@@ -1,4 +1,4 @@
-import { fetchCategory, fetchPostsByCategory, fetchPosts } from '$lib/services/wordpress';
+import { fetchCategory, fetchPostsByCategory, fetchPosts, fetchBacklinks } from '$lib/services/wordpress';
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ params, setHeaders }) {
@@ -7,13 +7,11 @@ export async function load({ params, setHeaders }) {
         const category = await fetchCategory(params.slug);
         
         // واکشی همزمان داده‌های اصلی و سایدبار
-        const [categoryData, lasttextData, backlinksRes] = await Promise.all([
+        const [categoryData, lasttextData, backlinks] = await Promise.all([
             category ? fetchPostsByCategory(category.id, 1) : { posts: [], totalPages: 1 },
             fetchPosts(1, 12),
-            fetch('https://rooidadha.ir/new/wp-json/backlink/v1/links')
+            fetchBacklinks()
         ]);
-
-        const backlinks = await backlinksRes.json();
 
         // Set cache headers
         setHeaders({

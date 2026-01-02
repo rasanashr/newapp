@@ -1,16 +1,14 @@
-import { fetchPage, fetchPosts } from '$lib/services/wordpress';
+import { fetchPage, fetchPosts, fetchBacklinks } from '$lib/services/wordpress';
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ params }) {
     try {
         // واکشی همزمان داده‌های اصلی و سایدبار
-        const [page, lasttextData, backlinksRes] = await Promise.all([
+        const [page, lasttextData, backlinks] = await Promise.all([
             fetchPage(params.slug),
             fetchPosts(1, 12),
-            fetch('https://rooidadha.ir/new/wp-json/backlink/v1/links')
+            fetchBacklinks()
         ]);
-
-        const backlinks = await backlinksRes.json();
 
         return {
             page,

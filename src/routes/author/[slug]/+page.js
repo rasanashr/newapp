@@ -1,16 +1,14 @@
-import { fetchAuthor, fetchPostsByAuthor, fetchPosts } from '$lib/services/wordpress';
+import { fetchAuthor, fetchPostsByAuthor, fetchPosts, fetchBacklinks } from '$lib/services/wordpress';
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ params }) {
     try {
         // واکشی همزمان اطلاعات نویسنده و داده‌های سایدبار
-        const [author, lasttextData, backlinksRes] = await Promise.all([
+        const [author, lasttextData, backlinks] = await Promise.all([
             fetchAuthor(params.slug),
             fetchPosts(1, 12),
-            fetch('https://rooidadha.ir/new/wp-json/backlink/v1/links')
+            fetchBacklinks()
         ]);
-
-        const backlinks = await backlinksRes.json();
 
         let posts = [];
         let totalPages = 1;

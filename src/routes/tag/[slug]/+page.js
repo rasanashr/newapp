@@ -1,4 +1,4 @@
-import { fetchTag, fetchPostsByTag, fetchPosts } from '$lib/services/wordpress';
+import { fetchTag, fetchPostsByTag, fetchPosts, fetchBacklinks } from '$lib/services/wordpress';
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ params }) {
@@ -7,11 +7,10 @@ export async function load({ params }) {
 
     if (!tag) {
         // اگر تگ پیدا نشد، داده‌های سایدبار را واکشی کن و مقدار tag را null برگردان
-        const [lasttextData, backlinksRes] = await Promise.all([
+        const [lasttextData, backlinks] = await Promise.all([
             fetchPosts(1, 12),
-            fetch('https://rooidadha.ir/new/wp-json/backlink/v1/links')
+            fetchBacklinks()
         ]);
-        const backlinks = await backlinksRes.json();
         return {
             tag: null,
             posts: [],
@@ -22,12 +21,11 @@ export async function load({ params }) {
     }
 
     // اگر تگ پیدا شد، پست‌ها و سایدبار را واکشی کن
-    const [tagData, lasttextData, backlinksRes] = await Promise.all([
+    const [tagData, lasttextData, backlinks] = await Promise.all([
         fetchPostsByTag(tag.id, 1),
         fetchPosts(1, 12),
-        fetch('https://rooidadha.ir/new/wp-json/backlink/v1/links')
+        fetchBacklinks()
     ]);
-    const backlinks = await backlinksRes.json();
 
     return {
         tag,

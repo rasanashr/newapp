@@ -1,4 +1,4 @@
-import { fetchPost, fetchPosts, fetchRelatedPosts } from '$lib/services/wordpress';
+import { fetchPost, fetchPosts, fetchRelatedPosts, fetchBacklinks } from '$lib/services/wordpress';
 import { error } from '@sveltejs/kit';
 
 /** @type {import('./$types').PageLoad} */
@@ -15,13 +15,11 @@ export async function load({ params, fetch }) {
       post._embedded?.['wp:term']?.[0]?.map((cat) => cat.id) || [];
 
     // استفاده از fetch پاس‌داده‌شده برای SSR صحیح
-    const [lasttextData, backlinksRes, relatedPosts] = await Promise.all([
+    const [lasttextData, backlinks, relatedPosts] = await Promise.all([
       fetchPosts(1, 12),
-      fetch('https://rooidadha.ir/new/wp-json/backlink/v1/links'),
+      fetchBacklinks(),
       fetchRelatedPosts(params.id, categoryIds, 3)
     ]);
-
-    const backlinks = await backlinksRes.json();
 
     return {
       post,

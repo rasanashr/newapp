@@ -40,7 +40,8 @@ export async function GET() {
 
     return new Response(rss, {
         headers: {
-            'Content-Type': 'application/rss+xml; charset=utf-8'
+        'Content-Type': 'application/rss+xml; charset=utf-8',
+        'Cache-Control': 'max-age=0, s-maxage=300'
         }
     });
 }

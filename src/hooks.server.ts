@@ -1,5 +1,13 @@
 // src/hooks.server.ts
 import { error } from '@sveltejs/kit';
+import { startCron } from '$lib/server/cron';
+
+// Start cache-refresh cron on server start (only when appropriate)
+try {
+  startCron();
+} catch (e) {
+  console.error('Failed to start cache cron:', e?.message || e);
+}
 
 /** الگوهای مسیرهای اسپم/قدیمی که قطعاً وجود ندارند */
 const SPAM_PATH_PATTERNS = [
