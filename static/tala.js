@@ -258,12 +258,12 @@ widgets.forEach(function(item) {
                 var rows_table = '';
                 rows_table += '<table class="tgju-widget-table">';
                 rows_table += '<thead><tr>';
-                rows_table += '<th>Ø¹Ù†ÙˆØ§Ù† Ù†Ø±Ø®</th>';
-                rows_table += '<th>Ù‚ÛŒÙ…Øª Ø²Ù†Ø¯Ù‡</th>';
-                if (item.getAttribute('columns').split(',').includes("diff")){rows_table += '<th>ØªØºÛŒÛŒØ±</th>';}
-                if (item.getAttribute('columns').split(',').includes("low")){rows_table += '<th>Ú©Ù…ØªØ±ÛŒÙ†</th>';}
-                if (item.getAttribute('columns').split(',').includes("high")){rows_table += '<th>Ø¨ÛŒØ´ØªØ±ÛŒÙ†</th>';} 
-                if (item.getAttribute('columns').split(',').includes("time")){rows_table += '<th>Ø²Ù…Ø§Ù†</th>';}
+                rows_table += '<th>عنوان نرخ</th>';
+                rows_table += '<th>قیمت زنده</th>';
+                if (item.getAttribute('columns').split(',').includes("diff")){rows_table += '<th>تغییر</th>';} 
+                if (item.getAttribute('columns').split(',').includes("low")){rows_table += '<th>کمترین</th>';} 
+                if (item.getAttribute('columns').split(',').includes("high")){rows_table += '<th>بیشترین</th>';} 
+                if (item.getAttribute('columns').split(',').includes("time")){rows_table += '<th>زمان</th>';} 
                 rows_table += '</tr></thead><tbody>';
                 rows_table += rows;
                 rows_table += '</tbody></table>';

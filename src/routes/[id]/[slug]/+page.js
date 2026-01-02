@@ -17,7 +17,7 @@ export async function load({ params, fetch }) {
     // استفاده از fetch پاس‌داده‌شده برای SSR صحیح
     const [lasttextData, backlinksRes, relatedPosts] = await Promise.all([
       fetchPosts(1, 12),
-      fetch('https://rooidadha.ir/wp-json/backlink/v1/links'),
+      fetch('https://rooidadha.ir/new/wp-json/backlink/v1/links'),
       fetchRelatedPosts(params.id, categoryIds, 3)
     ]);
 

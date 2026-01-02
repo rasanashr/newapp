@@ -5,8 +5,6 @@
   import Comments from '$components/Comments.svelte';
   import NewsVerification from '$lib/components/NewsVerification.svelte';
   import Breadcrumbs from '$lib/components/Breadcrumbs.svelte';
-  import Firstnews from '$components/widgets/Firstnews.svelte';
-
 
   /** @type {import('./$types').PageData} */
   export let data;
@@ -76,15 +74,15 @@
           </div>
         </div>
 
-           <div class="flex md:justify-end justify-center my-1 ml-2">
-  <NewsVerification {post} />
-</div>   
+   
 
 
         <div id="content-prose" class="p-6 prose prose-lg max-w-none text-justify leading-loose link-styles text-gray-900">
           {@html post.content.rendered}
         </div>
-        
+         <div class="flex md:justify-end justify-center my-1 ml-2">
+           <NewsVerification {post} />
+         </div>
         <!-- Related Posts and Tags Section -->
         <div class="p-4 border-t border-gray-200">
           <RelatedPosts relatedPosts={data.relatedPosts} />
@@ -120,6 +118,7 @@
 
 <style>
   a {
-    color: rgb(231, 18, 18);
+    color: blueviolet;
   }
+  
 </style>

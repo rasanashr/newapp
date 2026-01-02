@@ -36,7 +36,9 @@ export async function load({ fetch }) {
             fetchPostsByCategory(4778, 1, 1),   // singlecard2
             fetchPostsByCategory(2, 1, 1),      // singlecard3
             fetchPostsByCategory(188, 1, 1),    // singlecard4
-            fetch('https://rooidadha.ir/wp-json/backlink/v1/links').then(res => res.json())
+              fetchPostsByCategory(204, 1, 1),      // singlecard5
+            fetchPostsByCategory(327, 1, 1),    // singlecard6
+            fetch('https://rooidadha.ir/new/wp-json/backlink/v1/links').then(res => res.json())
         ]).catch(err => {
             console.error('Secondary data fetch error:', err);
             return Array(8).fill({ posts: [] }); // مقادیر پیش‌فرض در صورت خطا
@@ -51,6 +53,8 @@ export async function load({ fetch }) {
             singlecard2Data,
             singlecard3Data,
             singlecard4Data,
+            singlecard5Data,
+            singlecard6Data,
             backlinks
         ] = await secondaryDataPromise;
 
@@ -63,6 +67,8 @@ export async function load({ fetch }) {
             singlecard2Posts: singlecard2Data.posts,
             singlecard3Posts: singlecard3Data.posts,
             singlecard4Posts: singlecard4Data.posts,
+            singlecard5Posts: singlecard5Data.posts,
+            singlecard6Posts: singlecard6Data.posts,
             backlinks
         };
 

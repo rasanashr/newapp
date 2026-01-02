@@ -9,7 +9,7 @@ export async function load({ params }) {
         // اگر تگ پیدا نشد، داده‌های سایدبار را واکشی کن و مقدار tag را null برگردان
         const [lasttextData, backlinksRes] = await Promise.all([
             fetchPosts(1, 12),
-            fetch('https://rooidadha.ir/wp-json/backlink/v1/links')
+            fetch('https://rooidadha.ir/new/wp-json/backlink/v1/links')
         ]);
         const backlinks = await backlinksRes.json();
         return {
@@ -25,7 +25,7 @@ export async function load({ params }) {
     const [tagData, lasttextData, backlinksRes] = await Promise.all([
         fetchPostsByTag(tag.id, 1),
         fetchPosts(1, 12),
-        fetch('https://rooidadha.ir/wp-json/backlink/v1/links')
+        fetch('https://rooidadha.ir/new/wp-json/backlink/v1/links')
     ]);
     const backlinks = await backlinksRes.json();
 

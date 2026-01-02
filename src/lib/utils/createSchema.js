@@ -13,7 +13,6 @@ function decodeEntities(text) {
 // تابع کمکی برای تمیز کردن متن از HTML
 function cleanHtml(text) {
     if (!text) return '';
-    // حذف جمله‌ی پیش‌فرض مرورگر
     text = text.replace(/متاسفانه مرورگر شما از ویدیو پشتیبانی نمی‌کند\.?/g, '');
     return decodeEntities(text.replace(/<[^>]*>/g, '')).trim();
 }
@@ -32,35 +31,26 @@ function createVideoSchema(videoUrl, post, thumbnailUrl, meta = {}) {
         '@context': 'https://schema.org',
         '@type': 'VideoObject',
         name: cleanHtml(post.title?.rendered) || 'ویدیو بدون عنوان',
-        description: cleanHtml(post.excerpt?.rendered) || 'ویدیوی رسانه روز',
+        description: cleanHtml(post.excerpt?.rendered) || 'ویدیوی پایگاه خبری تحلیلی رسا نشر',
         thumbnailUrl: [thumbnailUrl],
         uploadDate: post.date ? new Date(post.date).toISOString() : new Date().toISOString(),
         contentUrl: videoUrl,
         embedUrl: videoUrl,
         publisher: {
             '@type': 'Organization',
-            name: 'رسانه روز',
+            name: 'پایگاه خبری تحلیلی رسا نشر',
             logo: {
                 '@type': 'ImageObject',
-                url: 'https://rasarooz.ir/icon-512.png',
-                width: '512',
-                height: '512'
+                url: 'https://rasanashr.ir/graph.jpg',
+                width: 512,
+                height: 512
             }
         }
     };
 
-    // اگر duration موجود بود → ISO 8601
-    if (meta.duration) {
-        videoSchema.duration = meta.duration;
-    }
-
-    // اگر ابعاد ویدیو موجود بود
-    if (meta.width) {
-        videoSchema.width = meta.width;
-    }
-    if (meta.height) {
-        videoSchema.height = meta.height;
-    }
+    if (meta.duration) videoSchema.duration = meta.duration;
+    if (meta.width) videoSchema.width = meta.width;
+    if (meta.height) videoSchema.height = meta.height;
 
     return videoSchema;
 }
@@ -68,10 +58,11 @@ function createVideoSchema(videoUrl, post, thumbnailUrl, meta = {}) {
 export function createPostSchema(post, currentUrl, breadcrumbs = null) {
     if (!post) return null;
 
-    const authorName = post._embedded?.author?.[0]?.name || 'رسانه روز';
+    const authorName = post._embedded?.author?.[0]?.name || 'پایگاه خبری تحلیلی رسا نشر';
     const imageUrl =
         post._embedded?.['wp:featuredmedia']?.[0]?.source_url ||
-        'https://rasarooz.ir/placeholder.jpg';
+        'https://rasanashr.ir/graph.jpg';
+
     const publishedDate = post.date
         ? new Date(post.date).toISOString()
         : new Date().toISOString();
@@ -83,27 +74,25 @@ export function createPostSchema(post, currentUrl, breadcrumbs = null) {
         '@context': 'https://schema.org',
         '@type': 'NewsArticle',
         headline: cleanHtml(post.title?.rendered) || 'مقاله بدون عنوان',
-        description: cleanHtml(post.excerpt?.rendered) || 'مقاله رسانه روز',
+        description: cleanHtml(post.excerpt?.rendered) || 'پایگاه خبری تحلیلی رسا نشر، دارای مجوز رسمی از وزارت فرهنگ و ارشاد اسلامی (شماره مجوز: ۸۰۵۳۷)',
         image: [imageUrl],
         datePublished: publishedDate,
         dateModified: modifiedDate,
         author: {
             '@type': 'Person',
             name: cleanHtml(authorName),
-            url:
-                post._embedded?.author?.[0]?.link ||
-                'https://rasarooz.ir/about-us'
+            url: post._embedded?.author?.[0]?.link || 'https://rasanashr.ir'
         },
         publisher: {
             '@type': 'Organization',
-            name: 'رسانه روز',
+            name: 'پایگاه خبری تحلیلی رسا نشر',
             logo: {
                 '@type': 'ImageObject',
-                url: 'https://rasarooz.ir/icon-512.png',
-                width: '512',
-                height: '512'
+                url: 'https://rasanashr.ir/graph.jpg',
+                width: 512,
+                height: 512
             },
-            url: 'https://rasarooz.ir'
+            url: 'https://rasanashr.ir'
         },
         mainEntityOfPage: {
             '@type': 'WebPage',
@@ -113,33 +102,31 @@ export function createPostSchema(post, currentUrl, breadcrumbs = null) {
 
     const schemas = [articleSchema];
 
-    // اضافه کردن اسکیمای Breadcrumb (در صورت وجود)
-    if (breadcrumbs && Array.isArray(breadcrumbs) && breadcrumbs.length > 0) {
+    // BreadcrumbList
+    if (breadcrumbs?.length) {
         schemas.push({
             '@context': 'https://schema.org',
             '@type': 'BreadcrumbList',
-            itemListElement: breadcrumbs
-                .map(item => ({
-                    '@type': 'ListItem',
-                    position: item.position,
-                    name: cleanHtml(item.name),
-                    item: item.position === breadcrumbs.length ? undefined : item.item
-                }))
-                .filter(item => item.position <= breadcrumbs.length)
+            itemListElement: breadcrumbs.map((item, index) => ({
+                '@type': 'ListItem',
+                position: item.position,
+                name: cleanHtml(item.name),
+                item: index === breadcrumbs.length - 1
+                    ? undefined // آخرین آیتم (صفحه فعلی) item ندارد
+                    : item.item
+            })).filter(el => el.name.trim() !== '')
         });
     }
 
-    // اضافه کردن اسکیمای ویدیو (در صورت وجود)
+    // VideoObject
     const videoUrls = extractVideosFromContent(post.content?.rendered);
-
     if (videoUrls.length > 0) {
+        const meta = {
+            duration: post.meta?.video_duration || null,
+            width: post.meta?.video_width || null,
+            height: post.meta?.video_height || null
+        };
         videoUrls.forEach(url => {
-            // اینجا فرض می‌کنیم وردپرس متادیتا ویدیو (duration, width, height) رو در post.meta ذخیره می‌کنه
-            const meta = {
-                duration: post.meta?.video_duration || null, // PT45S
-                width: post.meta?.video_width || null,       // 720
-                height: post.meta?.video_height || null      // 1280
-            };
             schemas.push(createVideoSchema(url, post, imageUrl, meta));
         });
     }

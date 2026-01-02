@@ -1,28 +1,38 @@
 <script>
-    import { browser } from '$app/environment';
-    import { page } from '$app/stores';
+    // متادیتای استاندارد صفحه اصلی
+    $: canonical = 'https://rasanashr.ir';
 
-    $: currentUrl = `https://rasanashr.ir${$page.url.pathname}`;
-    $: title = 'رسانه روز| تازه‌ترین اخبار اجتماعی، فرهنگی، سیاسی و اقتصادی ایران و جهان';
-    $: description = 'پایگاه خبری تحلیلی رسانه روز - آخرین اخبار روز ایران و جهان';
-    $: keywords = 'رسا نشر, اخبار اجتماعی, اخبار فرهنگی, اخبار سیاسی, اخبار اقتصادی, پایگاه خبری تحلیلی, رسا نشر ایران, گزارش اجتماعی, هوش مصنوعی, اینترنت, فیلترینگ, تحلیل سیاسی, اخبار روز, اخبار جنگ, جنگ ایران و اسرائیل, حمله نظامی, مذاکره ایران و آمریکا';
+    $: title = 'پایگاه خبری تحلیلی رسا نشر | صدای رسای مردم ایران';
+    $: description = 'پایگاه خبری تحلیلی رسا نشر - دارای مجوز رسمی از وزارت فرهنگ و ارشاد اسلامی (شماره مجوز: ۸۰۵۳۷). تازه‌ترین خبرهای ایران و جهان، تحلیل‌های سیاسی، اقتصادی، اجتماعی و فرهنگی.';
+    $: keywords = 'رسا نشر, خبر, گزارش, آخرین خبرها, قیمت ارز, قیمت دلار, قیمت طلا, قیمت لحظه‌ای, قیمت سکه, بازار بورس, اجتماعی, اخبار فرهنگی, اخبار سیاسی, اخبار اقتصادی, پایگاه خبری تحلیلی, ایران, گزارش اجتماعی, هوش مصنوعی, اینترنت, فیلترینگ, تحلیل سیاسی, اخبار روز, جنگ ایران و اسرائیل, مکانیسم ماشه, تحریم, اسنپ بک';
+
     $: og = {
         title,
         description,
         type: 'website',
-        url: currentUrl,
-        site_name: 'رسانه روز',
+        url: canonical,
+        site_name: 'پایگاه خبری تحلیلی رسا نشر',
         locale: 'fa_IR'
     };
-    $: canonical = currentUrl;
+
     $: schema = {
         '@context': 'https://schema.org',
         '@type': 'WebSite',
-        name: 'رسانه روز',
+        name: 'پایگاه خبری تحلیلی رسا نشر',
         description,
-        url: currentUrl
+        url: canonical,
+        publisher: {
+            '@type': 'Organization',
+            name: 'پایگاه خبری تحلیلی رسا نشر',
+            url: 'https://rasanashr.ir',
+            logo: {
+                '@type': 'ImageObject',
+                url: 'https://rasanashr.ir/graph.jpg'
+            }
+        }
     };
-    $: safeSchema = JSON.stringify(schema, null, 2);
+
+    $: safeSchema = JSON.stringify(schema, null, 0);
 </script>
 
 <svelte:head>
@@ -31,6 +41,8 @@
     <meta name="keywords" content={keywords} />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph -->
     <meta property="og:title" content={og.title} />
     <meta property="og:description" content={og.description} />
     <meta property="og:type" content={og.type} />

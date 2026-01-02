@@ -1,4 +1,5 @@
 <script>
+   export let gold = '/gold.jpg';
   import { fetchPosts } from '$lib/services/wordpress';
   import Firstnews from '$components/widgets/Firstnews.svelte';
   import Notofday from '$components/widgets/Notofday.svelte'; 
@@ -9,6 +10,8 @@
   import Singlecard from '$components/widgets/Singlecard.svelte'; 
   import Minicard from '$components/widgets/Minicard.svelte'; 
   import HomeSEO from '$lib/components/seo/HomeSEO.svelte';
+  import BackLinks from '$components/BackLinks.svelte';
+
   
   import { page } from '$app/stores';
   import { onMount } from 'svelte';
@@ -26,7 +29,7 @@
   // وضعیت نمایش پاپ‌آپ
   let showUpdatePopup = false;
 
-  $: currentUrl = `https://rasarooz.ir${$page.url.pathname}`;
+  $: currentUrl = `https://rasanashr.ir${$page.url.pathname}`;
 
   async function loadPosts(page = 1) {
     try {
@@ -90,7 +93,7 @@
 
 <HomeSEO />
 <h1 class="absolute -left-9999 -top-9999 w-0 h-0 overflow-hidden opacity-0">
-پایگاه خبری تحلیلی رسانه روز - تازه ترین خبرهای ایران و جهان
+پایگاه خبری تحلیلی رسا نشر - تازه ترین خبرهای ایران و جهان
 </h1>
 <!-- Real Content Desktop -->
 <div class="hidden md:block" dir="rtl">
@@ -111,6 +114,8 @@
       <Lasttext posts={data.lasttextPosts} />
     </div>
     <div class="bg-black p-4 text-white rounded-lg">
+       <a href="/goldprice/" aria-label="قیمت لحظه ای طلا، سکه و دلار"><img src={gold} alt="قیمت لحظه ای طلا و ارز" class="h-[150px] mt-2 select-none" draggable="false" /></a>
+
       <Shortpic posts={data.shortpicPosts} />
     </div>
   </div>
@@ -124,10 +129,13 @@
 <div class="mb-4"><Singlecard posts={data.singlecard1Posts} bgColor="bg-yellow-100" hoverColor="hover:bg-yellow-50" /></div>
 <div class="mb-4"><Singlecard posts={data.singlecard2Posts} bgColor="bg-green-100" hoverColor="hover:bg-green-50" /></div>
 <div class="mb-4"><Singlecard posts={data.singlecard3Posts} bgColor="bg-red-100" hoverColor="hover:bg-red-50"/></div>
-<div class="mb-4"><Singlecard posts={data.singlecard4Posts} bgColor="bg-blue-100" hoverColor="hover:bg-blue-50" /></div>    
+<div class="mb-4"><Singlecard posts={data.singlecard4Posts} bgColor="bg-blue-100" hoverColor="hover:bg-blue-50" /></div>   
+<div class="mb-4"><Singlecard posts={data.singlecard5Posts} bgColor="bg-red-100" hoverColor="hover:bg-red-50"/></div>
+<div class="mb-4"><Singlecard posts={data.singlecard6Posts} bgColor="bg-blue-100" hoverColor="hover:bg-blue-50" /></div>    
     </div>
     <div class="p-2 bg-blue-50 rounded-lg shadow p-3">
       <Minicard posts={data.minicardPosts} />
+      <BackLinks backlinks={data.backlinks} loading={false} />
     </div>
   </div>
 
@@ -141,13 +149,14 @@
   <Notofday posts={data.notofdayPosts} />
   <Lasttext posts={data.lasttextPosts} />
    <div class="mb-20"><Firstnews posts={data.firstnewsPosts} /></div>
+   
 
 </div>
 
 {#if showUpdatePopup}
   <div class="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50 bg-black bg-opacity-50">
     <div class="bg-white rounded-lg shadow-lg p-6 text-center">
-      <p class="text-lg font-bold mb-2 text-red-600">مطالب جدیدی در رسانه روز منتشر شد</p>
+      <p class="text-lg font-bold mb-2 text-red-600">مطالب جدیدی در رسا نشر منتشر شد</p>
       <p class="text-gray-400">در حال اجرای نسخه جدید</p>
     </div>
   </div>

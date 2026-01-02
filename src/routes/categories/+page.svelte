@@ -22,12 +22,30 @@
 </script>
 
 <svelte:head>
-  <title>رسانه روز - دسته بندی مطالب منتشر شده در رسانه روز</title>
+  <title>پایگاه خبری تحلیلی رسا نشر - دسته بندی مطالب منتشر شده در رسا نشر</title>
+    <meta name="description" content="دسته بندی مطالب منتشر شده در رسا نشر. دسترسی آسان به مقالات و اخبار در موضوعات مختلف." />
+    <meta name="keywords" content="دسته بندی, رسا نشر, مقالات, اخبار, موضوعات مختلف" />
+    <meta name="author" content="RasaNashr.ir" />
+    <meta property="og:title" content="پایگاه خبری تحلیلی رسا نشر - دسته بندی مطالب منتشر شده در رسا نشر" />
+    <meta property="og:description" content="دسته بندی مطالب منتشر شده در رسا نشر. دسترسی آسان به مقالات و اخبار در موضوعات مختلف." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://rasanashr.ir/categories" />
+    <meta property="og:image" content="https://rasanashr.ir/graph.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="پایگاه خبری تحلیلی رسا نشر - دسته بندی مطالب منتشر شده در رسا نشر" />
+    <meta name="twitter:description" content="دسته بندی مطالب منتشر شده در رسا نشر. دسترسی آسان به مقالات و اخبار در موضوعات مختلف." />
+    <meta name="twitter:image" content="https://rasanashr.ir/graph.jpg" />  
+    <link rel="canonical" href="https://rasanashr.ir/categories" /> 
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" />
+
 </svelte:head>
 
 
 <main class="container mx-auto px-4 py-8">
-    <h1 class="text-2xl font-bold text-black dark:text-white text-center mb-12">دسته بندی مطالب منتشر شده در رسانه روز</h1>
+    <h1 class="text-2xl font-bold text-black dark:text-white text-center mb-12">دسته بندی مطالب منتشر شده در رسا نشر</h1>
     
     {#if categories.length === 0}
         <div class="text-center py-8">

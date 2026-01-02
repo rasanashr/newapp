@@ -12,7 +12,7 @@ export async function load({ url, depends }) {
         const [searchResult, lasttextData, backlinksRes] = await Promise.all([
             query ? searchPosts(query, page) : { posts: [], totalPages: 0 },
             fetchPosts(1, 12),
-            fetch('https://rooidadha.ir/wp-json/backlink/v1/links')
+            fetch('https://rooidadha.ir/new/wp-json/backlink/v1/links')
         ]);
 
         const backlinks = await backlinksRes.json();

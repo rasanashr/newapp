@@ -2,8 +2,8 @@
   export let author = null;
   export let seo = null;
 
-  $: metaTitle = seo?.title || (author ? `${author.name} | رسانه روز` : 'رسانه روز');
-  $: metaDescription = seo?.description || author?.description || (author ? `مطالب ${author.name}` : 'پایگاه خبری رسانه روز');
+  $: metaTitle = seo?.title || (author ? `${author.name} | رسا نشر` : 'رسا نشر');
+  $: metaDescription = seo?.description || author?.description || (author ? `مطالب ${author.name}` : 'پایگاه خبری رسا نشر');
   $: metaOg = seo?.og || {};
 </script>
 
@@ -31,7 +31,7 @@
         publisher: {
           "@type": "Organization",
           name: "رسا نشر",
-          url: "https://rasarooz.ir"
+          url: "https://rasanashr.ir"
         }
       })}
     </script>

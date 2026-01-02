@@ -1,4 +1,4 @@
-const WP_API_URL = 'https://rooidadha.ir/wp-json/wp/v2';
+const WP_API_URL = 'https://rooidadha.ir/new/wp-json/wp/v2';
 
 // تابع کمکی برای گرفتن دامنه فعلی سایت
 function getSiteURL(fetch) {
@@ -13,7 +13,7 @@ function getSiteURL(fetch) {
     }
     
     // مقدار پیش‌فرض
-    return 'https://rasarooz.ir';
+    return 'https://rasanashr.ir';
 }
 
 /**

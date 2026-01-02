@@ -10,7 +10,7 @@ export async function load({ params, setHeaders }) {
         const [categoryData, lasttextData, backlinksRes] = await Promise.all([
             category ? fetchPostsByCategory(category.id, 1) : { posts: [], totalPages: 1 },
             fetchPosts(1, 12),
-            fetch('https://rooidadha.ir/wp-json/backlink/v1/links')
+            fetch('https://rooidadha.ir/new/wp-json/backlink/v1/links')
         ]);
 
         const backlinks = await backlinksRes.json();

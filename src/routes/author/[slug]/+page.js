@@ -7,7 +7,7 @@ export async function load({ params }) {
         const [author, lasttextData, backlinksRes] = await Promise.all([
             fetchAuthor(params.slug),
             fetchPosts(1, 12),
-            fetch('https://rooidadha.ir/wp-json/backlink/v1/links')
+            fetch('https://rooidadha.ir/new/wp-json/backlink/v1/links')
         ]);
 
         const backlinks = await backlinksRes.json();
@@ -27,14 +27,14 @@ export async function load({ params }) {
             const authorDescription = author.description || `مطالب ${author.name}`;
 
             seo = {
-                title: `${author.name} | پایگاه خبری تحلیلی رسانه روز`,
+                title: `${author.name} | پایگاه خبری تحلیلی رسا نشر`,
                 description: authorDescription,
                 robots: 'index, follow',
                 og: {
-                    title: `${author.name} | رسانه روز`,
+                    title: `${author.name} | رسا نشر`,
                     description: authorDescription,
                     type: 'website',
-                    site_name: 'رسانه روز',
+                    site_name: 'رسا نشر',
                     locale: 'fa_IR'
                 },
                 jsonLd: {
@@ -42,11 +42,11 @@ export async function load({ params }) {
                     "@type": "ProfilePage",
                     "name": author.name,
                     "description": authorDescription,
-                    "url": `https://rasarooz.ir/author/${params.slug}`,
+                    "url": `https://rasanashr.ir/author/${params.slug}`,
                     "publisher": {
                         "@type": "Organization",
-                        "name": "پایگاه خبری تحلیلی رسانه روز",
-                        "url": "https://rasarooz.ir"
+                        "name": "پایگاه خبری تحلیلی رسا نشر",
+                        "url": "https://rasanashr.ir"
                     }
                 }
             };

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const WP_API_URL = 'https://rooidadha.ir/wp-json/wp/v2';
-const DISPLAY_DOMAIN = 'rasarooz.ir';
+const WP_API_URL = 'https://rooidadha.ir/new/wp-json/wp/v2';
+const DISPLAY_DOMAIN = 'rasanashr.ir';
 
 // تابع کمکی برای اصلاح لینک‌های نمایشی به دامنه دیپلوی شده
 function fixDisplayLinks(post) {
@@ -9,7 +9,7 @@ function fixDisplayLinks(post) {
     
     // فقط لینک صفحه را تغییر می‌دهیم (URL نمایشی)
     if (post.link) {
-        post.link = post.link.replace('rooidadha.ir', DISPLAY_DOMAIN);
+        post.link = post.link.replace('rooidadha.ir/new', DISPLAY_DOMAIN);
     }
     
     // تصاویر و سایر منابع باید از وردپرس (rooidadha.ir) باقی بمانند
@@ -286,19 +286,45 @@ export async function fetchComments(postId) {
 
 export async function submitComment(postId, comment) {
     try {
+        // اضافه کردن هدرهای مورد نیاز
+        const headers = {
+            'Content-Type': 'application/json',
+            'Origin': 'https://rasanasshr.ir',
+            'Referer': 'https://rasanashr.ir'
+        };
+
+        // استفاده از endpoint مخصوص کامنت‌ها با پشتیبانی از CORS
         const response = await axios.post(`${WP_API_URL}/comments`, {
             post: postId,
+            author_name: comment.author_name || 'ناشناس',
+            author_email: comment.author_email || 'anonymous@rasanashr.ir',
             content: comment.content,
-            author_name: comment.author_name,
-            author_email: comment.author_email
+            status: 'pending' // همه کامنت‌ها ابتدا در حالت انتظار قرار می‌گیرند
+        }, {
+            headers: headers,
+            withCredentials: true // برای ارسال کوکی‌ها
         });
+
+        // بررسی وضعیت پاسخ
+        if (response.status !== 201) {
+            throw new Error('خطا در ارسال نظر');
+        }
+
         return response.data;
     } catch (error) {
-        if (process.env.NODE_ENV === 'production') {
-            const errorData = error.response?.data || error.message;
-            console.error(`API error in submitComment: ${errorData}`);
+        console.error('خطا در ارسال نظر:', error);
+        
+        // ارسال پیام خطای مناسب به کاربر
+        if (error.response) {
+            // خطای سرور با جزئیات
+            throw new Error(error.response.data.message || 'خطا در ارتباط با سرور');
+        } else if (error.request) {
+            // خطای شبکه
+            throw new Error('خطا در ارتباط با سرور. لطفاً اتصال اینترنت خود را بررسی کنید');
+        } else {
+            // سایر خطاها
+            throw new Error('خطای غیرمنتظره. لطفاً دوباره تلاش کنید');
         }
-        throw error;
     }
 }
 
