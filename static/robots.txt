@@ -6,6 +6,7 @@ Disallow: /wp-login
 Disallow: /wp-json/
 Disallow: /xmlrpc.php
 Disallow: /cgi-bin/
+Disallow: /*/feed
 
 # Sitemap
 Sitemap: https://rasanashr.ir/sitemap.xml
