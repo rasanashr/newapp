@@ -4,10 +4,10 @@ import { browser } from '$app/environment';
 const WP_API_URL = 'https://rooidadha.ir/new/wp-json/wp/v2';
 const DISPLAY_DOMAIN = 'rasanashr.ir';
 
-// Axios instance with sensible defaults
+// Axios instance with sensible defaults (raise timeout to accommodate slower API responses)
 const api = axios.create({
     baseURL: WP_API_URL,
-    timeout: 7000
+    timeout: 15000
 });
 
 // Simple retry helper with exponential backoff
@@ -51,30 +51,168 @@ function setMemoryCache(key, value) {
     inMemoryCache.set(key, { value, timestamp: Date.now() });
 }
 
-async function cachedRequest(key, ttlSeconds, fn) {
-    // Try in-process cache first (works both server and client but small memory only)
-    const cached = getFromMemoryCache(key, ttlSeconds);
-    if (cached) return cached;
+// Disk cache helpers (server-only). Files stored under `.cache/wp/` with SHA1-hashed filenames.
+// Disk cache helpers implemented with dynamic imports to avoid bundling Node builtins into client code.
+async function getCacheDir() {
+    const pathMod = await import('path');
+    return pathMod.resolve(process.cwd(), '.cache', 'wp');
+}
 
-    // Deduplicate concurrent requests
-    if (pendingRequests.has(key)) {
-        return pendingRequests.get(key);
+async function ensureCacheDir() {
+    try {
+        const fspMod = await import('fs/promises');
+        const dir = await getCacheDir();
+        await fspMod.mkdir(dir, { recursive: true });
+    } catch (e) {
+        // ignore
+    }
+}
+
+async function hashKeyToFilename(key) {
+    const cryptoMod = await import('crypto');
+    const pathMod = await import('path');
+    const h = cryptoMod.createHash('sha1').update(key).digest('hex');
+    const dir = await getCacheDir();
+    return pathMod.join(dir, `${h}.json`);
+}
+
+async function readDiskCache(key) {
+    if (browser) return null;
+    try {
+        const fspMod = await import('fs/promises');
+        const file = await hashKeyToFilename(key);
+        const raw = await fspMod.readFile(file, 'utf8');
+        const parsed = JSON.parse(raw);
+        return parsed; // { timestamp, value }
+    } catch (e) {
+        return null;
+    }
+}
+
+async function writeDiskCache(key, value) {
+    if (browser) return;
+    try {
+        const fspMod = await import('fs/promises');
+        await ensureCacheDir();
+        const file = await hashKeyToFilename(key);
+        const pid = (typeof process !== 'undefined' && process.pid) ? process.pid : '0';
+        const tmp = `${file}.${pid}.${Date.now()}.tmp`;
+        const payload = JSON.stringify({ timestamp: Date.now(), value });
+        await fspMod.writeFile(tmp, payload, 'utf8');
+        await fspMod.rename(tmp, file);
+    } catch (e) {
+        // ignore disk write errors
+    }
+}
+
+async function deleteDiskCache(key) {
+    if (browser) return;
+    try {
+        const fspMod = await import('fs/promises');
+        const file = await hashKeyToFilename(key);
+        await fspMod.unlink(file).catch(() => {});
+    } catch (e) {}
+}
+
+async function purgeAllDiskCache() {
+    if (browser) return;
+    try {
+        const fspMod = await import('fs/promises');
+        const pathMod = await import('path');
+        const dir = await getCacheDir();
+        const files = await fspMod.readdir(dir).catch(() => []);
+        await Promise.all(files.map(f => fspMod.unlink(pathMod.join(dir, f)).catch(() => {})));
+    } catch (e) {}
+}
+
+/**
+ * cachedRequest: server-aware disk-backed cache with stale-while-revalidate.
+ * - On server: try memory -> disk.
+ * - If disk entry exists and is fresh: return it.
+ * - If disk entry exists but expired: return stale immediately and refresh in background.
+ * - If missing: fetch, store to memory+disk and return.
+ */
+async function cachedRequest(key, ttlSeconds, fn) {
+    // Client-side: keep prior behavior using in-memory cache only
+    if (browser) {
+        const cached = getFromMemoryCache(key, ttlSeconds);
+        if (cached) return cached;
+        if (pendingRequests.has(key)) return pendingRequests.get(key);
+        const promise = (async () => {
+            try {
+                const result = await fetchWithRetry(fn);
+                if (ttlSeconds && result !== undefined) setMemoryCache(key, result);
+                return result;
+            } finally {
+                pendingRequests.delete(key);
+            }
+        })();
+        pendingRequests.set(key, promise);
+        return promise;
     }
 
+    // Server-side: prefer memory, then disk
+    const mem = getFromMemoryCache(key, ttlSeconds);
+    if (mem) return mem;
+
+    // Try disk
+    const diskEntry = await readDiskCache(key);
+    if (diskEntry && diskEntry.timestamp) {
+        const ageSec = (Date.now() - diskEntry.timestamp) / 1000;
+        if (ttlSeconds && ageSec <= ttlSeconds) {
+            // fresh
+            setMemoryCache(key, diskEntry.value);
+            return diskEntry.value;
+        }
+        // stale: return stale immediately and trigger background refresh
+        setMemoryCache(key, diskEntry.value);
+        if (!pendingRequests.has(key)) {
+            const bg = (async () => {
+                try {
+                    const result = await fetchWithRetry(fn);
+                    if (ttlSeconds && result !== undefined) {
+                        setMemoryCache(key, result);
+                        await writeDiskCache(key, result);
+                    }
+                    return result;
+                } catch (e) {
+                    return diskEntry.value;
+                } finally {
+                    pendingRequests.delete(key);
+                }
+            })();
+            pendingRequests.set(key, bg);
+        }
+        return diskEntry.value;
+    }
+
+    // No cache: fetch and populate
+    if (pendingRequests.has(key)) return pendingRequests.get(key);
     const promise = (async () => {
         try {
             const result = await fetchWithRetry(fn);
             if (ttlSeconds && result !== undefined) {
                 setMemoryCache(key, result);
+                await writeDiskCache(key, result);
             }
             return result;
         } finally {
             pendingRequests.delete(key);
         }
     })();
-
     pendingRequests.set(key, promise);
     return promise;
+}
+
+// Expose purge helpers for webhook
+export async function purgeCacheKey(key) {
+    inMemoryCache.delete(key);
+    await deleteDiskCache(key);
+}
+
+export async function purgeAllCache() {
+    inMemoryCache.clear();
+    await purgeAllDiskCache();
 }
 
 // تابع کمکی برای اصلاح لینک‌های نمایشی به دامنه دیپلوی شده
@@ -88,18 +226,87 @@ function fixDisplayLinks(post) {
 
 // تابع کمکی برای تمیز کردن HTML و متن‌های دریافتی از API
 function sanitizePostData(post) {
-    if (!post) return null;
-    if (post.title?.rendered) {
+    // helper: rewrite media URLs in HTML to point to our proxy
+    function rewriteMediaUrlsInHtml(html) {
+        if (!html || typeof html !== 'string') return html;
+
+        // srcset="..."
+        html = html.replace(/srcset\s*=\s*"([^"]*)"/gi, (m, p1) => {
+            const parts = p1.split(',');
+            const newparts = parts.map(part => {
+                const sp = part.trim().split(/\s+/);
+                const url = sp[0];
+                const rest = sp.slice(1).join(' ');
+                if (/https?:\/\/[^\s"']*wp-content/i.test(url)) {
+                    return `/api/image?src=${encodeURIComponent(url)}${rest ? ' ' + rest : ''}`;
+                }
+                return part.trim();
+            });
+            return `srcset="${newparts.join(', ')}"`;
+        });
+
+        // src='https://...wp-content...'
+        html = html.replace(/src\s*=\s*(['"])(https?:\/\/[^'">]*wp-content[^'">]*)\1/gi, (m, q, url) => {
+            return `src=${q}/api/image?src=${encodeURIComponent(url)}${q}`;
+        });
+
+        // css url(...) background images
+        html = html.replace(/url\((['"]?)(https?:\/\/[^)"']*wp-content[^)"']*)\1\)/gi, (m, q, url) => {
+            return `url(${q}/api/image?src=${encodeURIComponent(url)}${q})`;
+        });
+
+        return html;
+    }
+    // Ensure we always return a normalized object to avoid hydration/runtime errors
+    if (!post || typeof post !== 'object') {
+        return {
+            id: null,
+            slug: '',
+            link: '',
+            title: { rendered: '' },
+            excerpt: { rendered: '' },
+            date: new Date().toISOString(),
+            modified: new Date().toISOString(),
+            _embedded: {}
+        };
+    }
+
+    // Ensure shape exists
+    if (!post.title || typeof post.title !== 'object') post.title = { rendered: '' };
+    if (!post.excerpt || typeof post.excerpt !== 'object') post.excerpt = { rendered: '' };
+    if (!post._embedded || typeof post._embedded !== 'object') post._embedded = {};
+
+    // Trim title
+    if (typeof post.title.rendered === 'string') {
         post.title.rendered = post.title.rendered.trim();
+    } else {
+        post.title.rendered = '';
     }
-    if (post.excerpt?.rendered) {
-        post.excerpt.rendered = post.excerpt.rendered
-            .replace(/<[^>]*>/g, '')
-            .replace(/\s+/g, ' ')
-            .trim();
+
+    // Rewrite media URLs inside excerpt and content (if present)
+    if (typeof post.excerpt.rendered === 'string') {
+        post.excerpt.rendered = rewriteMediaUrlsInHtml(post.excerpt.rendered);
+    } else {
+        post.excerpt.rendered = '';
     }
+
+    if (post.content && typeof post.content.rendered === 'string') {
+        post.content.rendered = rewriteMediaUrlsInHtml(post.content.rendered);
+    }
+
     if (!post.date) post.date = new Date().toISOString();
     if (!post.modified) post.modified = post.date;
+    // Rewrite featured media URL to local proxy endpoint so images are cached by our server
+    try {
+        const featured = post._embedded?.['wp:featuredmedia']?.[0];
+        if (featured && featured.source_url) {
+            const original = featured.source_url;
+            featured.source_url = `/api/image?src=${encodeURIComponent(original)}`;
+        }
+    } catch (e) {
+        // ignore rewrite failures
+    }
+
     return post;
 }
 

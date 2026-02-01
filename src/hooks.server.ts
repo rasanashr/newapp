@@ -60,6 +60,19 @@ export const handle = async ({ event, resolve }) => {
   }
 
   // سایر درخواست‌ها را عادی پردازش کن
-  return resolve(event);
+  const response = await resolve(event);
+
+  // Set Cache-Control for HTML responses so Cloudflare can cache pages.
+  try {
+    const contentType = response.headers.get('content-type') || '';
+    if (contentType.includes('text/html')) {
+      // short browser max-age + stale-while-revalidate for faster UX
+      response.headers.set('Cache-Control', 'public, max-age=60, stale-while-revalidate=300');
+    }
+  } catch (e) {
+    // ignore header set errors
+  }
+
+  return response;
 };
 
