@@ -5,12 +5,27 @@
     function closeModal() {
         show = false;
     }
+
+    function handleBackdropKey(e) {
+        // activate on Enter or Space
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            closeModal();
+        }
+    }
 </script>
 
 {#if show}
     <div class="fixed inset-0 z-50 flex items-center justify-center">
         <!-- Backdrop -->
-        <div class="fixed inset-0 bg-black opacity-50" on:click={closeModal}></div>
+        <div
+            class="fixed inset-0 bg-black opacity-50"
+            role="button"
+            tabindex="0"
+            aria-label="Close modal"
+            on:click={closeModal}
+            on:keydown={handleBackdropKey}
+        ></div>
         
         <!-- Modal -->
         <div class="bg-white rounded-lg shadow-xl z-50 w-11/12 md:w-3/4 lg:w-1/2 max-h-[90vh] flex flex-col">
