@@ -9,6 +9,7 @@
   import Mediapost from '$components/widgets/Mediapost.svelte'; 
   import Singlecard from '$components/widgets/Singlecard.svelte'; 
   import Minicard from '$components/widgets/Minicard.svelte'; 
+  import StackedHero from '$components/widgets/StackedHero/StackedHero.svelte';
   import HomeSEO from '$lib/components/seo/HomeSEO.svelte';
   import BackLinks from '$components/BackLinks.svelte';
 
@@ -97,11 +98,15 @@
 </h1>
 <!-- Real Content Desktop -->
 <div class="hidden md:block" dir="rtl">
+  <!-- Full-width stacked hero (desktop) -->
+  <div class="mb-4">
+    <StackedHero posts={data.stackedheroPosts} count={6} interval={7000} />
+  </div>
   <div class="grid grid-cols-2 gap-2 mb-2 ">
-    <div class="bg-[#ed129a] p-4 rounded-[20px] min-w-[300px]">
+    <div class="bg-[#FF0B55] p-4 rounded-[20px] min-w-[300px]">
       <Slider1 posts={data.slider1Posts} />
     </div>
-    <div class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-1 rounded-[20px] min-w-[300px]">
+    <div class="bg-[#FF0B55] p-1 rounded-[20px] min-w-[300px]">
       <Notofday posts={data.notofdayPosts} />
     </div>
   </div>
@@ -110,17 +115,17 @@
     <div>
       <Firstnews posts={data.firstnewsPosts} />
     </div>
-    <div class="bg-[#12ed65] p-4 rounded-lg">
+    <div class="bg-[#ECDCBF] p-4 rounded-lg">
       <Lasttext posts={data.lasttextPosts} />
     </div>
-    <div class="bg-black p-4 text-white rounded-lg">
+    <div class="bg-[#F6F1E9] p-4 text-white rounded-lg">
        <a href="/goldprice/" aria-label="قیمت لحظه ای طلا، سکه و دلار"><img src={gold} alt="قیمت لحظه ای طلا و ارز" class="h-[150px] mt-2 select-none" draggable="false" /></a>
 
       <Shortpic posts={data.shortpicPosts} />
     </div>
   </div>
 
-  <div class="bg-purple-300 p-4 mb-2 rounded-lg">
+  <div class="bg-[#F6F1E9] p-4 mb-2 rounded-lg">
     <Mediapost posts={data.mediapostPosts} />
   </div>
 
@@ -133,8 +138,9 @@
 <div class="mb-4"><Singlecard posts={data.singlecard5Posts} bgColor="bg-red-100" hoverColor="hover:bg-red-50"/></div>
 <div class="mb-4"><Singlecard posts={data.singlecard6Posts} bgColor="bg-blue-100" hoverColor="hover:bg-blue-50" /></div>    
     </div>
-    <div class="p-2 bg-blue-50 rounded-lg shadow p-3">
+    <div class="p-2 bg-[#F6F1E9] rounded-lg shadow p-3">
       <Minicard posts={data.minicardPosts} />
+      <br>
       <BackLinks backlinks={data.backlinks} loading={false} />
     </div>
   </div>
@@ -146,7 +152,7 @@
 <!-- Real Content Mobile -->
 <div class="lg:hidden w-full mb-5">
   <Slider1 posts={data.firstnewsPosts} />
-  <Notofday posts={data.notofdayPosts} />
+  <div  class="bg-[#FF0B55]"><Notofday posts={data.notofdayPosts} /></div>
   <Lasttext posts={data.lasttextPosts} />
    <div class="mb-20"><Firstnews posts={data.firstnewsPosts} /></div>
    

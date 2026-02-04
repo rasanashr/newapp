@@ -6,9 +6,9 @@
   <div class="grid gap-4">
     {#each posts as post}
       <div
-        class="flex flex-col md:flex-row p-4 rounded-xl shadow bg-rose-400 gap-4 
+        class="flex flex-col md:flex-row p-4 rounded-xl shadow bg-[#1C4D8D] gap-4 
                transition duration-300 hover:-translate-y-1 hover:scale-[1.02] 
-               hover:bg-rose-50 hover:ring-2 hover:ring-rose-500"
+               hover:bg-[#4988C4] hover:ring-2 hover:ring-[#BDE8F5]"
       >
         <!-- تصویر شاخص -->
         <img
@@ -24,7 +24,7 @@
           aria-label={`مشاهده مطلب ${post.title.rendered}`}
         >
           <div>
-            <h2 class="font-bold text-base md:text-lg text-gray-900 mb-2 text-center md:text-right">
+            <h2 class="font-bold text-base md:text-lg text-white mb-2 text-center md:text-right">
               {@html post.title.rendered}
             </h2>
              

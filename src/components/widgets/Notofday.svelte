@@ -11,7 +11,7 @@
 </script>
 {#if posts && posts.length > 0}
   {#each posts as post}
-    <div class="card card-side bg-purple-500 flex-wrap md:flex-nowrap mt-7">
+    <div class="card card-side  flex-wrap md:flex-nowrap mt-7">
       <figure class="w-full md:w-[40%] aspect-[4/3]">
         <img 
           src={post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/placeholder.jpg'} 
@@ -25,7 +25,7 @@
           {@html truncateText(post.excerpt.rendered || '', 500)}
         </div>
         <div class="card-actions justify-end pt-2">
-          <a href={`/${post.id}/${post.slug}`}><button class="btn btn-error bg-rose-600 text-white">متن کامل</button></a>
+          <a href={`/${post.id}/${post.slug}`}><button class="btn btn-error bg-black text-white">متن کامل</button></a>
         </div>
       </div>
     </div>

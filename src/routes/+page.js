@@ -1,75 +1,95 @@
-import { fetchPosts, fetchPostsByCategory, fetchBacklinks } from '../lib/services/wordpress.js';
+import { fetchPosts, fetchPostsByCategory, fetchBacklinks, fetchPostsByTag } from '../lib/services/wordpress.js';
+
+/**
+ * ساختار جدید و قابل توسعه برای بارگذاری ویجت‌ها در صفحه اصلی.
+ * برای اضافه کردن ویجت جدید کافیست یک آیتم به `primaryWidgets` یا `secondaryWidgets` اضافه کنید.
+ */
 
 /** @type {import('./$types').PageLoad} */
-export async function load({ fetch }) {
+export async function load() {
     try {
-        // درخواست‌های ضروری (اولویت اول)
-        const [result, mediapostData, firstnewsData, notofdayData, slider1Data, lasttextData] = await Promise.all([
-            fetchPosts(1, 12),
-            fetchPostsByCategory([61, 113, 66], 1, 13),
-            fetchPostsByCategory(7, 1, 7),
-            fetchPostsByCategory(276, 1, 1),
-            fetchPostsByCategory(7, 1, 4),    // slider1 - 4 پست
-            fetchPosts(1, 12)                 // lasttext
-        ]);
+        // پیکربندی ویجت‌ها — فقط متادیتا و تابع فراخوانی را مشخص کنید
+        // Change `HERO_TAG_ID` to the desired tag id (or slug) for the full-screen hero
+        const HERO_TAG_ID = 7803;
 
-        // ابتدا داده‌های اولویت اول را برمی‌گردانیم
-        let data = {
-            posts: result.posts,
-            totalPages: result.totalPages,
-            mediapostPosts: mediapostData.posts,
-            firstnewsPosts: firstnewsData.posts,
-            notofdayPosts: notofdayData.posts,
-            slider1Posts: slider1Data.posts,   // اضافه کردن slider1
-            lasttextPosts: lasttextData.posts, // اضافه کردن lasttext
+        const primaryWidgets = [
+            { key: 'stackedhero', fn: () => fetchPostsByTag(HERO_TAG_ID, 1, 6) },
+            { key: 'posts', fn: () => fetchPosts(1, 12) },
+            { key: 'mediapost', fn: () => fetchPostsByCategory([61, 113, 66], 1, 13) },
+            { key: 'firstnews', fn: () => fetchPostsByCategory(7, 1, 8) },
+            { key: 'notofday', fn: () => fetchPostsByCategory(276, 1, 1) },
+            { key: 'slider1', fn: () => fetchPostsByCategory(7, 1, 4) },
+            { key: 'lasttext', fn: () => fetchPosts(1, 14) }
+        ];
+
+        const secondaryWidgets = [
+            { key: 'shortpic', fn: () => fetchPostsByCategory([136, 76], 1, 5) },
+            { key: 'piccard', fn: () => fetchPostsByCategory([81, 70, 792], 1, 7) },
+            { key: 'minicard', fn: () => fetchPostsByCategory(627, 1, 5) },
+            { key: 'singlecard1', fn: () => fetchPostsByCategory(8, 1, 1) },
+            { key: 'singlecard2', fn: () => fetchPostsByCategory(4778, 1, 1) },
+            { key: 'singlecard3', fn: () => fetchPostsByCategory(2, 1, 1) },
+            { key: 'singlecard4', fn: () => fetchPostsByCategory(188, 1, 1) },
+            { key: 'singlecard5', fn: () => fetchPostsByCategory(204, 1, 1) },
+            { key: 'singlecard6', fn: () => fetchPostsByCategory(327, 1, 1) },
+            { key: 'backlinks', fn: () => fetchBacklinks() }
+        ];
+
+        // هِلپر کمکی برای اجرای همزمان ویجت‌ها و نگاشت نتیجه بر اساس کلید
+        const fetchWidgets = async (widgets) => {
+            const promises = widgets.map(w =>
+                Promise.resolve()
+                    .then(() => w.fn())
+                    .catch(err => {
+                        console.error(`Widget "${w.key}" fetch error:`, err);
+                        return { posts: [] };
+                    })
+            );
+
+            const results = await Promise.all(promises);
+            const mapped = {};
+            widgets.forEach((w, i) => {
+                mapped[w.key] = results[i] ?? { posts: [] };
+            });
+            return mapped;
+        };
+
+        // ابتدا ویجت‌های اولویت اول را هم‌زمان می‌گیریم
+        const primaryResults = await fetchWidgets(primaryWidgets);
+
+        // ساختار اولیه بازگردانده شده به مصرف‌کننده (ساده و مطمئن)
+        const data = {
+            posts: primaryResults.posts.posts ?? [],
+            stackedheroPosts: primaryResults.stackedhero?.posts ?? [],
+            totalPages: primaryResults.posts.totalPages ?? 1,
+            mediapostPosts: primaryResults.mediapost.posts ?? [],
+            firstnewsPosts: primaryResults.firstnews.posts ?? [],
+            notofdayPosts: primaryResults.notofday.posts ?? [],
+            slider1Posts: primaryResults.slider1.posts ?? [],
+            lasttextPosts: primaryResults.lasttext.posts ?? [],
             seo: {
-                // ...existing code...
+                // placeholder — در صورت نیاز مقادیر SEO را اینجا اضافه کنید
             }
         };
 
-        // درخواست‌های اولویت دوم به صورت جداگانه
-        const secondaryDataPromise = Promise.all([
-            fetchPostsByCategory([136, 76], 1, 5),    // shortpic
-            fetchPostsByCategory([81, 70, 792], 1, 7),  // piccard
-            fetchPostsByCategory(627, 1, 5),    // minicard
-            fetchPostsByCategory(8, 1, 1),      // singlecard1
-            fetchPostsByCategory(4778, 1, 1),   // singlecard2
-            fetchPostsByCategory(2, 1, 1),      // singlecard3
-            fetchPostsByCategory(188, 1, 1),    // singlecard4
-              fetchPostsByCategory(204, 1, 1),      // singlecard5
-            fetchPostsByCategory(327, 1, 1),    // singlecard6
-            fetchBacklinks()
-        ]).catch(err => {
-            console.error('Secondary data fetch error:', err);
-            return Array(8).fill({ posts: [] }); // مقادیر پیش‌فرض در صورت خطا
-        });
+        // ویجت‌های ثانویه را شروع می‌کنیم و سپس نتیجه را اضافه می‌کنیم
+        const secondaryPromise = fetchWidgets(secondaryWidgets);
 
-        // داده‌های اولویت دوم را به محض آماده شدن اضافه می‌کنیم
-        const [
-            shortpicData,
-            piccardData,
-            minicardData,
-            singlecard1Data,
-            singlecard2Data,
-            singlecard3Data,
-            singlecard4Data,
-            singlecard5Data,
-            singlecard6Data,
-            backlinks
-        ] = await secondaryDataPromise;
+        const secondaryResults = await secondaryPromise;
 
+        // جمع‌بندی نهایی
         return {
             ...data,
-            shortpicPosts: shortpicData.posts,
-            piccardPosts: piccardData.posts,
-            minicardPosts: minicardData.posts,
-            singlecard1Posts: singlecard1Data.posts,
-            singlecard2Posts: singlecard2Data.posts,
-            singlecard3Posts: singlecard3Data.posts,
-            singlecard4Posts: singlecard4Data.posts,
-            singlecard5Posts: singlecard5Data.posts,
-            singlecard6Posts: singlecard6Data.posts,
-            backlinks
+            shortpicPosts: secondaryResults.shortpic.posts ?? [],
+            piccardPosts: secondaryResults.piccard.posts ?? [],
+            minicardPosts: secondaryResults.minicard.posts ?? [],
+            singlecard1Posts: secondaryResults.singlecard1.posts ?? [],
+            singlecard2Posts: secondaryResults.singlecard2.posts ?? [],
+            singlecard3Posts: secondaryResults.singlecard3.posts ?? [],
+            singlecard4Posts: secondaryResults.singlecard4.posts ?? [],
+            singlecard5Posts: secondaryResults.singlecard5.posts ?? [],
+            singlecard6Posts: secondaryResults.singlecard6.posts ?? [],
+            backlinks: secondaryResults.backlinks ?? []
         };
 
     } catch (error) {

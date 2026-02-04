@@ -4,7 +4,7 @@
 
 {#if posts && posts.length > 0}
   <!-- Container اصلی -->
-  <div class="flex flex-col md:flex-row bg-purple-900 text-white gap-4 p-4 rounded-lg items-start">
+  <div class="flex flex-col md:flex-row bg-[#ECDCBF] text-white gap-4 p-4 rounded-lg items-start">
     <!-- قسمت تصویر بزرگ و عنوان روی تصویر -->
     <div class="w-full md:w-1/2 lg:w-3/5 flex-shrink-0">
       <!-- تصویر بزرگ -->
@@ -24,7 +24,7 @@
         </a>
       </div>
       <!-- خلاصه مطلب بالاتر -->
-      <div class="text-sm text-base-600 line-clamp-3 text-justify mb-2">
+      <div class="text-sm text-base-600 line-clamp-3 text-black text-justify mb-2">
         {@html posts[0].excerpt.rendered}
       </div>
     </div>
