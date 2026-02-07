@@ -1,13 +1,4 @@
 {
   "buildCommand": "npm run build",
-  "outputDirectory": ".vercel/output",
-  "framework": "sveltekit",
-
-  },
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
-    }
-  ]
+  "framework": "sveltekit"
 }
