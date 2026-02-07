@@ -1,0 +1,16 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": ".vercel/output",
+  "framework": "sveltekit",
+  "functions": {
+    "api/**/*.ts": {
+      "maxDuration": 10
+    }
+  },
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ]
+}
